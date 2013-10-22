@@ -1,0 +1,72 @@
+---
+title: Invoking
+---
+
+<h2>Invoking FireHOL</h2>
+
+<p>FireHOL has been designed to be a startup service. As such, FireHOL
+accepts all the common SysVInit command line arguments.</p>
+
+<p>The <%= fh_manref(nil,'Manual') %> contains a
+<%= fh_manref('firehol',
+    'complete&nbsp;guite&nbsp;to&nbsp;invoking&nbsp;the&nbsp;program') %>
+
+<h2>What happens when FireHOL runs?</h2>
+
+<p>FireHOL is a <a href="http://www.gnu.org/software/bash/bash.html">BASH</a>
+script. To run its configuration file, FireHOL first defines a set of functions
+and variables and then it &quot;sources&quot; (runs inline) its configuration
+file to be executed by
+<a href="http://www.gnu.org/software/bash/bash.html">BASH</a>.</p>
+
+<p>The keywords <%= fh_manref('def-interface','interface') %>,
+<%= fh_manref('cmd-client','client') %>,
+<%= fh_manref('cmd-server','server') %>,
+<%= fh_manref('def-router','router') %>, etc. are all
+<a href="http://www.gnu.org/software/bash/bash.html">BASH</a> functions
+that are executed by
+<a href="http://www.gnu.org/software/bash/bash.html">BASH</a> when 
+and if they appear in the configuration file. Using shared variables 
+these functions share some state information that allows them to know, 
+for example, that a <%= fh_manref('cmd-client','client') %>
+command appears within an <%= fh_manref('def-interface','interface') %>
+and not within a <%= fh_manref('def-router','router') %>
+and that the name given to an
+<%= fh_manref('def-interface','interface') %> that has not
+been used before.</p>
+
+<p>Instead of running iptables commands directly, each of these 
+functions (i.e. FireHOL) just writes the generated iptables commands to 
+a temporary file. This is done to prevent altering a running firewall 
+before ensuring that the syntax of the configuration file is correct. 
+So, a complete run of the configuration file actually produces all the 
+iptables commands for the firewall, written to a temporary file 
+(script). Even the <a href="http://www.netfilter.org/">iptables</a>
+commands given within the configuration file use the same concept
+(they just generate iptables commands in this script).</p>
+
+<p>Finally, this script (the generated iptables commands) has to be run, 
+but before doing so, FireHOL saves the running firewall to another 
+temporary file. The saved firewall will be automatically restored if 
+some of the generated iptables commands produces an error.
+Such an error is possible when for example, you specify an invalid
+IP address or hostname, or an invalid argument to some parameter that
+gets passed to iptables as-is.</p>
+
+<p>It is important to understand that <span class="important">during
+the run of the generated iptables script (including the possible
+restoration of the old firewall), FireHOL allows all traffic to reach
+its destination</span>. This has been done to prevent a possible
+lock-out situation where you are SSHing to the server to alter its
+firewall, and suddenly you loose the connection (although this can
+still happen if your new firewall doesn't allow the connection).
+To control this behaviour, set the
+<%= fh_manref('firehol-variables-activation','ACTIVATION&nbsp;variables') %>.
+</p>
+
+<p>If no error has been seen, FireHOL deletes all temporary files 
+generated and exits.</p>
+
+<p>In case there was an error, FireHOL will make the most to restore 
+your previous firewall and will present you details about the error and 
+its line number in the original configuration file.</p>

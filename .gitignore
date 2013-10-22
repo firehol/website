@@ -1,0 +1,5 @@
+crash.log
+output/
+tmp/
+*.bak
+*~

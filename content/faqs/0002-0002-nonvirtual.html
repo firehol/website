@@ -1,0 +1,32 @@
+---
+group: 0002-Running
+title: 0002-How do I match virtual interfaces such as eth0:1?
+kind: faq
+---
+
+<p>
+<span class="interface">eth0:1</span> is not really a virtual Ethernet
+device. The <span class="interface">eth0:1</span> is just a naming
+convention for tools such as ifconfig to be able to use multiple IP
+addresses on a single interface.
+</p>
+
+<p>
+If you have interfaces with these names, it is for the purpose of having
+multiple IP addresses on an interface. Netfilter does not recognise the
+aliases. You cannot use them in your firewall and must match on the IP
+address instead.
+</p>
+
+<p>
+In practice, iptables does not prevent you creating rules to try to
+match <span class="interface">eth0:1</span>. However, when running,
+the incoming packets will be seen as from <span class="interface">eth0</span>
+and will match only the <span class="interface">eth0</span> rules. FireHOL
+inherits this behaviour.
+</p>
+
+<p>
+Note that VLAN interfaces such as <span class="interface">eth0.1</span> are
+genuine interfaces that will work as expected within firewall rules.
+</p>

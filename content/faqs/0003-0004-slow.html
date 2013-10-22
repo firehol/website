@@ -1,0 +1,72 @@
+---
+group: 0003-General
+title: 0004-FireHOL is toooooooooo slow!
+kind: faq
+---
+<p>
+This is partially true and partially false. FireHOL runs in two phases:
+<span class="important">Configuration Processing</span>
+and
+<span class="important">Firewall Activation</span>.
+</p>
+
+<p>
+Processing of FireHOL configuration files is somewhat slow since all
+processing is done by BASH (I have not programmed a parser, BASH runs
+the configuration as if it was a BASH script). This processing however,
+even if it takes several seconds, it does not affect your security,
+since the running firewall is not touched during this phase. 
+</p>
+
+<p>
+Firewall activation is again slow in a few situations, especially if
+you have lists of hosts that should be allowed or rejected (like
+<%= fh_manref('variables-available','UNROUTABLE_IPS') %>).
+During the processing phase, FireHOL produces a list of the iptables
+commands to be executed at the activation phase. This list of iptables
+commands, first clears the running firewall and then it runs iptables
+commands, one-by-one, until all have executed. As an example, my
+personal machine configuration file is about 50 lines. These 50 lines
+produce about 900 iptables statements. For BASH these 900 iptables
+statements are also followed by another statement to check if the
+command succeeded or failed, which totals to about 1800 BASH statements
+to be executed. In my machine these 1800 commands take about 8 seconds
+to be executed. During these 8 seconds the firewall is from totally
+empty (all traffic allowed) to simply incomplete (some traffic is
+allowed or dropped explicitly, all other is allowed to pass). 
+</p>
+
+<p>
+I have written FireHOL in such a way that you can restart the firewall
+any time you like without disrupting the running traffic. Try it.
+Start downloading a file, and in the middle of it, restart FireHOL.
+No change. The download proceeds without any disruption. The only chance
+for traffic disruption is when you have NAT rules. For just a fraction
+of the total activation time (normally less than a second, since NAT
+rules are the first to be executed - i.e. the first few of the huge
+iptables list) your system will run without them, meaning that no
+new NATed traffic will be accepted (established connections will work).
+Again, this will be just for a fraction of a second. 
+</p>
+
+<p>
+I see you now thinking: OK, but what happens if someone connects to my
+systems to unwanted services during the activation time? Well, FireHOL's
+beauty is that it explicitly allows the connections in both ways of the
+firewall. Most of the other iptables generators allow all established
+connections to pass unchecked. FireHOL doesn't. It allows the established
+connections that match the services you have allowed. Nothing more.
+This means that even if someone is lucky enough to connect to a
+non-allowed service during the activation time, he will simply be
+blocked as soon as the firewall activation completes. This gives a
+window of just a few seconds at which someone could be able to connect
+to and use private services. Even if he manages to get access within
+these few seconds, his socket will simply timeout after FireHOL completes. 
+</p>
+
+<p>
+If you would prefer to ensure no traffic passes whilst the firewall
+is being activated, read about the
+<%= fh_manref('firehol-variables-activation','ACTIVATION&nbsp;variables') %>,
+which are able to control this behaviour.
+</p>

@@ -1,0 +1,32 @@
+---
+group: 0001-Installation
+title: 0001-How do I install? What are the prerequisites?
+kind: faq
+---
+<p>
+Installation is either via your distribution's
+<a href="/packages/">standard package</a> mechanism or via one of the
+<a href="http://firehol.org/download/releases/">tar file releases</a>.
+For the latter, once unpacked, the canonical GNU invocation will install
+FireHOL:
+</p>
+<pre class="programlisting">
+  ./configure &amp;&amp; make &amp;&amp; make install
+</pre>
+<p>Or you can just copy and use the
+<span class="filename">sbin/firehol.in</span> file directly.</p>
+
+<p>
+The main requirements are that you be running a Linux kernel with
+netfilter and have the iptables (for IPv4) and ip6tables (for IPv6)
+userspace installed. These come as standard with all modern distributions.
+</p>
+
+<p>
+FireHOL detects at runtime if the remaining of the commands it needs to run
+are installed. In general the requirements are not onerous, just some
+common shell and networking commands which generally come as part of
+a default installation. The Wiki has a
+<a href="https://github.com/ktsaou/firehol/wiki/Dependencies">complete list of
+dependencies</a>.
+</p>

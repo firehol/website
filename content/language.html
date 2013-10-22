@@ -1,0 +1,63 @@
+---
+title: Language
+---
+
+<h2>FireHOL Language</h2>
+
+<p><%= fh_manref('firehol.conf','FireHOL&nbsp;configuration&nbsp;files') %>
+are normal <a href="http://www.gnu.org/software/bash/bash.html">BASH</a>
+scripts.</p>
+
+<p>As such, you can use all
+<a href="http://www.gnu.org/software/bash/bash.html">BASH</a> features
+within FireHOL configuration files, including functions, loops, variables,
+I/O, etc, etc.</p>
+
+<p>I have chosen <a href="http://www.gnu.org/software/bash/bash.html">BASH</a>
+as the configuration language for FireHOL since it is the common
+denominator for a language that all UNIX system administrators and developers
+(or at least those that respect themselves) know and understand better.</p>
+
+<p>The only <a href="http://www.gnu.org/software/bash/bash.html">BASH</a>
+features a FireHOL configuration script should never use, is
+<span class="important">traps</span>
+and the <span class="important">exit</span> command. Traps are used by
+FireHOL for cleaning up all temporary files, and possibly restoring the
+previously running firewall in case FireHOL execution breaks, and the exit
+command will not just exit the configuration file, it will exit
+FireHOL. FireHOL has disabled these features by default, so that you will
+not be able to use them, unless you specifically enable them.</p>
+
+<p>Also, since a FireHOL configuration script runs inline with FireHOL,
+all variables and function names defined within the configuration file
+overwrite the ones defined by FireHOL. For this reason you should avoid
+using variables that start with <span class="important">FIREHOL_</span>,
+<span class="important">work_</span>, <span class="important">server_</span>,
+and <span class="important">client_</span> as many such variables are used
+by FireHOL internally. There are also a number of functions names you
+should avoid, but there is no generic pattern at the moment. I suggest
+you should avoid defining functions with the names of FireHOL commands
+(interface, router, client, server, etc) and functions starting
+with <span class="important">rules_</span>.</p>
+
+<p>Note however that it is allowed to overwrite a few variables and
+functions if you want to modify FireHOL services. See the
+<%= fh_manref('adding-services','Adding&nbsp;Services') %>
+manual section for more on this.</p>
+
+<p>The fact that FireHOL uses
+<a href="http://www.gnu.org/software/bash/bash.html">BASH</a> for its
+configuration, allows development of add-ons and enables FireHOL to use
+programs to access SQL databases, directory structures, DBM or other files,
+web front ends or other means for the rules of the firewall.</p>
+
+<p>Exactly the same reason allows the build of remote managers for
+centralised administration of a large number of Linux hosts and routers.</p>
+
+<p>To learn <a href="http://www.gnu.org/software/bash/bash.html">BASH</a>
+scripting I suggest the following documents:
+<ul>
+  <li><a href="http://www.tldp.org/LDP/abs/html/index.html">Advanced Bash-Scripting Guide</a></li>
+  <li><a href="http://www.tldp.org/HOWTO/Bash-Prog-Intro-HOWTO.html">BASH Programming - Introduction HOW-TO</a> (older)</li>
+</ul>
+</p>

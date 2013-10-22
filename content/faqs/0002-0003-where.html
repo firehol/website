@@ -1,0 +1,21 @@
+---
+group: 0002-Running
+title: 0003-I installed FireHOL but where is it located? I cannot run it!
+kind: faq
+---
+
+<p>
+FireHOL has been designed to be a startup service. Its exact location
+depends on the distribution you are using. Most probably you will find
+FireHOL in <span class="filename">/etc/init.d</span> and in RedHat systems
+you can also access it with the <span class="command">service</span> command.
+</p>
+
+<p>
+On Debian or Ubuntu, become root and modify
+<span class="filename">/etc/default/firehol</span> to have
+START_FIREHOL=YES, then, as root, start it with:</p>
+<pre class="programlisting">/etc/init.d/firehol start</pre>
+
+<p>To make it start automatically run:</p>
+<pre class="programlisting">update-rc.d firehol defaults</pre>

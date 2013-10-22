@@ -1,0 +1,40 @@
+/*
+ * These CSS definitions are used to format <span> items which have been
+ * marked up sematically.
+ */
+
+/*
+ * A system file or directory
+ */
+.filename {
+  font-size: 12px;
+  font-family: monospace;
+}
+
+/*
+ * A unix command
+ */
+.command {
+  font-weight: bold;
+}
+
+/*
+ * A FireHOL or unix command option or parameter
+ */
+.option {
+  font-weight: bold;
+}
+
+/*
+ * A FireHOL or iptables action (e.g. drop, accept, etc.)
+ */
+.action {
+  font-weight: bold;
+}
+
+/*
+ * A network interface  (e.g. lo, eth0, wlan0, etc.)
+ */
+.interface {
+  font-weight: bold;
+}

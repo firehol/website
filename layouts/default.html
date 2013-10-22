@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="Home for FireHOL, an iptables
+      stateful packet filtering firewall builder for Linux (kernel > 2.4),
+      supporting NAT, SNAT, DNAT, REDIRECT, MASQUERADE, DMZ, dual-homed,
+      multi-homed and router setups, protecting and securing hosts and LANs
+      in all kinds of topologies. Configuration is done using simple client
+      and server statements while it can detect (and produce) its
+      configuration automatically. FireHOL is extremely easy to understand,
+      configure and audit.">
+    <meta name="keywords" content="iptables, netfilter, filter, firewall,
+      stateful, port, secure, security, NAT, DMZ, DNAT, DSL, SNAT, redirect,
+      router, rule, rules, automated, bash, block, builder, cable, complex,
+      configuration, dual-homed, easy, easy configuration, example, fast,
+      features, flexible, forward, free, gpl, helpme mode, human, intuitive,
+      language, linux, masquerade, modem, multi-homed, open source, packet,
+      panic mode, protect, script, service, system administration, wizard,
+      ipv4, ipv6">
+    <meta name="author" content="Phil Whineray, Costa Tsaousis">
+    <title>FireHOL - <%= @item[:title] %></title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/semantic.css">
+    <script src="/lib/jquery.js"></script>
+  </head>
+  <body>
+    <div id="header">
+       <p>
+         <span class="title">FireHOL</span>
+          FireHOL, the <a href="http://www.netfilter.org/">iptables</a>
+          stateful packet filtering firewall builder.
+       </p>
+    </div>
+    <div id="main">
+      <%= yield %>
+    </div>
+    <div id="sidebar">
+      <h2><a href="/">Home</a></h2>
+      <ul>
+      </ul>
+      <h2>Documentation</h2>
+      <ul>
+        <li><a href="/overview">Overview</a></li>
+        <li><a href="/tutorial">Tutorial</a></li>
+        <li><a href="/invoking">Invoking&nbsp;FireHOL</a></li>
+        <li><a href="/language">Language</a></li>
+        <li><a href="https://github.com/ktsaou/firehol/wiki">FireHOL&nbsp;Wiki</a></li>
+        <li><a href="http://firehol.org/firehol-manual.html">Latest&nbsp;Manual</a></li>
+        <li><a href="/services">Services&nbsp;Index</a></li>
+        <li><a href="http://firehol.org/firehol-manual.html#adding-services">Adding&nbsp;Services</a></li>
+        <li><a href="/troubleshooting">Troubleshooting</a></li>
+        <li><a href="/fwtest">Firewall&nbsp;Testing</a></li>
+        <li><a href="/faq/">FAQ</a></li>
+      </ul>
+      <h2>Community</h2>
+      <ul>
+        <li><a href="https://github.com/ktsaou/firehol/issues">Issue Tracker</a></li>
+        <li><a href="http://lists.firehol.org/mailman/listinfo/firehol-support/">Support List</a> /
+        <a href="http://lists.firehol.org/pipermail/firehol-support/">Archive</a></li>
+        <li><a href="http://lists.firehol.org/mailman/listinfo/firehol-devs/">Devs List</a> /
+        <a href="http://lists.firehol.org/pipermail/firehol-devs/">Archive</a></li>
+        <li><a href="http://freecode.com/projects/firehol/">Freecode Project</a></li>
+        <li><a href="http://www.ohloh.net/p/firehol">Ohloh Project</a></li>
+        <li><a href="/getting-involved">Getting Involved</a></li>
+        <li><a href="mailto:admin@firehol.org">Email Authors</a></li>
+      </ul>
+      <h2>Downloads</h2>
+      <ul>
+        <li><a href="http://firehol.org/download/latest/">Stable Release</a></li>
+        <li><a href="http://firehol.org/download/releases/">All Releases</a></li>
+        <li><a href="/packages/">Distribution Packages</a></li>
+      </ul>
+      <h2>Source Code</h2>
+      <ul>
+        <li><a href="http://github.com/ktsaou/firehol">FireHOL Git</a></li>
+        <li><a href="http://github.com/philwhineray/firehol-website">Website Git</a></li>
+        <li><a href="http://github.com/philwhineray/firehol-website">Infrastructure Git</a></li>
+        <li><a href="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2+ Licence</a></li>
+      </ul>
+      <h2>Hosted By</h2>
+      <ul>
+      <li>
+      <a href="http://www.foxyhosting.cz"><img alt="www.foxyhosting.cz"
+                                               src="/foxyhosting.png"></a>
+      </li>
+      </ul>
+    </div>
+  </body>
+</html>

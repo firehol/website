@@ -1,0 +1,27 @@
+---
+group: 0002-Running
+title: 0001-How do I debug my configuration?
+kind: faq
+---
+
+<p>
+To get a listing of the actions FireHOL would take based on your
+configuration, you can run:</p>
+<pre class="programlisting">
+firehol debug
+</pre>
+
+<p>
+In the event of an unexpected problem, FireHOL will leave behind its
+temporary files (and let you know where they are located) in order to
+help you diagnose the problem.
+</p>
+
+<p>
+FireHOL runs as a bash script so if you need detailed information about
+what is going on internally you can add these lines to your configuration:
+<pre class="programlisting">
+set -x
+set -v
+</pre>
+</p>

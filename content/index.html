@@ -1,0 +1,27 @@
+---
+title: Linux iptables packet filtering firewall builder for humans...
+---
+
+<div id="news">
+<h2>Latest News</h2>
+
+  <% news_items.each do |entry| %>
+  <div class="news_item">
+    <h3><%= news_date(entry) %> -
+        <span class="news_title"><%= news_title(entry) %></span></h3>
+    <%= news_content(entry) %>
+  </div>
+  <% end %>
+
+</div>
+
+<div id="testimonials">
+<h2>Testimonials</h2>
+  <% testimonial_items.each do |entry| %>
+  <div class="news_item">
+    <h3><%= testimonial_date(entry) %></h3>
+    <%= testimonial_content(entry) %>
+    <p class="testimonial_from"/><%= testimonial_from(entry) %></p>
+  </div>
+  <% end %>
+</div>
