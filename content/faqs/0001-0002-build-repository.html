@@ -3,24 +3,63 @@ group: 0001-Installation
 title: 0002-How do I build from the repository?
 kind: faq
 ---
+<p>
+First clone the repository and ensure you are on the appropriate
+branch (<span class="important">master</span>):
+</p>
+
+<pre class="programlisting">
+git clone https://github.com/ktsaou/firehol.git
+cd firehol
+git checkout master
+</pre>
 
 <p>
-You will need <a href="http://xmlsoft.org/XSLT/xsltproc2.html">xsltproc</a>,
+In future, to bring your cloned master branch in line with the official one,
+just pull any new changes:
+</p>
+
+<pre class="programlisting">
+cd firehol
+git checkout master
+git pull
+</pre>
+
+<p>
+You don't need to do a build to use the programs, so if you are not
+packaging a release you can just copy and/or use
+<span class="filename">sbin/firehol.in</span> and
+<span class="filename">sbin/fireqos.in</span> directly.
+</p>
+
+<p>
+To build the documentation and/or a tar-file,
+you will need <a href="http://xmlsoft.org/XSLT/xsltproc2.html">xsltproc</a>,
 <a href="http://dblatex.sourceforge.net/">dblatex</a>,
 <a href="http://www.docbook.org/xml/">DocBook XML</a>,
 <a href="http://wiki.docbook.org/DocBookXslStylesheets">DocBook XSL Stylesheets</a>,
 <a href="http://www.gnu.org/software/autoconf/">GNU autoconf</a>
 and <a href="http://www.gnu.org/software/automake/">GNU automake</a>.
-</p>
-
-<p>
-When building from the
-<a href="http://github.com/ktsaou/firehol">Git repository</a>
-you can create the Makefiles and enable building the manual using these
-commands:
+You can create the Makefiles, enable building the manual and make
+the documentation with these commands:
 </p>
 
 <pre class="programlisting">
 ./autogen.sh
 ./configure --enable-maintainer-mode
+make
 </pre>
+
+<p>
+Note that versions checked out from git will use internal versions e.g.:
+</p>
+
+<pre class="programoutput">
+$ ./sbin/fireqos.in
+FireQOS $Id: def55bbc9c2a78aef580e88ad6d3f9ba689a6004 $
+</pre>
+
+<p>
+If you want a real version number you should
+<a href="/faq/#faq-0001-0001">install a downloaded version</a>.
+</p>
