@@ -55,7 +55,7 @@ route '/faqs/*' do
   # These items are pulled directly into their index file
 end
 
-route '/news/*' do
+route '/newsitems/*' do
   # These items are pulled directly into the appropriate page
 end
 
