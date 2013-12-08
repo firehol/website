@@ -1,0 +1,36 @@
+---
+title: Installing
+submenu: downloads
+---
+
+<h1>Installing from a tar-file release</h1>
+
+<p>You can download tar-file releases from the links in the menu or
+by visiting the
+<a target="_blank" href="http://firehol.org/download/">download area</a>.</p>
+<p>Unpack and change directory with:</p>
+<pre class="programlisting">
+tar xfz firehol-<em>version</em>.tar.gz
+cd firehol-<em>version</em>
+</pre>
+
+<p>Options for the <span class="command">configure</span> program can be
+seen in the <span class="filename">INSTALL</span>
+file and by running:</p>
+<pre class="programlisting">
+./configure --help
+</pre>
+
+<p>To build and install taking the default options:</p>
+<pre class="programlisting">
+./configure &amp;&amp; make &amp;&amp; sudo make install
+</pre>
+
+<p>Alternatively, just copy the
+<span class="filename">sbin/firehol.in</span> and
+<span class="filename">sbin/fireqos.in</span> files to where you want them.</p>
+
+<p>Note that 
+<a href="/packages">packages are available for most
+distributions</a> but they will not always offer the
+latest version.</p>
