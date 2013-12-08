@@ -1,4 +1,4 @@
-module FaqHelper
+module NewsHelper
 
   def news_items
     @items.select { |item| item[:kind] == 'news' } .
@@ -18,4 +18,4 @@ module FaqHelper
   end
 end
 
-include FaqHelper
+include NewsHelper

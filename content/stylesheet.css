@@ -107,6 +107,13 @@ a:hover {
   line-height: 20px;
 }
 
+#sidebar h2 a {
+  color: #007;
+}
+#sidebar h2 a:hover {
+  color: #03f;
+}
+
 #sidebar ul {
   list-style-type: none;
 

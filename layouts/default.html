@@ -39,52 +39,68 @@
       <h2><a href="/">Home</a></h2>
       <ul>
       </ul>
-      <h2>Documentation</h2>
       <ul>
-        <li><a href="/tutorial">Tutorial</a></li>
-        <li><a href="/invoking">Invoking&nbsp;FireHOL</a></li>
-        <li><a href="/language">Language</a></li>
-        <li><a href="https://github.com/ktsaou/firehol/wiki">FireHOL&nbsp;Wiki</a></li>
-        <li><a href="http://firehol.org/firehol-manual.html">Latest&nbsp;Manual</a></li>
-        <li><a href="/services">Services&nbsp;Index</a></li>
-        <li><a href="http://firehol.org/firehol-manual.html#adding-services">Adding&nbsp;Services</a></li>
-        <li><a href="/troubleshooting">Troubleshooting</a></li>
-        <li><a href="/fwtest">Firewall&nbsp;Testing</a></li>
-        <li><a href="/faq/">FAQ</a></li>
-      </ul>
-      <h2>Support / Community</h2>
-      <ul>
-        <li><a href="https://github.com/ktsaou/firehol/issues">Issue Tracker</a></li>
-        <li><a href="http://lists.firehol.org/mailman/listinfo/firehol-support/">Support List</a> /
-        <a href="http://lists.firehol.org/pipermail/firehol-support/">Archive</a></li>
-        <li><a href="http://lists.firehol.org/mailman/listinfo/firehol-devs/">Devs List</a> /
-        <a href="http://lists.firehol.org/pipermail/firehol-devs/">Archive</a></li>
-        <li><a href="http://freecode.com/projects/firehol/">Freecode Project</a></li>
-        <li><a href="http://www.ohloh.net/p/firehol">Ohloh Project</a></li>
-        <li><a href="/getting-involved">Getting Involved</a></li>
-        <li><a href="mailto:admin@firehol.org">Email Authors</a></li>
-      </ul>
-      <h2>Downloads</h2>
-      <ul>
-        <li><a href="http://firehol.org/download/latest/">Stable Release</a></li>
-        <li><a href="http://firehol.org/download/releases/">All Releases</a></li>
-        <li><a href="http://firehol.org/download/unsigned/master/">Daily Build</a></li>
-        <li><a href="/packages/">Distribution Packages</a></li>
-      </ul>
-      <h2>Source Code</h2>
-      <ul>
-        <li><a href="http://github.com/ktsaou/firehol">FireHOL Git</a></li>
-        <li><a href="http://github.com/philwhineray/firehol-website">Website Git</a></li>
-        <li><a href="http://github.com/philwhineray/firehol-website">Infrastructure Git</a></li>
-        <li><a href="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2+ Licence</a></li>
+        <li>
+          <h2><a name="documentation">Documentation</a></h2>
+          <ul class="<%= submenu_class("documentation", @item[:submenu]) %>" >
+            <li><a href="/tutorial">Tutorial</a></li>
+            <li><a href="/invoking">Invoking&nbsp;FireHOL</a></li>
+            <li><a href="/language">Language</a></li>
+            <li><a href="https://github.com/ktsaou/firehol/wiki">FireHOL&nbsp;Wiki</a></li>
+            <li><a href="http://firehol.org/firehol-manual.html">Latest&nbsp;Manual</a></li>
+            <li><a href="/services">Services&nbsp;Index</a></li>
+            <li><a href="http://firehol.org/firehol-manual.html#adding-services">Adding&nbsp;Services</a></li>
+            <li><a href="/troubleshooting">Troubleshooting</a></li>
+            <li><a href="/fwtest">Firewall&nbsp;Testing</a></li>
+            <li><a href="/faq/">FAQ</a></li>
+          </ul>
+        </li>
+        <li>
+          <h2><a name="support">Support / Community</a></h2>
+          <ul class="<%= submenu_class("support", @item[:submenu]) %>" >
+            <li><a href="https://github.com/ktsaou/firehol/issues">Issue Tracker</a></li>
+            <li><a href="http://lists.firehol.org/mailman/listinfo/firehol-support/">Support List</a> /
+            <a href="http://lists.firehol.org/pipermail/firehol-support/">Archive</a></li>
+            <li><a href="http://lists.firehol.org/mailman/listinfo/firehol-devs/">Devs List</a> /
+            <a href="http://lists.firehol.org/pipermail/firehol-devs/">Archive</a></li>
+            <li><a href="http://freecode.com/projects/firehol/">Freecode Project</a></li>
+            <li><a href="http://www.ohloh.net/p/firehol">Ohloh Project</a></li>
+            <li><a href="/getting-involved">Getting Involved</a></li>
+            <li><a href="mailto:admin@firehol.org">Email Authors</a></li>
+          </ul>
+        </li>
+        <li>
+          <h2><a name="downloads">Downloads</a></h2>
+          <ul class="<%= submenu_class("downloads", @item[:submenu]) %>" >
+            <li><a href="http://firehol.org/download/latest/">Stable Release</a></li>
+            <li><a href="http://firehol.org/download/releases/">All Releases</a></li>
+            <li><a href="http://firehol.org/download/unsigned/master/">Daily Build</a></li>
+            <li><a href="/packages/">Distribution Packages</a></li>
+          </ul>
+        </li>
+        <li>
+          <h2><a name="source">Source Code</a></h2>
+          <ul class="<%= submenu_class("source", @item[:submenu]) %>" >
+            <li><a href="http://github.com/ktsaou/firehol">FireHOL Git</a></li>
+            <li><a href="http://github.com/philwhineray/firehol-website">Website Git</a></li>
+            <li><a href="http://github.com/philwhineray/firehol-website">Infrastructure Git</a></li>
+            <li><a href="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2+ Licence</a></li>
+          </ul>
       </ul>
       <h2>Hosted By</h2>
       <ul>
-      <li>
-      <a href="http://www.foxyhosting.cz"><img alt="www.foxyhosting.cz"
-                                               src="/foxyhosting.png"></a>
-      </li>
+        <li>
+          <a href="http://www.foxyhosting.cz"><img alt="www.foxyhosting.cz"
+                                                   src="/foxyhosting.png"></a>
+        </li>
       </ul>
     </div>
+<script>
+// Show menus items only if they are current or the title is clicked
+$('#sidebar ul li ul.closedbydefault').hide();
+$('#sidebar li h2 a').click(function() {
+  $(this).parent().next().slideToggle("slow");
+});
+</script>
   </body>
 </html>
