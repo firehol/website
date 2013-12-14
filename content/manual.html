@@ -29,9 +29,9 @@ and <a target="_blank" href="/firehol-manual.pdf">PDF</a> document.</p>
 </iframe>
 
 <script>
-#if ("src" in urlParams) {
-#  $("#manual-frame").attr("src", urlParams["src"]);
-#}
+if ("src" in urlParams) {
+  $("#manual-frame").attr("src", urlParams["src"]);
+}
 
 $("#manual-frame").load(function() {
     $(this).height( $(this).contents().find("body").height() );
