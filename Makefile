@@ -9,11 +9,11 @@ all: tmp/$(m) tmp/$(s)
 
 tmp/$(m):
 	mkdir -p tmp
-	test -f $(mp) && cp $(mp) tmp/. || wget -q -O tmp/$(m) http://firehol.org/$(m)
+	test -f $(mp) && cp $(mp) tmp/. || wget -q -O tmp/$(m) http://test.firehol.org/$(m)
 
 tmp/$(s):
 	mkdir -p tmp
-	test -f $(sp) && cp $(sp) tmp/. || wget -q -O tmp/$(s) http://firehol.org/$(s)
+	test -f $(sp) && cp $(sp) tmp/. || wget -q -O tmp/$(s) http://test.firehol.org/$(s)
 
 clean:
 	rm -rf output crash.log

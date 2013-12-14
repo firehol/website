@@ -1,7 +1,5 @@
 module FireholManualHelper
   def fhmanual_prepare(manual,services)
-    @config[:base_id] = "latest-manual"
-    @config[:base_uri] = "http://firehol.org/firehol-manual.html"
     fhmanual_prepare_int(manual)
     fhmanual_prepare_services_int(services)
   end
@@ -31,9 +29,9 @@ module FireholManualHelper
   def fhmanual_ref(id, text)
      if id == nil or id == ""
      then
-       ga_link(@config[:base_id], @config[:base_uri], text);
+       "<a href='/manual?src=/firehol-manual.html'>#{text}</a>"
      else
-       ga_link(@config[:base_id] + "-", @config[:base_uri] + '#' + id, text);
+       "<a href='/manual?src=/firehol-manual.html\##{id}'>#{text}</a>"
      end
   end
 
