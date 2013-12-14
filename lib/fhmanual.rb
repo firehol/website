@@ -29,9 +29,9 @@ module FireholManualHelper
   def fhmanual_ref(id, text)
      if id == nil or id == ""
      then
-       "<a href='/manual?src=/firehol-manual.html'>#{text}</a>"
+       "<a href='/manual'>#{text}</a>"
      else
-       "<a href='/manual?src=/firehol-manual.html\##{id}'>#{text}</a>"
+       "<a target='_blank' href='/firehol-manual.html\##{id}'>#{text}</a>"
      end
   end
 
