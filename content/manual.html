@@ -1,0 +1,39 @@
+---
+title: Manual
+submenu: documentation
+---
+<script>
+var urlParams;
+(window.onpopstate = function () {
+    var match,
+        pl     = /\+/g,  // Regex for replacing addition symbol with a space
+        search = /([^&=]+)=?([^&]*)/g,
+        decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+        query  = window.location.search.substring(1);
+
+    urlParams = {};
+    while (match = search.exec(query))
+       urlParams[decode(match[1])] = decode(match[2]);
+})();
+</script>
+<h2>FireHOL Manual</h2>
+
+<p>This manual is also available 
+<a target="_blank" href="/firehol-manual/">without the iframe</a>,
+as a <a target="_blank" href="/firehol-manual.html">single page</a>
+and <a target="_blank" href="/firehol-manual.pdf">PDF</a> document.</p>
+
+<!-- <iframe id="manual-frame" src="/firehol-manual"> -->
+<iframe id="manual-frame" width="800" height="600" src="">
+       <!-- src="http://test.firehol.org/firehol-manual"> -->
+</iframe>
+
+<script>
+#if ("src" in urlParams) {
+#  $("#manual-frame").attr("src", urlParams["src"]);
+#}
+
+$("#manual-frame").load(function() {
+    $(this).height( $(this).contents().find("body").height() );
+});
+</script>
