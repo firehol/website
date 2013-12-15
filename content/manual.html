@@ -40,7 +40,7 @@ var resizeIframeAndScrollParentToAnchor = function() {
     if (height != lastHeight || myFrame.contentWindow.document.URL != lastURL) {
       lastHeight = height;
       lastURL = myFrame.contentWindow.document.URL;
-      $(myFrame).height(height+50);
+      $(myFrame).height(height+200);
       var id, l, t;
       if (lastURL.slice(1).indexOf('#') >= 0) {
         var id = lastURL.slice(1).substr(lastURL.slice(1).indexOf('#')+1);
