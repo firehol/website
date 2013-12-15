@@ -26,12 +26,20 @@ module FireholManualHelper
   ###################### Internal ######################
   private
 
-  def fhmanual_ref(id, text)
+  def fhmanual_ref(id, text, url = nil)
+     if url == nil
+       url = if id == nil or id == ""
+                "/manual"
+             else
+                "/firehol-manual.html"
+             end
+     end
+
      if id == nil or id == ""
      then
-       "<a href='/manual'>#{text}</a>"
+       "<a href='#{url}'>#{text}</a>"
      else
-       "<a target='_blank' href='/firehol-manual.html\##{id}'>#{text}</a>"
+       "<a target='_blank' href='#{url}\##{id}'>#{text}</a>"
      end
   end
 

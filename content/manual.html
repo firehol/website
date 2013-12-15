@@ -2,20 +2,6 @@
 title: Manual
 submenu: documentation
 ---
-<script>
-var urlParams;
-(window.onpopstate = function () {
-    var match,
-        pl     = /\+/g,  // Regex for replacing addition symbol with a space
-        search = /([^&=]+)=?([^&]*)/g,
-        decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
-        query  = window.location.search.substring(1);
-
-    urlParams = {};
-    while (match = search.exec(query))
-       urlParams[decode(match[1])] = decode(match[2]);
-})();
-</script>
 <h2>FireHOL Manual</h2>
 
 <p>This <a href="/manual">manual</a> is also available
@@ -28,11 +14,46 @@ and <a target="_blank" href="/firehol-manual.pdf">PDF</a> document.</p>
 </iframe>
 
 <script>
-if ("src" in urlParams) {
-  $("#manual-frame").attr("src", urlParams["src"]);
+var parentUrlParams;
+(window.onpopstate = function () {
+    var match,
+        pl     = /\+/g,  // Regex for replacing addition symbol with a space
+        search = /([^&=]+)=?([^&]*)/g,
+        decode = function (s) { return decodeURIComponent(s.replace(pl," ")); },
+        query  = window.location.search.substring(1);
+
+    parentUrlParams = {};
+    while (match = search.exec(query))
+       parentUrlParams[decode(match[1])] = decode(match[2]);
+})();
+
+if ("src" in parentUrlParams) {
+  $("#manual-frame").attr("src", parentUrlParams["src"]);
 }
 
+var lastURL
+var myFrame
+var resizeIframeAndScrollParentToAnchor = function() {
+    if (!myFrame) { alert("Bugger"); return; }
+    if (myFrame.contentWindow.document.URL != lastURL) {
+      lastURL = myFrame.contentWindow.document.URL;
+      var height = $(myFrame).contents().find("body").height();
+      $(myFrame).height(height+50);
+      var id, l, t;
+      if (lastURL.slice(1).indexOf('#') >= 0) {
+        var id = lastURL.slice(1).substr(lastURL.slice(1).indexOf('#')+1);
+        var t = $(myFrame).contents().find('a[name='+id+']').offset().top;
+        var y = $(myFrame).offset().top + t;
+         $(window).scrollTop(y)
+      } else {
+         $(window).scrollTop(0)
+      }
+    }
+  };
+
 $("#manual-frame").load(function() {
-    $(this).height( $(this).contents().find("body").height() + 50 );
+  myFrame = this;
+  resizeIframeAndScrollParentToAnchor()
+  window.setInterval(function () { resizeIframeAndScrollParentToAnchor() },100);
 });
 </script>
