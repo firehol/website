@@ -34,10 +34,10 @@ if ("src" in parentUrlParams) {
 var lastURL
 var myFrame
 var resizeIframeAndScrollParentToAnchor = function() {
-    if (!myFrame) { alert("Bugger"); return; }
+    var height = $(myFrame).contents().find("body").height();
+    if (!myFrame || height < 10) { return; }
     if (myFrame.contentWindow.document.URL != lastURL) {
       lastURL = myFrame.contentWindow.document.URL;
-      var height = $(myFrame).contents().find("body").height();
       $(myFrame).height(height+50);
       var id, l, t;
       if (lastURL.slice(1).indexOf('#') >= 0) {
