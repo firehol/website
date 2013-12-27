@@ -3,7 +3,9 @@ mp=/home/web/firehol/download/unsigned/master/$(m)
 s=firehol-services.html
 sp=/home/web/firehol/download/unsigned/master/$(s)
 
-all: tmp/$(m) tmp/$(s)
+all: site
+
+site: tmp/$(m) tmp/$(s)
 	mkdir -p output
 	nanoc compile
 
@@ -14,6 +16,12 @@ tmp/$(m):
 tmp/$(s):
 	mkdir -p tmp
 	test -f $(sp) && cp $(sp) tmp/. || wget -q -O tmp/$(s) http://firehol.org/$(s)
+
+fakeman: site
+	cp -rp ../firehol/doc/*.html output
+	cp -rp ../firehol/doc/*.css output
+	rm -rf output/firehol-manual
+	cp -rp ../firehol/doc/html output/firehol-manual
 
 clean:
 	rm -rf output crash.log
