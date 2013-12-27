@@ -9,9 +9,12 @@ submenu: documentation
 as a <a target="_blank" href="/firehol-manual.html">single page</a>
 and <a target="_blank" href="/firehol-manual.pdf">PDF</a> document.</p>
 
-<iframe id="manual-frame" width="800" height="600" frameBorder="0"
-        src="/firehol-manual">
-</iframe>
+<div id="manual-wrapper" width="800px">
+  <iframe id="manual-frame" width="800px" height="600px"
+          frameBorder="0"
+          src="/firehol-manual">
+  </iframe>
+</div>
 
 <script>
 var parentUrlParams;
@@ -33,19 +36,21 @@ if ("src" in parentUrlParams) {
 
 var lastURL
 var lastHeight
-var myFrame
+var manFrame
 var resizeIframeAndScrollParentToAnchor = function() {
-    var height = $(myFrame).contents().find("body").height();
-    if (!myFrame || height < 10) { return; }
-    if (height != lastHeight || myFrame.contentWindow.document.URL != lastURL) {
-      lastHeight = height;
-      lastURL = myFrame.contentWindow.document.URL;
-      $(myFrame).height(height+200);
+    var height = $(manFrame).contents().find("body").height();
+    if (!manFrame || height < 10) { return; }
+    if (height > lastHeight || manFrame.contentWindow.document.URL != lastURL) {
+      var manDiv = $(manFrame).parent();
+      lastHeight = height+200;
+      lastURL = manFrame.contentWindow.document.URL;
+      $(manDiv).height(lastHeight);
+      $(manFrame).height(lastHeight);
       var id, l, t;
-      if (lastURL.slice(1).indexOf('#') >= 0) {
+      if (lastURL.slice(1).indexOf('#') > 0) {
         var id = lastURL.slice(1).substr(lastURL.slice(1).indexOf('#')+1);
-        var t = $(myFrame).contents().find('a[name='+id+']').offset().top;
-        var y = $(myFrame).offset().top + t;
+        var t = $(manFrame).contents().find('a[name='+id+']').offset().top;
+        var y = $(manFrame).offset().top + t;
          $(window).scrollTop(y)
       } else {
          $(window).scrollTop(0)
@@ -54,8 +59,11 @@ var resizeIframeAndScrollParentToAnchor = function() {
   };
 
 $("#manual-frame").load(function() {
-  myFrame = this;
-  resizeIframeAndScrollParentToAnchor()
+  manFrame = this;
+  $(manFrame).attr("scrolling", "no");
+  $("#manual-frame").css({'overflow': 'hidden'});
+  $("#manual-wrapper").css({'overflow': 'hidden'});
+  resizeIframeAndScrollParentToAnchor();
   window.setInterval(function () { resizeIframeAndScrollParentToAnchor() },100);
 });
 </script>
