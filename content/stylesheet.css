@@ -50,6 +50,10 @@ a:hover {
   width: 550px;
 }
 
+#main.wide {
+  width: 850px;
+}
+
 #main h1 {
   font-size: 40px;
   font-weight: normal;

@@ -24,7 +24,7 @@
           shaping languages for Linux
        </p>
     </div>
-    <div id="main">
+    <div id="main" class="<%= @item[:main_class] ? @item[:main_class] : "regular" %>">
       <%= yield %>
     </div>
     <div id="sidebar">
