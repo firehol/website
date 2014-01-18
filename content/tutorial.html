@@ -17,9 +17,9 @@ quickly, especially if your firewalling and iptables knowledge is limited.
 This feature does not stop or alter the running firewall of your machine.
 </p>
 
-<h2>Full Tutorial</h2>
+<h2>Home Router Tutorial</h2>
 <p>
-This is the recommended procedure to manually design a secure FireHOL firewall. 
+This is the recommended procedure to manually design a secure FireHOL firewall.
 </p>
 
 <h3>1. Identify all the network interfaces your firewall host has</h3>
@@ -36,7 +36,7 @@ that connects the Linux router with the ADSL device.
 
 To identify your network interfaces use the
 <span class="command">ip link show</span> command. The example below
-shows my home router <span class="command">ip link show</span> output: 
+shows my home router <span class="command">ip link show</span> output:
 
 <pre style="width: 100%;" class="programoutput">
 [root@gateway /]# ip link show
@@ -111,7 +111,7 @@ interface with a wrong name, FireHOL and iptables will not complain.
 Now I have to assign a role to each network interface, i.e. what is the
 function of each of those interfaces? For this, I create a table similar
 to the one below. It is important to focus on the
-<span class=important">requests</span>; forget the replies. 
+<span class=important">requests</span>; forget the replies.
 </p>
 
 <table style="width: 150%">
@@ -324,3 +324,82 @@ it set up in <%= fh_manref('rule-params', 'inface') %> this time.</p>
 but then the <%= fh_manref('cmd-client','client') %> and
 <%= fh_manref('cmd-server','server') %> commands would need be
 reversed (server all, client ident) which would be confusing.</p>
+
+<h2>Border Router Tutorial handling IPv4 &amp; IPv6</h2>
+<p>
+Dealing with a lot of network interfaces can quickly mess up your ruleset.
+One wait to avoid this is having an outbound perspective.
+Think about you are sitting on your router, holding a network packet in
+your hand that you want to place in one of your network interfaces send
+queue. This is where your <%= fh_manref('def-router','router') %> kicks in.
+
+For this example we assume a <a href="http://en.wikipedia.org/wiki/Regional_Internet_registry" taget="_blank">RIR</a> has dedicated us a provider-independent IPv4 prefix 198.18.0.0/15 and an IPv6 prefix 2001:0002::/48 which we have to announce to our providers.
+</p>
+
+<h3>1. Identify network interfaces</h3>
+<p>
+Let us think about an border router having three Internet uplinks attached
+and that is connected to your internal DMZ network by one NIC.
+</p>
+
+<table>
+ <thead>
+  <tr>
+   <td>Name</td>
+   <td>NIC</td>
+   <td>Peering</td>
+   <td>Note</td>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+   <td>ISP1</td>
+   <td>eth0</td>
+   <td>BGP</td>
+   <td>traffic to ISP2 may transit</td>
+  </tr>
+  <tr>
+   <td>ISP2</td>
+   <td>eth1</td>
+   <td>OSPF</td>
+   <td>traffic to ISP1 may transit</td>
+  </tr>
+  <tr>
+   <td>ISP3</td>
+   <td>ppp0</td>
+   <td>BGP</td>
+   <td>connect via phy. NIC eth2</td>
+  </tr>
+  <tr>
+   <td>DMZ</td>
+   <td>eth3</td>
+   <td>&nbsp;</td>
+   <td>&nbsp;</td>
+  </tr>
+ </tbody>
+</table>
+
+<h3>2. Ruleset</h3>
+
+<p>
+Now it is time to start writing the FireHOL configuration file.
+Let us define the interface statements.
+</p>
+
+<%= fhmanual_example("tutorial-border-router-01") %>
+
+<p> Router ISP1</p>
+
+<%= fhmanual_example("tutorial-border-router-02") %>
+
+<p> Router ISP2</p>
+
+<%= fhmanual_example("tutorial-border-router-03") %>
+
+<p> Router ISP3</p>
+
+<%= fhmanual_example("tutorial-border-router-04") %>
+
+<p> Router DMZ</p>
+
+<%= fhmanual_example("tutorial-border-router-05") %>
