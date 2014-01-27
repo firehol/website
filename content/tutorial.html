@@ -4,6 +4,7 @@ submenu: documentation
 ---
 
 <h2>QuickStart</h2>
+
 <p>
 To have FireHOL guess the configuration for your machine, simply run:
 </p>
@@ -17,10 +18,30 @@ quickly, especially if your firewalling and iptables knowledge is limited.
 This feature does not stop or alter the running firewall of your machine.
 </p>
 
+<p>
+FireQOS does not have any mechanism to automatically detect and classify
+your traffic.
+</p>
+
+<p>
+<a href="#qos-newuser">This FireQOS tutorial</a> is a step by step guide
+for setting up traffic control on a system. The steps followed will
+allow you to apply QoS without disrupting your current service or traffic
+or set up traffic monitoring without traffic shaping.
+</p>
+
 <h2>Full Tutorials</h2>
+<p>
+All of the tutorials assume you have the necessary rights to edit
+the default FireHOL and FireQOS configuration files,
+<span class="filename">/etc/firehol/firehol.conf</span> and
+<span class="filename">/etc/firehol/fireqos.conf</span>.
+</p>
+
 <ul>
   <li><a href="#v2-basic">FireHOL v2.x Basic Tutorial</a></li>
   <li><a href="#v2-border">FireHOL v2.x Border Router Tutorial</a></li>
+  <li><a href="#qos-newuser">FireQOS New User Tutorial</a></li>
   <li><a href="#v1">FireHOL v1.x Tutorial</a></li>
 </ul>
 
@@ -420,6 +441,15 @@ Let us define the interface statements.
 <%= fhmanual_example("tutorial-border-router-05") %>
 
 <p>End of v2 border router tutorial.</p>
+
+<h3 id="qos-newuser">FireQOS New User Tutorial</h3>
+<p>
+At the end of the tutorial you will have perfect traffic control on any
+interface you choose. You can also use this guide to set up FireQOS
+for just monitoring the traffic: without any traffic shaping at all.
+</p>
+
+<p>End of FireQOS new user tutorial.</p>
 
 <h3 id="v1">FireHOL v1.x Tutorial</h3>
 <p>

@@ -1,0 +1,54 @@
+---
+title: Download the Source
+submenu: downloads
+---
+
+<h1>Download the Source</h1>
+
+<p>
+You can download the source from GitHub using the links in the menu.
+If you want to clone the repository, the basic <span class="command">git</span>
+commands are below.
+</p>
+
+<p>
+Note: if you do not want to run <span class="command">git</span> but are
+just looking for the bleeding edge version, you can still use
+the <a href="/installing">normal install instructions</a>: the
+<a href="/download/unsigned/master">'daily build'</a> is actually
+updated automatically whenever the master repository is changed,
+within a few minutes.
+</p>
+
+<p>First time clone of a repository into directory
+<span class="filename">firehol</span>:
+
+<pre class="programlisting">
+$ git clone https://github.com/ktsaou/firehol.git
+Cloning into 'firehol'...
+remote: Reusing existing pack: 4651, done.
+remote: Counting objects: 20, done.
+remote: Compressing objects: 100% (15/15), done.
+remote: Total 4671 (delta 5), reused 20 (delta 5)
+Receiving objects: 100% (4671/4671), 1.80 MiB | 714 KiB/s, done.
+Resolving deltas: 100% (3008/3008), done.
+$ cd firehol
+</pre>
+</p>
+
+<p>Update a previously cloned repository to the latest version:
+<pre class="programlisting">
+$ cd firehol
+$ git pull
+Already up-to-date.
+</pre>
+</p>
+
+<p>
+For more help with git, you should read one of the many tutorials
+that can be found.
+<a href="http://www.vogella.com/tutorials/Git/article.html">This one</a>
+looks very comprehensive. There is also an online version of what you
+get by running
+<a href="http://git-scm.com/docs/gittutorial">man gittutorial</a>.
+</p>
