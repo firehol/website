@@ -243,17 +243,17 @@ time to start writing the FireHOL configuration file. First write one
 interface statement for each network interface you identified above:
 </p>
 
-<%= fhmanual_example("tutorial-01") %>
+<%= fhmanual_fwexample("tutorial-01") %>
 
 <p> Now, we can add the servers for each interface (based on the table
 above). Remember that these servers are all running on the firewall host:</p>
 
-<%= fhmanual_example("tutorial-02") %>
+<%= fhmanual_fwexample("tutorial-02") %>
 
 <p> Now, we can add the clients for each interface. Remember that these
 clients are all running on the firewall host: </p>
 
-<%= fhmanual_example("tutorial-03") %>
+<%= fhmanual_fwexample("tutorial-03") %>
 
 <p>
 At this point, everyone should be able to inter-operate correctly
@@ -272,7 +272,7 @@ two interfaces we will have to define two routers. If we have 3
 interfaces, we will have to define 6 routers, and so on.
 </p>
 
-<%= fhmanual_example("tutorial-04") %>
+<%= fhmanual_fwexample("tutorial-04") %>
 
 <p>
 Remember that <%= fh_manref('rule-params', 'inface') %>
@@ -293,7 +293,7 @@ and going out to <span class="interface">ppp+</span>, and not route any
 request coming from the Internet and going out to the home LAN. Here it is:
 </p>
 
-<%= fhmanual_example("tutorial-05") %>
+<%= fhmanual_fwexample("tutorial-05") %>
 
 <p>
 This is it. We are done! (for the filtering part of the firewall.
@@ -304,7 +304,7 @@ Look below for setting up NAT too.)
 
 <p>To save typing time, you can use this: </p>
 
-<%= fhmanual_example("tutorial-06") %>
+<%= fhmanual_fwexample("tutorial-06") %>
 
 <p>Note that we can remove any <%= fh_manref('def-router','router') %>
 statements not having any rules in them, so the
@@ -315,7 +315,7 @@ To find the IPs of your network interfaces use
 <span class="command">ip addr show</span> and to find the IP networks
 behind each interface use <span class="command">ip route show</span>.
 
-<%= fhmanual_example("tutorial-07") %>
+<%= fhmanual_fwexample("tutorial-07") %>
 
 <p><%= fh_manref('variables-available','UNROUTABLE_IPS') %> is a variable
 defined by FireHOL and contains all the IPs that should not be routed
@@ -324,7 +324,7 @@ on the internet.</p>
 <p>If home LAN did not have real IP addresses, we would have to add
 a masquerade command in our router:</p>
 
-<%= fhmanual_example("tutorial-08") %>
+<%= fhmanual_fwexample("tutorial-08") %>
 
 <p>The <%= fh_manref('helpcmd-masquerade','masquerade') %> command sets
 itself up on the <%= fh_manref('rule-params','outface') %> of a
@@ -333,28 +333,28 @@ itself up on the <%= fh_manref('rule-params','outface') %> of a
 <p> We can now protect our ppp interface even further. For this we use
 the <%= fh_manref('cmd-protection','protection') %> command:</p>
 
-<%= fhmanual_example("tutorial-09") %>
+<%= fhmanual_fwexample("tutorial-09") %>
 
 <p>It could be nice if instead of dropping wrong packets originated from
 the Ethernet, to reject them so that our workstations will not have to
 timeout if we do something that is not allowed. To do this we use
 the <%= fh_manref('cmd-policy','policy') %> command:</p>
 
-<%= fhmanual_example("tutorial-10") %>
+<%= fhmanual_fwexample("tutorial-10") %>
 
 <p>Some servers on the Internet try to <span class="important">ident</span>
 back the client to find information about the user requesting the
 service. With our current firewall, such servers will have to timeout
 before accepting our request. To speed thinks up we could write:</p>
 
-<%= fhmanual_example("tutorial-11") %>
+<%= fhmanual_fwexample("tutorial-11") %>
 
 <p>Note that we now have added the router we eliminated above, since we
 need to add a service to it.</p>
 
 <p>The whole routing schema could be rewritten as:</p>
 
-<%= fhmanual_example("tutorial-12") %>
+<%= fhmanual_fwexample("tutorial-12") %>
 
 <p>Now we have elicited the first router, but we defined everything
 in the second. We have used the <span class="option">reverse</span>
@@ -366,7 +366,7 @@ but then the <%= fh_manref('cmd-client','client') %> and
 <%= fh_manref('cmd-server','server') %> commands would need be
 reversed (server all, client ident) which would be confusing.</p>
 
-<p>End of v2 basic tutorial.</p>
+<hr/>
 
 <h3 id="v2-border">FireHOL 2.x Border Router Tutorial</h3>
 <p>
@@ -429,25 +429,25 @@ Now it is time to start writing the FireHOL configuration file.
 Let us define the interface statements.
 </p>
 
-<%= fhmanual_example("tutorial-border-router-01") %>
+<%= fhmanual_fwexample("tutorial-border-router-01") %>
 
 <p> Router ISP1</p>
 
-<%= fhmanual_example("tutorial-border-router-02") %>
+<%= fhmanual_fwexample("tutorial-border-router-02") %>
 
 <p> Router ISP2</p>
 
-<%= fhmanual_example("tutorial-border-router-03") %>
+<%= fhmanual_fwexample("tutorial-border-router-03") %>
 
 <p> Router ISP3</p>
 
-<%= fhmanual_example("tutorial-border-router-04") %>
+<%= fhmanual_fwexample("tutorial-border-router-04") %>
 
 <p> Router DMZ</p>
 
-<%= fhmanual_example("tutorial-border-router-05") %>
+<%= fhmanual_fwexample("tutorial-border-router-05") %>
 
-<p>End of v2 border router tutorial.</p>
+<hr/>
 
 <h3 id="qos-newuser">FireQOS New User Tutorial</h3>
 <p>
@@ -456,7 +456,773 @@ interface you choose. You can also use this guide to set up FireQOS
 for just monitoring the traffic: without any traffic shaping at all.
 </p>
 
-<p>End of FireQOS new user tutorial.</p>
+  <p>
+    <a href="#step-1-pick-an-interface">1. Pick an interface</a>
+    <ul>
+      <li>
+        <a href=#controlling-incoming-traffic">Controlling Incoming Traffic</a>
+      </li>
+      <li>
+        <a href="#dsl-based-links">DSL based links</a>
+      </li>
+    </ul>
+  </p>
+  <p>
+    <a href="#step-2-adding-classes">2. Adding Classes</a>
+  </p>
+  <p>
+    <a href="#step-3-classifying-traffic">3. Classifying Traffic</a>
+    <ul>
+      <li>
+        <a href="#classifying-normal-surfing-traffic">Classifying normal internet surfing traffic</a>
+      </li>
+      <li>
+        <a href="#classifying-interactive-traffic">Classifying interactive traffic</a>
+      </li>
+      <li>
+        <a href="#classifying-voip-vpns-and-facetime-traffic">Classifying VoIP, VPNs and Facetime traffic</a>
+      </li>
+      <li>
+        <a href="#classifying-torrents">Classifying torrents</a>
+      </li>
+    </ul>
+  </p>
+  <p>
+    <a href="#step-4-traffic-shaping">4. Traffic Shaping</a>
+  </p>
+  <p>
+    <a href="#final-notes">Final Notes</a>
+    <ul>
+      <li>
+        <a href="#traffic-control-on-very-busy-servers">Traffic Control on Very Busy Servers</a>
+      </li>
+    </ul>
+  </p>
+
+<h4 id="wiki-step-1-pick-an-interface">1. Pick an interface</h4>
+
+<p>The first step is to pick an interface to setup QoS. You can choose any interface you like. Even one with real traffic in it. We will not disrupt it.</p>
+
+<p><span class="important">IMPORTANT</span></p>
+
+<p>It is required from you to know the speed of the interface. It does not matter if it is symmetric or asymmetric. The only thing that can go wrong at this point, is to drain the interface by giving a very low speed for it at FireQOS. If you do set the right speed, traffic will not be disrupted at all. If you set it too low and there is a lot of traffic, you may end up locked out of your systems. <span class="important">So please be careful when choosing the speed</span>.</p>
+
+<p>Now edit <span class="filename">/etc/firehol/fireqos.conf</span> and add these:</p>
+
+<%= fhmanual_qosexample("qos-tutorial-01") %>
+
+<p><span class="code">DEVICE</span> is the interface you will be using. <span class="code">INPUT_SPEED</span> is the download speed of your interface. <span class="code">OUTPUT_SPEED</span> is the upload speed of your interface.</p>
+
+<p>Note that there is no space between the number and the unit. You can also omit the unit if you use kbits/second. This unit (kbits/second) is the default for FireQOS speeds.</p>
+
+<p>Keep in mind that the FireQOS configuration file is a normal shell script. You can write anything you normally write in shell scripts, including variables, conditional statements, loops, call external commands, etc.</p>
+
+<p>Now, lets add the interface definitions. Unlike FireHOL, FireQOS requires from you to define INPUT and OUTPUT of interfaces separately. So for just one interface, you will have to define two interfaces in FireQOS: one <span class="code">input</span> (traffic coming in) and one <span class="code">output</span> (traffic going out). Each of these can be configured in a completely independent way.</p>
+
+<%= fhmanual_qosexample("qos-tutorial-02") %>
+
+<p><span class="code">world-in</span> and <span class="code">world-out</span> are just names. Use anything you like, but make sure they do not have a space in them.</p>
+
+<p><span class="code">input</span> and <span class="code">output</span> are FireQOS keywords that define the direction of traffic you want to control. This requires a bit more explanation:</p>
+
+<h5 id="wiki-controlling-incoming-traffic">Controlling Incoming Traffic</h5>
+
+<p>FireQOS can set up classful traffic shaping in both directions, both INPUT and OUTPUT. We all know that classful QoS can only be applied to the output of an interface. How does FireQOS apply classful traffic shaping on the INPUT of an interface?</p>
+
+<p>FireQOS utilizes Linux kernel magic. Linux kernels have a special device called <a href="http://www.linuxfoundation.org/collaborate/workgroups/networking/ifb">IFB</a>. These devices can get incoming traffic from a real interface and provide you with the ability to shape this traffic on their virtual output. It sounds complicated. It is not. IFB devices do not interfere with routing or firewalling. FireQOS handles everything about IFB devices for you. They will be there, but you can ignore them. Of course, you kernel has to have support for IFB devices (either build-in or module is ok).</p>
+
+<p>When shaping incoming traffic, FireQOS will shape the incoming packets much like it does for outgoing traffic. However there is a little difference. When your link is 100% used in the inbound direction (100% download), new incoming sockets will briefly fill the queues of the previous router in you path. This cannot be avoided. Once a few of these packets arrive at you, Linux kernel will recalculate the classes and shape the traffic accordingly. During this process the previous router in your path will be de-queued.</p>
+
+<p>To minimize the time needed to dequeue the previous router, you should not use all the incoming bandwidth. If you give 90% of the bandwidth as the <span class="code">rate</span> at the <span class="code">input</span> interface definition, there will be enough bandwidth for your machine to learn quickly there is new traffic coming in and shape the traffic faster to the desired rate, for the parent router to be dequeued quickly.</p>
+
+<h5 id="wiki-dsl-based-links">DSL based links</h5>
+
+<p>Another important parameter is the type of internet link you use. You may be connected to your router or modem via Ethernet. We don't care about this. What we are interested is the type of link your modem or router has with its remote end. If you are lucky enough to have an Ethernet internet link, everything is fine. You don't have to do anything more. But if your link is ATM based (like DSL), we need some additional information:</p>
+
+<p>ATM (and therefore DSL) is cell based. This means that in order for your packets to be transmitted to the other side, they are encapsulated in ATM cells. This encapsulation adds some overheads. If you are transmitting very small packets (like VoIP does), the overheads can grow significantly as a percentage of the real traffic transmitted.</p>
+
+<p><span class="important">If you use an ATM based internet connection (like DSL), without proper overheads calculation, there is no way to get traffic shaping right.</span></p>
+
+<p>Of course, if you don't care about shaping at the moment and you just want to monitor the traffic passing through, you can skip this section and proceed to the next step.</p>
+
+<p>FireQOS can configure the kernel for proper ATM overheads calculation. To do it though, it needs the following information:</p>
+
+<ol>
+<li>The protocol used. This can either be <span class="code">PPPoE</span>, <span class="code">PPPoA</span>, <span class="code">IPoA</span> or<span class="code">Bridged</span>. Note that RFC 1483 Bridging should be PPPoE. <span class="code">Bridged</span> should only be used when neither PPPoE, PPPoA nor IPoA are used.</li>
+<li>The ATM encapsulation used. This can either be <span class="code">VC/Mux</span> or <span class="code">LLC/SNAP</span>
+</li>
+<li>The type of connection to your router / modem. This can either be <span class="code">local</span> meaning that you run PPPoE on your Linux (it does not matter if this is an Ethernet modem - if you run PPPoE on your Linux, you should use <span class="code">local</span>), or <span class="code">remote</span> meaning that you have a Ethernet router has handles everything about your internet connection.</li>
+<li>If you selected <span class="code">remote</span>, it would be very helpful if you could also find the MTU.</li>
+</ol><p>It is now time to login to your modem / router and find the above information.</p>
+
+<p>Mine for example, is PPPoE, LLC and I run PPPoE on my Linux box, therefore <span class="code">local</span>. Since it is <span class="code">local</span> I don't have to find the MTU. FireQOS will detect it.</p>
+
+<p>Here is an updated version of the config, updated with the DSL information:</p>
+
+<%= fhmanual_qosexample("qos-tutorial-03") %>
+
+<p>I used the variable <span class="code">LINKTYPE</span>, so that for the rest of the tutorial you can just copy-paste the interfaces. Put your link type in the <span class="code">LINKTYPE</span> variable.</p>
+
+<p>The second parameter of <span class="code">adsl</span> can either be <span class="code">pppoe-llc</span>, <span class="code">pppoe-vcmux</span>, <span class="code">pppoa-llc</span>, <span class="code">pppoa-vcmux</span>, <span class="code">ipoa-llc</span>, <span class="code">ipoa-vcmux</span>, <span class="code">bridged-llc</span>, <span class="code">bridged-vcmux</span>.</p>
+
+<p>If you also found the MTU, just append <span class="code">mtu XXXX</span> to the LINKTYPE variable.</p>
+
+<hr/>
+<p>Now we are ready for our first run. Without giving anything else, lets run it with <span class="code">sudo fireqos start</span>:</p>
+
+<pre class="programoutput">
+# sudo fireqos start
+FireQOS v1.0 DEVELOPMENT
+(C) 2013 Costa Tsaousis, GPL
+
+: interface dsl0 world-in input rate 12000kbit adsl <span class="nb">local </span>pppoe-llc (ifb1, MTU 1492, quantum 1492)
+:       class default (1:5000, prio 0)
+
+: interface dsl0 world-out output rate 800kbit adsl <span class="nb">local </span>pppoe-llc (dsl0, MTU 1492, quantum 1492)
+:       class default (1:5000, prio 0)
+
+
+All Done!. Enjoy...
+bye...
+</pre>
+
+<p>Applied! As you can see, FireQOS found the MTU. It also added by itself the <span class="code">default</span> class. The <span class="code">default</span> class is the one that gets all traffic we leave unclassified. We will discuss classification in detail later.</p>
+
+<p>Let's now see the traffic we are sending with <span class="code">sudo fireqos status world-out</span>. We expect to see just one class, the <span class="code">default</span>, having all the traffic we are sending out.</p>
+
+<pre class="programoutput">
+# sudo fireqos status world-out
+Password:
+FireQOS v1.0 DEVELOPMENT
+(C) 2013 Costa Tsaousis, GPL
+
+world-out: dsl0 <span class="var">output</span> =&gt; dsl0, <span class="nb">type</span>: adsl, overhead: 40
+Rate: 800Kbit/s, min: 12Kbit/s
+Values in Kbit/s
+
+ CLASS defaul
+CLASSI 1:5000
+PRIORI      0
+COMMIT     12
+   MAX    800
+
+
+   world-out (dsl0 <span class="var">output</span> =&gt; dsl0) - values in Kbit/s
+ TOTAL defaul
+   812    812
+   802    802
+   811    811
+   795    795
+   817    817
+   797    797
+   808    808
+   803    803
+   811    811
+   807    807
+   795    795
+   817    817
+</pre>
+
+<p>Press Control-C to stop it.</p>
+
+<p>Perfect! My interface is transmitting at full rate (yes, I have a torrent client running, so the link is always 100% used in the outgoing direction).</p>
+
+<p>You may notice that a few lines exceed the 800kbit rate I specified. Don't worry about that. The Linux kernel exposes current class rate information once every 10 seconds. Instead of displaying this info, FireQOS' status mode calculates the class rate every second, based on the bytes sent or received. I have done the most to make it precisely wait 1000ms minus the time it takes for a line to be calculated and printed, but shell scripting is not that accurate. The result is that, depending on your machine speed and load, you may see little variations. They are only a presentation problem. Your traffic is shaped by the kernel at exactly the speed you specified.</p>
+
+<p>The output you will get from FireQOS status mode is colorful. Yellow numbers indicate that the class has some backlog of packets (at least one packet). A red background indicates that the class dropped one or more packets. All these are recalculated for every row printed. </p>
+
+<p>You can also check the incoming direction by running <span class="code">sudo fireqos status world-in</span>.</p>
+
+<p>At this point we have just the proper interfaces set up, without any shaping, without any traffic classification. This is pretty much the same with no traffic control applied. In reality though we are a little bit better - FireQOS uses <span class="code">fq_codel</span> (if available, <span class="code">sfq</span> otherwise) by default for all classes, including the <span class="code">default</span>. Since all traffic ends up in the <span class="code">default</span> class, this qdisc tries to be balance the bandwidth between the sockets, so even with this minimal configuration, our traffic is distributed with some fairness among all sockets. <span class="code">fq_codel</span> is even smarter to favor new sockets over the older ones so that surfing for example will be snappier even when big downloads are in place.</p>
+
+<h4 id="wiki-step-2-adding-classes">2. Adding Classes</h4>
+
+<p>Using classes you group traffic together. Once you have grouped all traffic in classes, you can then define how the classes relate to each other. Traffic control is applied at the class level.</p>
+
+<p>FireQOS is very flexible in this area. You can define classes and groups of classes in any manner you like. You can have classes, groups of classes, groups of groups of classes, etc, with virtually no limit. The only limitation FireQOS has is that each interface can get up to 5.000 classes.</p>
+
+<p>To decide what classes to add, you have to somehow identify your needs. In my case for example, for my home ADSL connection:</p>
+
+<ol>
+<li>I have torrents running all the time. I want them to use all the bandwidth available, but I don't want them to be a problem for anything else. When anything else is running on the link, I need them to use only the bandwidth not needed, even if they have to be shaped to almost zero.</li>
+<li>I have normal internet surfing needs. I want surfing to be preferred over torrents, so that regular web surfing or web downloads be as speedy as possible.</li>
+<li>I have a few VPNs. These are my personal VPNs, meaning that most of the time are idle. I would like VPNs to be given all the bandwidth they need, even if normal web surfing is throttled.</li>
+<li>I use Apple's Facetime from time to time. While I am having a Facetime session, I would like to have the maximum possible bandwidth, so that video quality is the best.</li>
+<li>I would like my SSH sessions to be preferred over all the above, so if I run an SSH session I would like it to be as interactive as possible, like nothing else is running on the link.</li>
+<li>I run an asterisk with VoIP. My family is very sensitive about phone call quality. So I need my phones to be perfect all the time.</li>
+</ol><p>I am going to add one class for each of the above and I'll do it in reverse order: <span class="important">the most important class at the top</span>.</p>
+
+<p>I want them in order of importance for two reasons:</p>
+
+<p>a. Later we are going to classify traffic, i.e. assign packets to classes. For this classification we'll have to find the exact packets we need, out of the thousands of packets passing through. So, to make our lives easier, I prefer to put the important classes at the top, hopping that it will be easier to match the important stuff.
+b. FireQOS gives a priority to each class, in the order they appear in the configuration. So, we need the most important class to get the highest priority. We will see later what this priority does.</p>
+
+<p>So, here are the classes in order of importance:</p>
+
+<%= fhmanual_qosexample("qos-tutorial-04") %>
+
+<p>Lets apply this. Again, using this config we will not disrupt the traffic. We expect to see all classes configured, but all the traffic will again be running through the default class.</p>
+
+<pre class="programoutput">
+# sudo fireqos start
+FireQOS v1.0 DEVELOPMENT
+(C) 2013 Costa Tsaousis, GPL
+
+: interface dsl0 world-in input rate 12000kbit adsl <span class="nb">local </span>pppoe-llc (fireqos-ifb1, MTU 1492, quantum 1492)
+:       class voip (1:11, prio 0)
+:       class interactive (1:12, prio 1)
+:       class facetime (1:13, prio 2)
+:       class vpns (1:14, prio 3)
+:       class surfing (1:15, prio 4)
+:       class torrents (1:16, prio 5)
+:       class default (1:5000, prio 6)
+
+: interface dsl0 world-out output rate 800kbit adsl <span class="nb">local </span>pppoe-llc (dsl0, MTU 1492, quantum 1492)
+:       class voip (1:11, prio 0)
+:       class interactive (1:12, prio 1)
+:       class facetime (1:13, prio 2)
+:       class vpns (1:14, prio 3)
+:       class surfing (1:15, prio 4)
+:       class torrents (1:16, prio 5)
+:       class default (1:5000, prio 6)
+
+
+All Done!. Enjoy...
+bye...
+</pre>
+
+<p>FireQOS added the <span class="code">default</span> class again.</p>
+
+<p>Let's now see what is happening to traffic:</p>
+
+<pre class="programoutput">
+# sudo fireqos status world-out
+FireQOS v1.0 DEVELOPMENT
+(C) 2013 Costa Tsaousis, GPL
+
+world-out: dsl0 <span class="var">output</span> =&gt; dsl0, <span class="nb">type</span>: adsl, overhead: 40
+Rate: 800Kbit/s, min: 12Kbit/s
+Values in Kbit/s
+
+ CLASS   voip intera faceti   vpns surfin torren defaul
+CLASSI   1:11   1:12   1:13   1:14   1:15   1:16 1:5000
+PRIORI      0      1      2      3      4      5      6
+COMMIT     12     12     12     12     12     12     12
+   MAX    800    800    800    800    800    800    800
+
+
+   world-out (dsl0 <span class="var">output</span> =&gt; dsl0) - values in Kbit/s
+ TOTAL   voip intera faceti   vpns surfin torren defaul
+   787      -      -      -      -      -      -    787
+   783      -      -      -      -      -      -    783
+   789      -      -      -      -      -      -    789
+   781      -      -      -      -      -      -    781
+   794      -      -      -      -      -      -    794
+   778      -      -      -      -      -      -    778
+   787      -      -      -      -      -      -    787
+   784      -      -      -      -      -      -    784
+   783      -      -      -      -      -      -    783
+   785      -      -      -      -      -      -    785
+</pre>
+
+<p>Ok. Traffic is still at the default class.</p>
+
+<p>We are now ready to classify traffic.</p>
+
+<h4 id="wiki-step-3-classifying-traffic">3. Classifying Traffic</h4>
+
+<p>Classification is the process of assigning traffic to classes. Once all traffic is assigned to classes, we will discuss traffic shaping.</p>
+
+<p><span class="important">To ensure we will not disrupt the currently running traffic</span>, before we start experimenting with traffic classification, there is one change we have to make to our configuration. The way our configuration is now, each class is assigned a different priority. You can find this priority as <span class="code">prio X</span> in FireQOS output when we applied our configuration, but also as the PRIORITY line in FireQOS status output. The priority is increased for every class. The class with the higher priority is the first (<span class="code">prio 0</span>). For the moment we need all classes to have the same priority, to ensure no class can monopolize the available traffic. To accomplish this, we just add the keyword <span class="code">balanced</span> to each interface, like this:</p>
+
+<%= fhmanual_qosexample("qos-tutorial-05") %>
+
+<p>If you apply this configuration, you will get exactly the same result as before, but this time all classes will have <span class="code">prio 4</span>. This ensures that once we assign some traffic to higher priority classes, these classes will not monopolize the available bandwidth. Of course, classes should have different priorities to achieve our goal. We will assign them priorities at the next step, where we will discuss traffic shaping. For the moment, this <span class="code">balanced</span> policy allows us to experiment with classification, without worrying about the currently running traffic. We will not disrupt it.</p>
+
+<hr/>
+<p>To classify traffic, we define <span class="code">match</span> statements within each class. Each <span class="code">match</span> statement will match some traffic and move it off the <span class="code">default</span> class, to the class the <span class="code">match</span> statement appears under.</p>
+
+<p>We can <span class="code">match</span> traffic using the various characteristics of the packets. The key characteristics would be: source or destination ports and protocols. FireQOS supports more matches, like source or destination IPs, TOS (Type Of Service), iptables MARKs, TCP options (ACKs, SYNs).</p>
+
+<p>Keep in mind that, unlike FireHOL where you are expected to be very precise on the traffic you allow, in FireQOS it is perfectly acceptable to loosely match traffic. You can match whole blocks of IPs or ports, even blocks that should never occur. This will not affect your security, or traffic control quality.</p>
+
+<h5 id="wiki-classifying-normal-surfing-traffic">Classifying normal internet surfing traffic</h5>
+
+<p>Almost all servers who serve us for "normal internet surfing" listen on TCP ports ranging from 0 to 1023. http is tcp/80, https is tcp/443, imap is tcp/143, imaps is tcp/993, smtp is tcp/25, smtps is tcp/465, etc.</p>
+
+<p>In the incoming direction (<span class="code">input</span> interface), traffic is coming to our network from these ports. So to classify surfing traffic, we could do <span class="code">match tcp sports 0:1023</span>. <span class="code">sports</span> stands for source ports.</p>
+
+<p>In the outgoing direction (<span class="code">output</span> interface), traffic is going out from our network to these ports. So, we could do <span class="code">match tcp dports 0:1023</span>. <span class="code">dports</span> stands for destination ports.</p>
+
+<p>Lets see it:</p>
+
+<%= fhmanual_qosexample("qos-tutorial-06") %>
+
+<p>Apply it (it will not disrupt the traffic):</p>
+
+<pre class="programoutput">
+# sudo fireqos start
+FireQOS v1.0 DEVELOPMENT
+(C) 2013 Costa Tsaousis, GPL
+
+
+: interface dsl0 world-in input rate 12000kbit adsl <span class="nb">local </span>pppoe-llc balanced (fireqos-ifb1, MTU 1492, quantum 1492)
+:       class voip (1:11, prio 4)
+:       class interactive (1:12, prio 4)
+:       class facetime (1:13, prio 4)
+:       class vpns (1:14, prio 4)
+:       class surfing (1:15, prio 4)
+:       class torrents (1:16, prio 4)
+:       class default (1:5000, prio 4)
+
+: interface dsl0 world-out output rate 800kbit adsl <span class="nb">local </span>pppoe-llc balanced (dsl0, MTU 1492, quantum 1492)
+:       class voip (1:11, prio 4)
+:       class interactive (1:12, prio 4)
+:       class facetime (1:13, prio 4)
+:       class vpns (1:14, prio 4)
+:       class surfing (1:15, prio 4)
+:       class torrents (1:16, prio 4)
+:       class default (1:5000, prio 4)
+
+
+All Done!. Enjoy...
+bye...
+</pre>
+
+<p>Applied! FireQOS gave <span class="code">prio 4</span> to all classes as it was asked to, by the <span class="code">balanced</span> keyword.</p>
+
+<p>Lets now see the traffic:</p>
+
+<pre class="programoutput">
+# sudo fireqos status world-out
+FireQOS v1.0 DEVELOPMENT
+(C) 2013 Costa Tsaousis, GPL
+
+world-out: dsl0 <span class="var">output</span> =&gt; dsl0, <span class="nb">type</span>: adsl, overhead: 40
+Rate: 800Kbit/s, min: 12Kbit/s
+Values in Kbit/s
+
+ CLASS   voip intera faceti   vpns surfin torren defaul
+CLASSI   1:11   1:12   1:13   1:14   1:15   1:16 1:5000
+PRIORI      4      4      4      4      4      4      4
+COMMIT     12     12     12     12     12     12     12
+   MAX    800    800    800    800    800    800    800
+
+
+   world-out (dsl0 <span class="var">output</span> =&gt; dsl0) - values in Kbit/s
+ TOTAL   voip intera faceti   vpns surfin torren defaul
+   833      -      -      -      -     10      -    823
+   785      -      -      -      -     14      -    771
+   789      -      -      -      -     33      -    756
+   788      -      -      -      -     73      -    715
+   779      -      -      -      -    285      -    494
+   781      -      -      -      -    257      -    524
+   786      -      -      -      -     64      -    722
+   794      -      -      -      -     18      -    776
+</pre>
+
+<p>Nice. As you can see, the <span class="code">surfing</span> class got some traffic. This is normal internet surfing traffic going out (I asked status on <span class="code">world-out</span>).</p>
+
+<h5 id="wiki-classifying-interactive-traffic">Classifying interactive traffic</h5>
+
+<p>I consider interactive traffic: DNS, ICMP (and ping), ssh and instant messaging.</p>
+
+<p>DNS is udp/53. Since I also run a DNS server, I want to match either source or destination port 53 for both inbound and outbound traffic. This is done automatically with the <span class="code">port</span> match, like this: <span class="code">match udp port 53</span>.</p>
+
+<p>SSH is tcp/22. I do run an SSH server too, so I'll match source or destinations port: <span class="code">match tcp port 22</span>.</p>
+
+<p>ICMP and ping can be matched with <span class="code">match icmp</span>.</p>
+
+<p>For instant messaging I use gtalk. Gtalk is XMPP (Jabber) based, which means it uses ports tcp/5222 and tcp/5228. For <span class="code">input</span> I'll use <span class="code">match tcp sports 5222,5228</span> matching the source ports of incoming traffic, while for <span class="code">output</span> I'll use <span class="code">match tcp dports 5222,5228</span> matching the destination ports of outgoing traffic.</p>
+
+<p>I also use Apple's push notifications which use tcp/5223. Since this is a server on the internet, I'll match the source ports on <span class="code">input</span> and the destination ports on <span class="code">output</span>.</p>
+
+<p>Here are all together in the configuration:</p>
+
+<%= fhmanual_qosexample("qos-tutorial-07") %>
+
+<h5 id="wiki-classifying-voip-vpns-and-facetime-traffic">Classifying VoIP, VPNs and Facetime traffic</h5>
+
+<p>For VoIP I use SIP. SIP is udp/5060. I will match both source and destination ports, since my asterisk listens on this port too: <span class="code">match udp port 5060</span>.</p>
+
+<p>However port udp/5060 is just for signalling. SIP uses RTP to carry out the phone audio. RTP can use any port. The client and server negotiate these ports dynamically. We can however influence this ports election at least for our side. I have configured my asterisk server (<span class="code">/etc/asterisk/rtp.conf</span>) to use ports 10000 to 10100 for RTP, so we can now match RTP as UDP traffic (RTP is matched as UDP) that on our end uses ports 10000-10100. For the <span class="code">input</span> interface we'll use <span class="code">match udp dports 10000:10100</span> since only my asterisk server is using these ports. Similarly for the <span class="code">output</span> interface, we'll use <span class="code">match udp sports 10000:10100</span> (my asterisk box will be transmitting from these ports, so I am matching the source ports of the outgoing packets).</p>
+
+<p>SIP devices are also using the STUN protocol to discover the type of NAT available. STUN is using ports 3478 and 5349 both TCP and UDP. Since these ports are the server ports available on the internet, I'll match source ports on incoming traffic (<span class="code">match sports 3478,5349</span>) and destination ports on outgoing traffic (<span class="code">match dports 3478,5349</span>). I did not specify TCP or UDP, so that any of them will be matched. </p>
+
+<p>For Facetime, I googled around and found that Facetime is using UDP ports in the ranges 3478-3497, 16384-16387, 16393-16402. I will match these ports both as source and destination: <span class="code">match udp ports 3478:3497,16384:16387,16393:16402</span> on both <span class="code">input</span> and <span class="code">output</span>.</p>
+
+<p>For VPNs, I use PPtP and OpenVPN.</p>
+
+<p>PPtP is using port tcp/1723 for signalling. I use PPtP as a client, but I also run an PPtP server. Therefore I'll match either source or destination ports in both directions: <span class="code">match tcp port 1723</span>. Once a PPtP tunnel is established it sends packets over the GRE protocol: <span class="code">match gre</span>. </p>
+
+<p>For OpenVPN I have 4 permanent tunnels on ports 1195 to 1198. From time to time though I use these tunnels over TCP or UDP. So I'll omit the protocol to match any of them. Since I run the OpenVPN server, for <span class="code">input</span> I'll match the destination ports: <span class="code">match dport 1195:1198</span>, while for <span class="code">output</span> I'll match the source ports: <span class="code">match sport 1195:1198</span>.</p>
+
+<%= fhmanual_qosexample("qos-tutorial-08") %>
+
+<h5 id="wiki-classifying-torrents">Classifying torrents</h5>
+
+<p>Torrent clients are supposed to be using ports 6881 to 6999. However, most modern clients are using random high numbered ports. Unfortunately, torrents cannot be matched. The torrent clients exchange traffic at random ports and they use encryption, making it impossible to match them by port or the data exchanged. What can we do then?</p>
+
+<p>So far, we have classified all important traffic to classes and left the torrents go to the default class.</p>
+
+<p>We can leave it like that. However, there will always be some traffic we didn't classify in the classes above. For example, a web server on the internet is using an unusual port number, or we opened a networked game that uses unusual port numbers. This traffic will be competing with torrents. It will be an unfair fight, since a single socket may be competing with dozens or hundreds of torrent sockets.</p>
+
+<p>There are three things we can do to settle this issue:</p>
+
+<ol>
+<li>
+<p>Match as much as possible of torrents, in the torrents class. We will never match all of it. But we should try to match as much as possible.</p>
+
+<p>If you control the torrent clients and your clients have a configuration for setting a fixed port for them, I suggest to take the opportunity and use a predefined port, instead of a random port, for each one. For example, I have mine set to use port 51414. Usually, this setting does not mean the torrent client will always use this port. Most of the time though, it will. If you do set ports for your torrent clients, we can match these ports at the <span class="code">torrents</span> class using <span class="code">match dport 51414</span> on <span class="code">input</span> and <span class="code">match sport 51414</span> on <span class="code">output</span> interfaces. I also add <span class="code">prio 1</span> to these matches, just to make sure that if a smart guy on the net puts his client on a port from 0 to 1023, the rule that matches the fixed torrent port will be executed first.</p>
+
+<p>Another more adventurous trick, is to match packets having source and destination ports above 16384. It is very unlikely that an internet server is listening on a port above 16384. So it is relatively safe to assume that almost all packets with source and destination ports above 16384 are torrent packets. Keep in mind though that this may also match other peer-to-peer traffic taking place in random high numbered ports, like Skype calls.</p>
+</li>
+<li>
+<p>Make sure the torrents class has a lower priority than the <span class="code">default</span> class that is automatically added by FireQOS. By default, the <span class="code">default</span> class has the lowest priority of all other classes.</p>
+
+<p>We will add the <span class="code">default</span> class ourselves, just above torrents.</p>
+</li>
+<li><p>Even if a few torrent sockets end up in the <span class="code">default</span> class, I would like to have all TCP handshake packets of the traffic in the <span class="code">default</span> class, preferred over the packets with data in them. So, the handshake of a new socket going out or coming in, will be preferred over the torrent packets. TCP handshake packets are packets with the SYN option set and small packets with the ACK option set. I'll add a new class <span class="code">synacks</span> just above <span class="code">default</span>.</p></li>
+</ol>
+
+<%= fhmanual_qosexample("qos-tutorial-09") %>
+
+<p>Lets activate it. All traffic should now be classified in classes, but no shaping will occur for any class. We do not expect to disrupt the current traffic. Running this will just allow us to see the traffic we have assigned in every class. Traffic will still be competing with each other, much like it is done without traffic control in place.</p>
+
+<pre class="programoutput">
+# sudo fireqos start
+FireQOS v1.0 DEVELOPMENT
+(C) 2013 Costa Tsaousis, GPL
+
+: interface dsl0 world-in input rate 12000kbit adsl <span class="nb">local </span>pppoe-llc balanced (fireqos-ifb1, MTU 1492, quantum 1492)
+:       class voip (1:11, prio 4)
+:       class interactive (1:12, prio 4)
+:       class facetime (1:13, prio 4)
+:       class vpns (1:14, prio 4)
+:       class surfing (1:15, prio 4)
+:       class synacks (1:16, prio 4)
+:       class default (1:5000, prio 4)
+:       class torrents (1:18, prio 4)
+
+: interface dsl0 world-out output rate 800kbit adsl <span class="nb">local </span>pppoe-llc balanced (dsl0, MTU 1492, quantum 1492)
+:       class voip (1:11, prio 4)
+:       class interactive (1:12, prio 4)
+:       class facetime (1:13, prio 4)
+:       class vpns (1:14, prio 4)
+:       class surfing (1:15, prio 4)
+:       class synacks (1:16, prio 4)
+:       class default (1:5000, prio 4)
+:       class torrents (1:18, prio 4)
+
+
+All Done!. Enjoy...
+bye...
+</pre>
+
+<p>Lets now see the traffic:</p>
+
+<pre class="programoutput">
+# sudo fireqos status world-out
+FireQOS v1.0 DEVELOPMENT
+(C) 2013 Costa Tsaousis, GPL
+
+world-out: dsl0 <span class="var">output</span> =&gt; dsl0, <span class="nb">type</span>: adsl, overhead: 40
+Rate: 800Kbit/s, min: 12Kbit/s
+Values in Kbit/s
+
+ CLASS   voip intera faceti   vpns surfin synack defaul torren
+CLASSI   1:11   1:12   1:13   1:14   1:15   1:16 1:5000   1:18
+PRIORI      4      4      4      4      4      4      4      4
+COMMIT     12     12     12     12     12     12     12     12
+   MAX    800    800    800    800    800    800    800    800
+
+
+   world-out (dsl0 <span class="var">output</span> =&gt; dsl0) - values in Kbit/s
+ TOTAL   voip intera faceti   vpns surfin synack defaul torren
+   806      -      -      -     33     21     25     10    717
+   790      -      -      -     45    358     11      9    366
+   795     28      -      -     29    142      6      8    582 # I started a VoIP call, check voip
+   797     59      -      -     47     50      8     30    601
+   803     54      -      -     41    355      1     11    341 # balancing, check surfing and torrents
+   803     33      -      -     35     68      9    313    345 # balancing, check default and torrents
+   798     23      -      -     44     15     11    357    348
+   783      7      -      -     35      1      8    201    532
+   798      -      3      -     39      -      8     14    735
+   798      -      1      -     37     13      8     18    721
+   787      -      -      -     18     83      1    348    337
+   789      -      -      -     53    246      3    244    243 # balancing, check surfing, default, torrents
+^C
+</pre>
+
+<p>Nice. This was the <span class="code">output</span> interface.
+Lets check the <span class="code">input</span> too:</p>
+
+<pre class="programoutput">
+# sudo fireqos status world-in
+FireQOS v1.0 DEVELOPMENT
+(C) 2013 Costa Tsaousis, GPL
+
+world-in: dsl0 <span class="var">input</span> =&gt; fireqos-ifb1, <span class="nb">type</span>: adsl, overhead: 40
+Rate: 12000Kbit/s, min: 120Kbit/s
+Values in Kbit/s
+
+ CLASS   voip intera faceti   vpns surfin synack defaul torren
+CLASSI   1:11   1:12   1:13   1:14   1:15   1:16 1:5000   1:18
+PRIORI      4      4      4      4      4      4      4      4
+COMMIT    120    120    120    120    120    120    120    120
+   MAX  12000  12000  12000  12000  12000  12000  12000  12000
+
+
+   world-in (dsl0 <span class="var">input</span> =&gt; fireqos-ifb1) - values in Kbit/s
+ TOTAL   voip intera faceti   vpns surfin synack defaul torren
+  2744      -      -      -      4      -     15    208   2517
+  3553      -     14      -      4      2     10     50   3473
+  2921      -      -      -    524      -     18     10   2369 # access to my VPN camera
+  5976      -      -      -    354   3728     17      7   1871
+ 10114      -      -      -    682   7850     18    226   1338
+  4125      -      -      -    237   1769     17    101   2002
+  3727     17      2      -    340      1      4    322   3040 # a voip call again
+  2212     31      -      -    569      1     11     64   1536
+  2899     32      -      -    546     35     20     49   2216
+  2104     33      -      -    329      -     24    245   1473
+  3410      -      2      -    757      -      4     39   2608
+  3643      -      -      -      -      -      1    171   3470
+  4026      -      -      -      -      7      1      4   4014
+^C
+</pre>
+
+<p>Perfect!</p>
+
+<p>So far we have classified all traffic and we have verified this classification works. We haven't done any actual traffic control yet. All classes are balanced with each other and packets are just competing with each other. It is the best we can get for not disrupting the currently running traffic.</p>
+
+<p>It is now time to discuss traffic shaping.</p>
+
+<h4 id="wiki-step-4-traffic-shaping">4. Traffic Shaping</h4>
+
+<p>Traffic shaping is achieved by controlling how bandwidth is allocated to classes.</p>
+
+<p>We can control traffic allocation to classes by tweaking the following:</p>
+
+<ol>
+<li>
+<p>Each class has a <span class="important">committed rate</span>. A committed rate is the bandwidth a class will always get, when it needs it (only when it needs it).</p>
+
+<p>The committed bandwidth of a class that is not currently used by the class it is assigned to, I call it <span class="important">spare bandwidth</span>. It is bandwidth that although it is committed to a class, this class does not currently need it and it is made available to other classes as <span class="important">spare bandwidth</span>.</p>
+
+<p>By default, FireQOS commits 1/100th of the interface rate to each class. You can overwrite this default of all classes, by appending <span class="code">minrate XXXX</span> to the interface.</p>
+
+<p>You commit bandwidth to classes by appending 'commit X' to a class, where <span class="code">X</span> can be a speed definition, similar to the <span class="code">rate</span> of interfaces.</p>
+
+<p>If you overcommit the interface rate, FireQOS will warn you. Do not overcommit the interface bandwidth. If you leave some interface bandwidth uncommitted, it will be available as spare bandwidth.</p>
+</li>
+<li>
+<p>Each class has a <span class="important">maximum or ceiling rate</span>. This ceiling rate defines if the class can exceed its committed rate, and up to which rate. For a class to exceed its committed rate, there needs to be <span class="important">spare bandwidth</span> available. If there is no spare bandwidth available, the class cannot exceed its committed rate.</p>
+
+<p>By default, FireQOS allows all classes to reach the interface speed, utilizing all spare bandwidth available.</p>
+
+<p>You can define a ceiling rate by appending <span class="code">max X</span> to a class, where <span class="code">X</span> is a speed definition.</p>
+</li>
+<li>
+<p>Each class has a <span class="important">priority</span>. The priority gives the importance of the class, compared to the other classes, when to comes to spare bandwidth allocation. Priority has nothing to do with their committed rate. The committed rate of a class will always be given to the class it is assigned to, when it needs it. The priority controls only spare bandwidth allocation. Here is how it works:</p>
+
+<p>i. <span class="important">Two classes with the same priority</span>, that both need all the bandwidth they can get, they will get spare bandwidth proportionally to their committed rate. So if class A has 1Mbit committed rate and class B has 2Mbit committed rate, class B will get twice the spare bandwidth of class A. In all cases all spare bandwidth will be given to them.</p>
+
+<p>ii. <span class="important">The class with highest priority</span> will get all the spare bandwidth there is, of course only when it needs it.</p>
+
+<p>iii. <span class="important">The class with lowest priority</span> will get spare bandwidth only when all other classes (with higher priorities) do not need it.</p>
+
+<p>By default, FireQOS assigns priorities to classes in the order they appear in the configuration file. The most important class with the highest priority is the first. If we add the <span class="code">balanced</span> keyword to the interface (or class groups), then all classes will be given the same priority (<span class="code">prio 4</span>).</p>
+
+<p><span class="code">prio 0</span> is the highest priority (lower number = higher priority). HTB and therefore FireQOS supports only 8 priorities for classes (0 to 7).</p>
+
+<p>You can assign a priority to a class by using <span class="code">prio X</span>, where <span class="code">X</span> is a number between 0 and 7. It can also be the keyword <span class="code">last</span>, or <span class="code">keep</span>, in which case the class will get the same priority as the class just above it.</p>
+</li>
+</ol><hr/>
+<p>To commit traffic to classes, I prefer to think like this:</p>
+
+<p><span class="important">Assume all the classes need all the bandwidth they can get. <span class="important">Every single class needs all the bandwidth the interface can provide.</span> Under this extreme case, how the interface bandwidth should be distributed to classes?</span>*</p>
+
+<p>This is an easier question to answer:</p>
+
+<ol>
+<li><p><span class="code">voip</span>: we just need 100kbit for supporting 3x g.729 concurrent calls.</p></li>
+<li><p><span class="code">synacks</span>, <span class="code">default</span> and <span class="code">torrents</span>: we don't care even if they stop, so 1% each is fine. Remember that <span class="code">synacks</span> matches only the TCP SYNs and ACKs for traffic in the <span class="code">default</span> class. SYNs and ACKs of more important classes have already been matched (matches are executed in the order they appear and since matches for the more important classes has already been done above, the <span class="code">synacks</span> class <span class="code">match</span> statements match only traffic not already matched before).</p></li>
+<li><p><span class="code">interactive</span>, 20% (dns, ssh, icmp).</p></li>
+<li><p><span class="code">facetime</span>, 200kbit.</p></li>
+<li><p><span class="code">vpns</span>, 20%.</p></li>
+<li><p><span class="code">surfing</span>, 30% download, 5% upload.</p></li>
+</ol>
+
+<%= fhmanual_qosexample("qos-tutorial-09b") %>
+
+<p>All the bandwidth I have not committed to classes, will be considered <span class="important">spare bandwidth</span>.</p>
+
+<p>Regarding priorities, we now have 3 options:</p>
+
+<ol>
+<li>
+<p>Leave the classes <span class="code">balanced</span>, with exactly the same priority. This means that if there is spare bandwidth, all the classes will get some of this, proportionally to their committed rate.</p>
+
+<p>This is a good plan. The committed rates I gave will not allow torrents to be a problem and proportionally sharing all spare bandwidth seems logical. Generally I prefer this plan on production servers where all classes have traffic all the time.</p>
+</li>
+<li>
+<p>Remove the <span class="code">balanced</span> keyword, so that the most important class that needs more bandwidth can get all the spare bandwidth available.</p>
+
+<p>This is a bit more aggressive. However, it will provide the feeling to my VPN and ssh sessions, that the link is always idle. It will be a lot more responsive to sudden bursts and spikes on the most important classes.</p>
+
+<p>There is a risk though. If for some reason we get a DoS attack on a more important class, all spare bandwidth will be given to the attacker.</p>
+
+<p>Generally, I prefer this plan for my home. I don't care about monopolizing all spare bandwidth on the task I perform. Actually I like the opposite: all my interactive sessions to be as interactive as possible.</p>
+</li>
+<li>
+<p>Keep priorities <span class="code">balanced</span>, but assign different priorities to certain classes. In our example, we could assign <span class="code">prio 0</span> to <span class="code">voip</span>, <span class="code">prio 1</span> to <span class="code">interactive</span>, <span class="code">prio 5</span> to <span class="code">synacks</span>, <span class="code">prio 6</span> to <span class="code">default</span> and <span class="code">prio 7</span> to <span class="code">torrents</span>. </p>
+
+<p>or, the same can be achieved with this:</p>
+
+<p>Remove <span class="code">balanced</span>, so that all classes get an incremental priority starting from 0, and assign <span class="code">prio 2</span> (the priority of <span class="code">facetime</span>) to <span class="code">vpns</span> and <span class="code">surfing</span>. </p>
+
+<p>Both will have the same effect.</p>
+</li>
+</ol><p>I will go with plan 2, the aggressive one. Here it is:</p>
+
+<%= fhmanual_qosexample("qos-tutorial-10") %>
+
+<p>Apply it:</p>
+
+<pre class="programoutput">
+# sudo fireqos start
+FireQOS v1.0 DEVELOPMENT
+(C) 2013 Costa Tsaousis, GPL
+
+: interface dsl0 world-in input rate 12000kbit adsl <span class="nb">local </span>pppoe-llc (fireqos-ifb1, MTU 1492, quantum 1492)
+:       class voip commit 100kbit (1:11, prio 0)
+:       class interactive commit 20% (1:12, prio 1)
+:       class facetime commit 200kbit (1:13, prio 2)
+:       class vpns commit 20% (1:14, prio 3)
+:       class surfing commit 30% (1:15, prio 4)
+:       class synacks (1:16, prio 5)
+:       class default (1:5000, prio 6)
+:       class torrents (1:18, prio 7)
+
+: interface dsl0 world-out output rate 800kbit adsl <span class="nb">local </span>pppoe-llc (dsl0, MTU 1492, quantum 1492)
+:       class voip commit 100kbit (1:11, prio 0)
+:       class interactive commit 20% (1:12, prio 1)
+:       class facetime commit 200kbit (1:13, prio 2)
+:       class vpns commit 20% (1:14, prio 3)
+:       class surfing commit 5% (1:15, prio 4)
+:       class synacks (1:16, prio 5)
+:       class default (1:5000, prio 6)
+:       class torrents (1:18, prio 7)
+
+
+All Done!. Enjoy...
+bye...
+</pre>
+
+<p>Lets test it with an ADSL speed tester, first the <span class="code">input</span> interface:</p>
+
+<pre class="programoutput">
+# sudo fireqos status world-in
+FireQOS v1.0 DEVELOPMENT
+(C) 2013 Costa Tsaousis, GPL
+
+world-in: dsl0 <span class="var">input</span> =&gt; fireqos-ifb1, <span class="nb">type</span>: adsl, overhead: 40
+Rate: 12000Kbit/s, min: 120Kbit/s
+Values in Kbit/s
+
+ CLASS   voip intera faceti   vpns surfin synack defaul torren
+CLASSI   1:11   1:12   1:13   1:14   1:15   1:16 1:5000   1:18
+PRIORI      0      1      2      3      4      5      6      7
+COMMIT    120   2400    200   2400   3600    120    120    120
+   MAX  12000  12000  12000  12000  12000  12000  12000  12000
+
+
+   world-in (dsl0 <span class="var">input</span> =&gt; fireqos-ifb1) - values in Kbit/s
+ TOTAL   voip intera faceti   vpns surfin synack defaul torren
+  5105      -      -      -      3      3      3    338   4759
+  6111      -      2      -     14      -      5    326   5763
+  6849      -      6      -      6      1      5    216   6615
+  6370      -      8      -      2     11     10    195   6144
+ 10860      -      -      -      5   8270      4    329   2251 # speed test initiated
+ 12135      -      -      -     15   9347      3    353   2418
+ 12069      -      -      -     15  10025      5    164   1860
+ 12102      -      -      -    408  10696      1    323    673
+ 12038      -      -      -    572  11196      4    133    133 # torrents shaped to their committed rate
+ 12079      -      -      -      4  11760      1    155    159
+ 12075      -      -      -      9  11825      3    120    118
+  1814      -      -      -      4    358      9    601    842
+  3750      -      3      -      3      -     13    186   3546 # torrents are recovering
+  4126      -      2      -      8      -      8    197   3911
+  4434     15      3      -      5      -      3    187   4220
+^C
+</pre>
+
+<p>Remember, if you want traffic to be shaped faster in the inbound direction, use 90% or 85% of the incoming bandwidth.</p>
+
+<p>Lets see the <span class="code">output</span>:</p>
+
+<pre class="programoutput">
+# sudo fireqos status world-out
+FireQOS v1.0 DEVELOPMENT
+(C) 2013 Costa Tsaousis, GPL
+
+world-out: dsl0 <span class="var">output</span> =&gt; dsl0, <span class="nb">type</span>: adsl, overhead: 40
+Rate: 800Kbit/s, min: 12Kbit/s
+Values in Kbit/s
+
+ CLASS   voip intera faceti   vpns surfin synack defaul torren
+CLASSI   1:11   1:12   1:13   1:14   1:15   1:16 1:5000   1:18
+PRIORI      0      1      2      3      4      5      6      7
+COMMIT    100    160    200    160     40     12     12     12
+   MAX    800    800    800    800    800    800    800    800
+
+
+   world-out (dsl0 <span class="var">output</span> =&gt; dsl0) - values in Kbit/s
+ TOTAL   voip intera faceti   vpns surfin synack defaul torren
+   791      -      4      -      -     21     24      9    733
+   792      -      3      -      2      1     23     56    708
+   800      -      -      -      1      -     22    128    649
+   773      -      -      -      -      -     28    109    635
+   809      -      -      -      1    656     12     60     79 # upload test started
+   809      -      -      -      3    773      8     15     10
+   813      -      -      -      -    787      5     11     11
+   795      -      -      -      -    746      8     19     22
+   811      -      -      -      -    802      3      5      2
+   817      -      1      -      -    801      2      -     13
+   796      -      1      -      -    773      -     12     10
+   813      -      -      -     16    773      3     11     10
+   803      -      -      -      1    755     11     23     13 # upload test ended
+   803      -      -      -     13      -      3    225    562
+   790      -      -      -     36      -     20     29    706
+   743      -      -      -      2      -     11      6    725
+^C
+</pre>
+
+<p>Excellent! Traffic shaping works as expected.</p>
+
+<h4 id="wiki-final-notes">Final Notes</h4>
+
+<h5 id="wiki-traffic-control-on-very-busy-servers">Traffic Control on Very Busy Servers</h5>
+
+<p>If your kernel does not support <span class="code">fq_codel</span> or <span class="code">codel</span>, on very busy servers with thousands of concurrent clients, you may see small and random packet drops on the busiest classes, even when there is plenty of bandwidth available. This happens because an <span class="code">sfq</span> qdisc (one <span class="code">sfq</span> qdisc is added to every class, by default) has a very small queue size. If this queue becomes full (for example due to a burst), the class around the full qdisc has no place to deliver the packet, and therefore it drops it. This issue does not exist if your kernel has <span class="code">fq_codel</span> or <span class="code">codel</span> available. FireQOS will use these instead of <span class="code">sfq</span>.</p>
+
+<p>If you don't have <span class="code">fq_codel</span> or <span class="code">codel</span> available, you can overcome the problem by replacing the <span class="code">sfq</span> qdisc with <span class="code">pfifo</span>. <span class="code">pfifo</span> uses a queue size that is equal to the queue size of the underlying interface, so packet loss should only occur when the interface in also congested.</p>
+
+<p>To replace <span class="code">sfq</span> with <span class="code">pfifo</span> just append <span class="code">qdisc pfifo</span> to any class or the interface. If you append it to an interface, then all classes within this interface will get <span class="code">pfifo</span> by default.</p>
+
+<hr/>
+<p>To have finer control over traffic control, FireQOS specifies by default a <span class="code">quantum</span> of size equal the MTU of the interface. It also leaves <span class="code">burst</span> and <span class="code">cburst</span> to their kernel default values, which also assigns to them values very close to MTU.</p>
+
+<p>Although I have not experienced any issues with these settings, even on a few very busy servers, I have seen notes on various places that htb's full speed depends on these values, in relation to the clock of the machine it is running, which also affects the cpu load of the machine.</p>
+
+<p>As a precaution, on very busy servers I add <span class="code">quantum 150000 burst 150000 cburst 150000</span> at the interface with huge amounts of traffic. These values allow HTB to move traffic in chunks of 100 x MTU, thus allowing to perform faster, while of course loosing some traffic control detail in the process.</p>
+
+<hr/>
+<p>It is also advised that for traffic control to work on very busy servers, you should disable CPU offloading of the Ethernet network card, by running: <span class="code">ethtool -K ethX tso off gso off gro off</span> (where ethX your Ethernet device). It is said, that without disabling CPU offloading, traffic control may be inaccurate.</p>
+
+<p>This document explains everything in detail: <a href="http://www.novell.com/support/kb/doc.php?id=7002555">http://www.novell.com/support/kb/doc.php?id=7002555</a></p>
+
+<hr/>
 
 <h3 id="v1">FireHOL v1.x Tutorial</h3>
 <p>
@@ -644,17 +1410,17 @@ time to start writing the FireHOL configuration file. First write one
 interface statement for each network interface you identified above:
 </p>
 
-<%= fhmanual_example("tutorial-01") %>
+<%= fhmanual_fwexample("tutorial-01") %>
 
 <p> Now, we can add the servers for each interface (based on the table
 above). Remember that these servers are all running on the firewall host:</p>
 
-<%= fhmanual_example("tutorial-02") %>
+<%= fhmanual_fwexample("tutorial-02") %>
 
 <p> Now, we can add the clients for each interface. Remember that these
 clients are all running on the firewall host: </p>
 
-<%= fhmanual_example("tutorial-03") %>
+<%= fhmanual_fwexample("tutorial-03") %>
 
 <p>
 At this point, everyone should be able to inter-operate correctly
@@ -673,7 +1439,7 @@ two interfaces we will have to define two routers. If we have 3
 interfaces, we will have to define 6 routers, and so on.
 </p>
 
-<%= fhmanual_example("tutorial-04") %>
+<%= fhmanual_fwexample("tutorial-04") %>
 
 <p>
 Remember that <%= fh_manref('rule-params', 'inface') %>
@@ -694,7 +1460,7 @@ and going out to <span class="interface">ppp+</span>, and not route any
 request coming from the Internet and going out to the home LAN. Here it is:
 </p>
 
-<%= fhmanual_example("tutorial-05") %>
+<%= fhmanual_fwexample("tutorial-05") %>
 
 <p>
 This is it. We are done! (for the filtering part of the firewall.
@@ -705,7 +1471,7 @@ Look below for setting up NAT too.)
 
 <p>To save typing time, you can use this: </p>
 
-<%= fhmanual_example("tutorial-06") %>
+<%= fhmanual_fwexample("tutorial-06") %>
 
 <p>Note that we can remove any <%= fh_manref('def-router','router') %>
 statements not having any rules in them, so the
@@ -716,7 +1482,7 @@ To find the IPs of your network interfaces use
 <span class="command">ip addr show</span> and to find the IP networks
 behind each interface use <span class="command">ip route show</span>.
 
-<%= fhmanual_example("tutorial-07") %>
+<%= fhmanual_fwexample("tutorial-07") %>
 
 <p><%= fh_manref('variables-available','UNROUTABLE_IPS') %> is a variable
 defined by FireHOL and contains all the IPs that should not be routed
@@ -725,7 +1491,7 @@ on the internet.</p>
 <p>If home LAN did not have real IP addresses, we would have to add
 a masquerade command in our router:</p>
 
-<%= fhmanual_example("tutorial-08") %>
+<%= fhmanual_fwexample("tutorial-08") %>
 
 <p>The <%= fh_manref('helpcmd-masquerade','masquerade') %> command sets
 itself up on the <%= fh_manref('rule-params','outface') %> of a
@@ -734,28 +1500,28 @@ itself up on the <%= fh_manref('rule-params','outface') %> of a
 <p> We can now protect our ppp interface even further. For this we use
 the <%= fh_manref('cmd-protection','protection') %> command:</p>
 
-<%= fhmanual_example("tutorial-09") %>
+<%= fhmanual_fwexample("tutorial-09") %>
 
 <p>It could be nice if instead of dropping wrong packets originated from
 the Ethernet, to reject them so that our workstations will not have to
 timeout if we do something that is not allowed. To do this we use
 the <%= fh_manref('cmd-policy','policy') %> command:</p>
 
-<%= fhmanual_example("tutorial-10") %>
+<%= fhmanual_fwexample("tutorial-10") %>
 
 <p>Some servers on the Internet try to <span class="important">ident</span>
 back the client to find information about the user requesting the
 service. With our current firewall, such servers will have to timeout
 before accepting our request. To speed thinks up we could write:</p>
 
-<%= fhmanual_example("tutorial-11") %>
+<%= fhmanual_fwexample("tutorial-11") %>
 
 <p>Note that we now have added the router we eliminated above, since we
 need to add a service to it.</p>
 
 <p>The whole routing schema could be rewritten as:</p>
 
-<%= fhmanual_example("tutorial-12") %>
+<%= fhmanual_fwexample("tutorial-12") %>
 
 <p>Now we have elicited the first router, but we defined everything
 in the second. We have used the <span class="option">reverse</span>
@@ -767,4 +1533,4 @@ but then the <%= fh_manref('cmd-client','client') %> and
 <%= fh_manref('cmd-server','server') %> commands would need be
 reversed (server all, client ident) which would be confusing.</p>
 
-<p>End of v1 tutorial.</p>
+<hr/>
