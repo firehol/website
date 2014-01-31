@@ -1,7 +1,9 @@
 m=firehol-manual.html
-mp=/home/web/firehol/download/unsigned/master/$(m)
 s=firehol-services.html
-sp=/home/web/firehol/download/unsigned/master/$(s)
+
+ifndef site
+site=www
+endif
 
 all: site
 
@@ -11,11 +13,11 @@ site: tmp/$(m) tmp/$(s)
 
 tmp/$(m):
 	mkdir -p tmp
-	test -f $(mp) && cp $(mp) tmp/. || wget -q -O tmp/$(m) http://firehol.org/$(m)
+	wget -q -O tmp/$(m) http://$(site).firehol.org/$(m)
 
 tmp/$(s):
 	mkdir -p tmp
-	test -f $(sp) && cp $(sp) tmp/. || wget -q -O tmp/$(s) http://firehol.org/$(s)
+	wget -q -O tmp/$(s) http://$(site).firehol.org/$(s)
 
 fakeman: site
 	cp -rp ../firehol/doc/*.html output
