@@ -142,7 +142,7 @@ module FireholManualHelper
     errors = nil
     open(uri, "rb") do |infile|
       infile.each_line do |line|
-        if m = line.match(/<a href=".*#service-(.*)">(.*)</)
+        if m = line.match(/<a href=".*#(service-.*)">(.*)</)
           current_html_anchor = m[1]
           link = fhmanual_ref(current_html_anchor, m[2])
           if ids_seen[m[1]] != nil and ids_seen[m[1]] != current_html_anchor
@@ -198,6 +198,7 @@ module FireholManualHelper
       line.gsub!(/<spanclass/, "<span class")
       line
     end
+    GC.start
     lines.join("\n")
   end
 
