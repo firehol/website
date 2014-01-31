@@ -1410,17 +1410,17 @@ time to start writing the FireHOL configuration file. First write one
 interface statement for each network interface you identified above:
 </p>
 
-<%= fhmanual_fwexample("tutorial-01") %>
+<%= fhmanual_fwexample("tutorial-v1-01") %>
 
 <p> Now, we can add the servers for each interface (based on the table
 above). Remember that these servers are all running on the firewall host:</p>
 
-<%= fhmanual_fwexample("tutorial-02") %>
+<%= fhmanual_fwexample("tutorial-v1-02") %>
 
 <p> Now, we can add the clients for each interface. Remember that these
 clients are all running on the firewall host: </p>
 
-<%= fhmanual_fwexample("tutorial-03") %>
+<%= fhmanual_fwexample("tutorial-v1-03") %>
 
 <p>
 At this point, everyone should be able to inter-operate correctly
@@ -1439,7 +1439,7 @@ two interfaces we will have to define two routers. If we have 3
 interfaces, we will have to define 6 routers, and so on.
 </p>
 
-<%= fhmanual_fwexample("tutorial-04") %>
+<%= fhmanual_fwexample("tutorial-v1-04") %>
 
 <p>
 Remember that <%= fh_manref('rule-params', 'inface') %>
@@ -1460,7 +1460,7 @@ and going out to <span class="interface">ppp+</span>, and not route any
 request coming from the Internet and going out to the home LAN. Here it is:
 </p>
 
-<%= fhmanual_fwexample("tutorial-05") %>
+<%= fhmanual_fwexample("tutorial-v1-05") %>
 
 <p>
 This is it. We are done! (for the filtering part of the firewall.
@@ -1471,7 +1471,7 @@ Look below for setting up NAT too.)
 
 <p>To save typing time, you can use this: </p>
 
-<%= fhmanual_fwexample("tutorial-06") %>
+<%= fhmanual_fwexample("tutorial-v1-06") %>
 
 <p>Note that we can remove any <%= fh_manref('def-router','router') %>
 statements not having any rules in them, so the
@@ -1482,7 +1482,7 @@ To find the IPs of your network interfaces use
 <span class="command">ip addr show</span> and to find the IP networks
 behind each interface use <span class="command">ip route show</span>.
 
-<%= fhmanual_fwexample("tutorial-07") %>
+<%= fhmanual_fwexample("tutorial-v1-07") %>
 
 <p><%= fh_manref('variables-available','UNROUTABLE_IPS') %> is a variable
 defined by FireHOL and contains all the IPs that should not be routed
@@ -1491,7 +1491,7 @@ on the internet.</p>
 <p>If home LAN did not have real IP addresses, we would have to add
 a masquerade command in our router:</p>
 
-<%= fhmanual_fwexample("tutorial-08") %>
+<%= fhmanual_fwexample("tutorial-v1-08") %>
 
 <p>The <%= fh_manref('helpcmd-masquerade','masquerade') %> command sets
 itself up on the <%= fh_manref('rule-params','outface') %> of a
@@ -1500,28 +1500,28 @@ itself up on the <%= fh_manref('rule-params','outface') %> of a
 <p> We can now protect our ppp interface even further. For this we use
 the <%= fh_manref('cmd-protection','protection') %> command:</p>
 
-<%= fhmanual_fwexample("tutorial-09") %>
+<%= fhmanual_fwexample("tutorial-v1-09") %>
 
 <p>It could be nice if instead of dropping wrong packets originated from
 the Ethernet, to reject them so that our workstations will not have to
 timeout if we do something that is not allowed. To do this we use
 the <%= fh_manref('cmd-policy','policy') %> command:</p>
 
-<%= fhmanual_fwexample("tutorial-10") %>
+<%= fhmanual_fwexample("tutorial-v1-10") %>
 
 <p>Some servers on the Internet try to <span class="important">ident</span>
 back the client to find information about the user requesting the
 service. With our current firewall, such servers will have to timeout
 before accepting our request. To speed thinks up we could write:</p>
 
-<%= fhmanual_fwexample("tutorial-11") %>
+<%= fhmanual_fwexample("tutorial-v1-11") %>
 
 <p>Note that we now have added the router we eliminated above, since we
 need to add a service to it.</p>
 
 <p>The whole routing schema could be rewritten as:</p>
 
-<%= fhmanual_fwexample("tutorial-12") %>
+<%= fhmanual_fwexample("tutorial-v1-12") %>
 
 <p>Now we have elicited the first router, but we defined everything
 in the second. We have used the <span class="option">reverse</span>
