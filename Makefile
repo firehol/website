@@ -1,13 +1,14 @@
+ifndef site
+$(error Please specify site=test or site=www)
+endif
+
+c=firehol-manual.css
 m=firehol-manual.html
 s=firehol-services.html
 
-ifndef site
-site=www
-endif
+all: website
 
-all: site
-
-site: tmp/$(m) tmp/$(s)
+website: tmp/$(m) tmp/$(s) tmp/$(c)
 	mkdir -p output
 	nanoc compile
 
@@ -19,11 +20,18 @@ tmp/$(s):
 	mkdir -p tmp
 	wget -q -O tmp/$(s) http://$(site).firehol.org/$(s)
 
-fakeman: site
-	cp -rp ../firehol/doc/*.html output
-	cp -rp ../firehol/doc/*.css output
-	rm -rf output/firehol-manual
-	cp -rp ../firehol/doc/html output/firehol-manual
+tmp/$(c):
+	mkdir -p tmp
+	wget -q -O tmp/$(c) http://$(site).firehol.org/$(c)
+
+tmp/$(site).firehol.org/firehol-manual/:
+	(cd tmp; wget -q -r --no-parent http://$(site).firehol.org/firehol-manual/)
+
+fakeman: website tmp/$(site).firehol.org/firehol-manual/
+	cp -rp tmp/$(c) output/
+	cp -rp tmp/$(m) output/
+	cp -rp tmp/$(s) output/
+	cp -rp tmp/$(site).firehol.org/firehol-manual/ output/
 
 clean:
 	rm -rf output crash.log

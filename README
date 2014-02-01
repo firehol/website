@@ -2,22 +2,108 @@
                                ***************
 
 This tree contains the sources for the FireHOL website:
-  http://firehol.org
+    http://firehol.org
 
-The website is built using nanoc, the install instructions for which are
-here:
-  http://nanoc.ws/install/
+The website is built using nanoc, which if you have ruby can be installed
+as follows:
+    sudo gem install nanoc
 
-If you want to be able to run:
+To be able to preview the site with a mini web-server, also install adsf:
+    sudo gem install adsf
+
+More comprehensive install instructions for nanoc are here:
+    http://nanoc.ws/install/
+
+
+Building the site locally
+=========================
+To specify the test site (for processing against the test manuals):
+  make site=test
+
+To additionally copy in the manual for access via nanoc view, run:
+  make site=test fakeman
+
+For the live site, just use this instead:
+  make site=www
+
+
+Viewing the site locally
+========================
+To view via a mini web server, run:
   nanoc view
-to preview the site at:
-  http://localhost:3000/
-you must also install the adsf gem:
-  sudo gem install adsf
 
+which makes the site available at:
+  http://localhost:3000/
+
+Or, just point your browser to output/index.html once the site has
+been built.
+
+
+Adding a page
+=============
+To create a page:
+    http://site/mypage
+
+Create a file content/mypage.html, with the top as follows:
+
+    ---
+    title: My New Page
+    submenu: mymenu
+    ---
+    <h1>My New Page</h1>
+
+The <h1>Whatever</h1> is just the start of normal HTML. This will be
+emitted, wrapped in the template (at the line <%= yield %>):
+        layouts/default.html
+
+Adding the item to the site menu is just a matter of including a list
+item with a link in layouts/default.html in the sidebar div.
+
+Items between the --- are variables that get subsittued into the template
+at points labelled <%= item[:variablename] %>
+
+For example:
+       title -  HTML page title (as displayed at the top of a browser window)
+     submenu -  if your page is in the site menu, add the appropriate submenu
+                name so it is automatically expanded, otherwise omit it
+ description -  HTML meta description (a default is used if none is given)
+    keywords -  HTML meta keywords (a default list is used if none is given)
+
+When adding content, yout may want to pay particular attention to marking
+up items with the existing classes used in content/semantic.css e.g.:
+  <span class="filename">/var/log/messages</span>
+
+
+Adding an example
+=================
+Examples can be added under content/examples/ and should start:
+    ---
+    name: some-name
+    kind: example
+    ---
+
+The kind must identify the file as an example. The name should not contain
+spaces and is used to refer to the example in other pages.
+
+To include and automatically format an example in another page, either
+add it as a firewall example:
+  <%= fhmanual_fwexample("some-name") %>
+
+or as a qos example:
+  <%= fhmanual_qosexample("some-name") %>
+
+Keywords will be automatically detected and turned into links for the
+FireHOL or FireQOS accordingly.
+
+Use <span class="newcode">...</span> to wrap lines in an example that
+should be highlighted within this particular example, e.g. they are
+additions compared to a prior example.
+
+
+Deployment
+==========
 For deployment under nginx, see the configuration files in the
 firehol-infrastructure repository.
 
-When adding content, pay particular attention to marking up items
-with the classes used in content/semantic.css e.g.:
-  <span class="filename">/var/log/messages</span>
+If you have commit access to the official repositories, your changes
+will be published automatically once they are pushed.
