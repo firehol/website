@@ -3,57 +3,19 @@ title: Tutorial
 submenu: documentation
 ---
 
-<h2>QuickStart</h2>
-
-<p>
-First install the software, either from
-your <a href="/packages/">distribution</a>,
-from a <a href="/installing/">tar-file</a>
-or from the <a href="/source-install/">git repository</a>.
-</p>
-
-<p>
-First install the software, either from
-your <a href="/packages/">distribution</a>,
-from a <a href="/installing/">tar-file</a>
-or from the <a href="/source-install/">git repository</a>.
-</p>
-
-<p>
-To have FireHOL guess the configuration for your machine, simply run:
-</p>
-<pre class="programlisting">
-firehol helpme &gt; /tmp/firehol.conf
-</pre>
-<p>
-The purpose of the <span class="option">helpme</span> feature is to give
-you a configuration file that you can modify to get an operational firewall
-quickly, especially if your firewalling and iptables knowledge is limited.
-This feature does not stop or alter the running firewall of your machine.
-</p>
-
-<p>
-FireQOS does not have any mechanism to automatically detect and classify
-your traffic.
-</p>
-
-<p>
-<a href="#qos-newuser">This FireQOS tutorial</a> is a step by step guide
-for setting up traffic control on a system. The steps followed will
-allow you to apply QoS without disrupting your current service or traffic
-or set up traffic monitoring without traffic shaping.
-</p>
-
 <h2>Full Tutorials</h2>
 <p>
-All of the tutorials assume you have the necessary rights to edit
-the default FireHOL and FireQOS configuration files,
+All of the tutorials assume you have
+<a href="/packages/">installed the software</a> and
+have the necessary rights to edit the default FireHOL and FireQOS
+configuration files,
 <span class="filename">/etc/firehol/firehol.conf</span> and
 <span class="filename">/etc/firehol/fireqos.conf</span>.
 </p>
 
 <ul>
   <li><a href="#v2-basic">FireHOL v2.x Basic Tutorial</a></li>
+  <li><a href="#fw-by-goal">FireHOL Configuration by Goal</a></li>
   <li><a href="#v2-border">FireHOL v2.x Border Router Tutorial</a></li>
   <li><a href="#qos-newuser">FireQOS New User Tutorial</a></li>
   <li><a href="#v1">FireHOL v1.x Tutorial</a></li>
@@ -372,6 +334,110 @@ it set up in <%= fh_manref('rule-params', 'inface') %> this time.</p>
 but then the <%= fh_manref('cmd-client','client') %> and
 <%= fh_manref('cmd-server','server') %> commands would need be
 reversed (server all, client ident) which would be confusing.</p>
+
+<hr/>
+
+<h3 id="fw-by-goal">FireHOL Configuration By Goal</h3>
+
+<p>This table shows how the goals you need to achieve can be easily
+translated into FireHOL rules:
+</p>
+
+<table style="width: 150%;">
+  <tbody>
+    <tr>
+      <th>Thoughts...</th>
+      <th>In FireHOL</th>
+    </tr>
+
+    <tr class="odd">
+      <td>I have a Linux host with two network interfaces.
+        <ul>
+          <li>
+            The first is <span class="interface">eth0</span> that connects
+            to my <span class="important">LAN</span>
+          </li>
+
+          <li>
+            The other is a <span class="interface">PPP</span> device that
+            connects to the <span class="important">internet</span>
+          </li>
+        </ul>
+      </td>
+      <td><%= fhmanual_fwexample('overview-thoughts-01') %></td>
+    </tr>
+
+    <tr class="even">
+      <td>To the <span class="important">internet</span> my Linux provides:
+        <ul>
+          <li>a MAIL server</li>
+          <li>a WEB server</li>
+          <li>a FTP server</li>
+          <li>a SSH server, but only for my office computer</li>
+        </ul>
+      </td>
+      <td><%= fhmanual_fwexample('overview-thoughts-02') %></td>
+    </tr>
+
+    <tr class="odd">
+      <td>My Linux is also a workstation, I want to run any client I wish.
+      </td>
+      <td><%= fhmanual_fwexample('overview-thoughts-03') %></td>
+    </tr>
+
+    <tr class="even">
+      <td>My <span class="important">LAN</span> is trusted.
+          <br/>
+          If a server is running on my Linux I want my LAN PCs to use it.
+      </td>
+      <td><%= fhmanual_fwexample('overview-thoughts-04') %></td>
+    </tr>
+
+    <tr class="odd">
+      <td>I would like my <span class="important">LAN</span> PCs to use
+          this Linux as a gateway for connecting, as clients, to the
+          <span class="important">internet</span> for all the services
+          they wish.
+      </td>
+      <td><%= fhmanual_fwexample('overview-thoughts-05') %></td>
+    </tr>
+
+    <tr class="even">
+      <td>My LAN PCs have private IPs, unroutable to the Internet. 
+          <br/>
+          I need to masquerade somehow their IP addresses for internet access. 
+      </td>
+      <td><%= fhmanual_fwexample('overview-thoughts-06') %></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>
+<span class="important">This is it!</span> The firewall is ready.
+Only the <span class="important">request</span> needs to be specified,
+FireHOL handles the replies automatically and produces the iptables
+statements to exactly match what is allowed
+<span class="important">in both directions</span> and nothing more.
+</p>
+
+<p>
+If for example we remove the <span class="option">client all accept</span>
+from the <span class="important">internet</span> interface, our Linux
+will not be able to do anything with its PPP device except to send
+replies matching the <span class="important">server</span> statements
+within this interface; no pings, no DNS, no web browsing, no nothing!
+</p>
+
+<p>
+The complete configuration file (a little bit enriched) of the above
+example could be:
+</p>
+
+<%= fhmanual_fwexample('overview-02') %>
+
+<p>FireHOL is completely <span class="important">dynamic</span>, since
+with its language you can describe any firewall configuration you wish
+using simple commands.</p>
 
 <hr/>
 
