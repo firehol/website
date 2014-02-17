@@ -33,6 +33,14 @@ fakeman: website tmp/$(site).firehol.org/firehol-manual/
 	cp -rp tmp/$(m) output/
 	cp -rp tmp/$(s) output/
 	cp -rp tmp/$(site).firehol.org/firehol-manual/ output/
+	mkdir -p output/download/latest
+	mkdir -p output/download/releases
+	mkdir -p output/download/unsigned/master
+	touch output/download/index.html
+	touch output/download/latest/index.html
+	touch output/download/releases/index.html
+	touch output/download/unsigned/index.html
+	touch output/download/unsigned/master/index.html
 
 clean:
 	rm -rf output crash.log
