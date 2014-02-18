@@ -8,6 +8,7 @@ submenu: downloads
 <p>You can download tar-file releases from the links in the menu or
 by visiting the
 <a target="_blank" href="/download/">download area</a>.</p>
+
 <p>Unpack and change directory with:</p>
 <pre class="programlisting">
 tar xfz firehol-<em>version</em>.tar.gz
@@ -36,3 +37,28 @@ makes it easy to deploy the scripts as startup services.</p>
 <a href="/packages/">packages are available for most
 distributions</a> but they will not always offer the
 latest version.</p>
+
+<p>If you would like to check the
+<a href="http://gnupg.org/gph/en/manual/x135.html">detached gpg signatures</a>
+in the <span class="filename">.asc</span> files, they should have been created
+with key ID D829797E or A8942A3D e.g.:<p>
+
+<pre class="programoutput">
+$ gpg --verify firehol-2.0.0.tar.bz2.asc firehol-2.0.0.tar.bz2
+gpg: Signature made Sat 15 Feb 2014 12:19:56 GMT using RSA key ID D829797E
+gpg: Can't check signature: public key not found
+
+$ gpg --recv-keys D829797E
+gpg: requesting key D829797E from hkp server keys.gnupg.net
+gpg: /home/tmpu/.gnupg/trustdb.gpg: trustdb created
+gpg: key D829797E: public key "Phil Whineray &lt;phil@sanewall.org&gt;" imported
+gpg: Total number processed: 1
+gpg:               imported: 1  (RSA: 1)
+
+$ gpg --verify firehol-2.0.0.tar.bz2.asc firehol-2.0.0.tar.bz2
+gpg: Signature made Sat 15 Feb 2014 12:19:56 GMT using RSA key ID D829797E
+gpg: Good signature from "Phil Whineray &lt;phil@sanewall.org&gt;"
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: 9CCE 9A8D 5328 FBD6 CE29  6DCC 63DF 1E44 D829 797E
+</pre>
