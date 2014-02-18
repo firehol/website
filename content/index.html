@@ -24,9 +24,13 @@ submenu: none
 </p>
 
 <p>We think the best advert for these programs are their configurations.
-See below for <a href="/#firehol">a FireHOL example and more information</a>
-and also for <a href="/#fireqos">a FireQOS example and more information</a>.
+See below for:
 </p>
+
+<ul>
+  <li><a href="/#firehol">a FireHOL example and more information</a></li>
+  <li><a href="/#fireqos">a FireQOS example and more information</a></li>
+</ul>
 
 <p>The two programs are shipped together but work independently so you
    can choose to use one or both.</p>
@@ -222,6 +226,35 @@ FireHOL supports the following services:</p>
 
 <p>Jump straight to the <a href="/tutorial/">tutorials</a> to learn how
 to configure your own.</p>
+
+<p>FireQOS also allows you to monitor the live status of traffic:</p>
+
+<pre class="programoutput">
+# ./sbin/fireqos.in status adsl-in
+FireQOS v1.0 DEVELOPMENT
+(C) 2013 Costa Tsaousis, GPL
+
+
+adsl-in: eth0 input =&gt; ifb0, type: adsl, overhead: 26
+Rate: 10500Kbit/s, min: 105Kbit/s, R2Q: 8 (min rate 105Kbit/s)
+Values in Kbit/s
+
+  CLASS    voip realtim clients torrent default
+PRIORIT       1       2       3       5       4
+ COMMIT     105    1050    1050     105     105
+    MAX   10500   10500   10500    9450    9450
+
+
+   adsl-in (eth0 input =&gt; ifb0) - values in Kbit/s
+  TOTAL    voip realtim clients torrent default
+     46       -       7       -      39       -
+     50       -       5       -      42       3
+     80       -       9       -      60      11
+     75       -       6       -      65       4
+    103      19       3       -      79       2
+     56       -       3       -      50       3
+     84       -       5       -      70       9
+</pre>
 
 <ul>
   <li>
