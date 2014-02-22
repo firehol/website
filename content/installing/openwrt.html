@@ -192,6 +192,10 @@ scp openwrt-fireqos.conf root@router:/etc/firehol/fireqos.conf
 START=46
 
 start() {
+  if [ -x /sbin/insmod -a ! -x /sbin/modprobe ]
+  then
+    echo "/sbin/insmod" &gt; /proc/sys/kernel/modprobe
+  fi
   /sbin/fireqos start
 }
 
@@ -207,6 +211,38 @@ stop() {
   /sbin/fireqos stop
 }
 </pre>
+
+<p>OpenWRT lacks the <span class="command">modprobe</span> command.
+FireQOS is able to deal with this by using <span class="command">insmod</span>
+instead. The <span class="command">tc</span> command that FireQOS uses
+communicates with the kernel using RTNETLINK, which by default tries to
+autoload modules with modprobe. If it is not able to do so, you will
+get cryptic errors such as:
+</p>
+
+<pre class="programoutput">
+RTNETLINK answers: No such file or directory
+
+ERROR:
+tc failed with error 2, while executing the command:
+/usr/sbin/tc qdisc add dev pppoe-wan-ifb root handle 1: stab linklayer adsl
+overhead 40 htb default 5000 r2q 8
+
+FAILED TO ACTIVATE TRAFFIC CONTROL.
+</pre>
+
+<p>If you see such an error, the first thing to do is check if you
+have <span class="filename">/sbin/modprobe</span>, and if not to
+tell the kernel to use <span class="command">insmod</span> to autoload
+modules:</p>
+
+<pre class="programoutput">
+echo "/sbin/insmod" &gt; /proc/sys/kernel/modprobe
+</pre>
+
+<p>This is done for you if you run via the init script above. For
+some more information,
+see <a href="http://www.tldp.org/HOWTO/Module-HOWTO/x197.html">here</a>.</p>
 
 <p>This is roughly my config (public is my open wifi for anyone, but my
 ISP is very expensive, so I limit it heavily):</p>
