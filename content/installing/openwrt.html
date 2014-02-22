@@ -214,10 +214,12 @@ stop() {
 
 <p>OpenWRT lacks the <span class="command">modprobe</span> command.
 FireQOS is able to deal with this by using <span class="command">insmod</span>
-instead. The <span class="command">tc</span> command that FireQOS uses
-communicates with the kernel using RTNETLINK, which by default tries to
-autoload modules with modprobe. If it is not able to do so, you will
-get cryptic errors such as:
+instead.</p>
+
+<p>The <span class="command">tc</span> command that FireQOS uses to setup
+traffic control communicates with the kernel using RTNETLINK. The kernel then
+tries to autoload more modules. By default it tries to for this with modprobe.
+If it is not able to do so, you will get cryptic errors such as:
 </p>
 
 <pre class="programoutput">
@@ -232,7 +234,7 @@ FAILED TO ACTIVATE TRAFFIC CONTROL.
 </pre>
 
 <p>If you see such an error, the first thing to do is check if you
-have <span class="filename">/sbin/modprobe</span>, and if not to
+have <span class="filename">/sbin/modprobe</span>, and if you do not, to
 tell the kernel to use <span class="command">insmod</span> to autoload
 modules:</p>
 
@@ -241,11 +243,11 @@ echo "/sbin/insmod" &gt; /proc/sys/kernel/modprobe
 </pre>
 
 <p>This is done for you if you run via the init script above. For
-some more information,
+some more information on kernel module loading,
 see <a href="http://www.tldp.org/HOWTO/Module-HOWTO/x197.html">here</a>.</p>
 
 <p>This is roughly my config (public is my open wifi for anyone, but my
-ISP is very expensive, so I limit it heavily):</p>
+data limits are quire low, so I limit it heavily):</p>
 
 <%= fhmanual_qosexample('openwrt-qos-01') %>
 
