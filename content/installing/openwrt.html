@@ -1,0 +1,251 @@
+---
+title: OpenWRT installation
+submenu: downloads
+---
+
+<h1>Installation on OpenWRT</h1>
+
+<p>You can install and run FireHOL and FireQOS on
+<a href="https://openwrt.org/">OpenWRT</a>. These instructions
+are for Attitude Adjustment (12.09) which FireQOS requires.
+FireHOL will also run on Backfire (10.03) but you will need to adapt
+the instructions slightly.</p>
+
+<p>The biggest problem you will encounter is the need for BASH, which
+is quite a large binary so needs a device with a reasonable amount
+of storage.</p>
+
+<p>I have been running FireHOL on an unmodified v1.5
+<a href="http://wiki.openwrt.org/toh/tp-link/tl-wr1043nd">TP-Link
+TL-WR1043ND</a> without trouble for a couple of years. This device has
+32MB RAM and 8MB flash.</p>
+
+<h3>FireHOL</h3>
+
+<p>On the router:</p>
+<pre class="programlisting">
+mkdir -p /etc/firehol/services
+opkg install bash
+opkg install coreutils-fold
+opkg install flock
+opkg install iptables-mod-conntrack-extra
+opkg install kmod-ipt-nathelper-extra
+</pre>
+
+<p>OpenWRT is too lightweight to be worth running the configure script,
+so from my host I just copied up the files:</p>
+<pre class="programlisting">
+scp sbin/firehol.in root@router:/sbin/firehol
+scp openwrt-firehol.init root@router:/etc/init.d/firehol
+scp openwrt-firehol.conf root@router:/etc/firehol/firehol.conf
+</pre>
+
+<p>The init script is this:</p>
+<pre class="programlisting">
+#!/bin/sh /etc/rc.common
+
+# The OpenWRT system uses this to determine start order for links to
+# create in /etc/rc.d when you run e.g. /etc/init.d/firehol enable
+START=45
+
+# To create some saved files for early loading, run:
+#   export FIREHOL_AUTOSAVE=/etc/firehol/saved.iptables
+#   export FIREHOL_AUTOSAVE6=/etc/firehol/saved.ip6tables
+#   /sbin/firehol save
+
+start() {
+  # We rely on the lockfile being on ephemeral storage; it is always gone
+  # after a reboot and always present after a first run of firehol
+  lock=/tmp/run/firehol.lck
+  saved=/etc/firehol/saved
+  if [ -x /usr/sbin/iptables-restore -a -f $saved.iptables -a ! -f $lock ]
+  then
+    echo "First, restoring saved $saved.iptables"
+    /usr/sbin/iptables-restore $saved.iptables
+  fi
+  if [ -x /usr/sbin/ip6tables-restore -a -f $saved.ip6tables -a ! -f $lock ]
+  then
+    echo "First, restoring saved $saved.ip6tables"                          
+    /usr/sbin/ip6tables-restore $saved.ip6tables                            
+  fi                                                                        
+  /sbin/firehol start                                                       
+}                                                                           
+                                                                            
+restart() {                                                                 
+  /sbin/firehol start                                                       
+}                                                                           
+                                                                            
+reload() {                                                                  
+  /sbin/firehol start                                                       
+}                                                 
+</pre>
+
+<p>Your configuration depends on your router setup. Be careful not
+to firewall yourself out or you will find yourself using
+<a href="http://wiki.openwrt.org/doc/howto/generic.failsafe">OpenWRT
+failsafe mode</a>. This is roughly my config:</p>
+
+<%= fhmanual_fwexample('openwrt-01') %>
+
+<p>Running <span class="command">/sbin/firehol start</span> for the first
+time:</p>
+
+<pre class="programoutput">
+ 
+ IMPORTANT WARNING:
+ ------------------
+ FireHOL cannot find your current kernel configuration.
+ Please, either compile your kernel with /proc/config,
+ or make sure there is a valid kernel config in:
+ /usr/src/linux/.config
+ 
+ Because of this, FireHOL will simply attempt to load
+ all kernel modules for the services used, without
+ being able to detect failures.
+ 
+FireHOL: Saving your old firewall to a temporary file: OK
+FireHOL: Processing file /etc/firehol/firehol.conf: OK
+FireHOL: Activating new firewall (571 rules): OK
+</pre>
+
+<p>The warning happens because to save space OpenWRT does not store
+the kernel configuration. Provided you have installed all the modules
+correctly you should not have any problems.</p>
+
+<p>On my router, without fast activation, this takes 118 seconds.
+With FIREHOL_FAST_ACTIVATION=1 in the config, it takes 95 seconds but
+importantly almost all of them are spent calculating the firewall, the
+activation (replacing existing firewall) is less than 5 seconds.</p>
+
+<p>The init script will load
+<span class="filename">/etc/firehol/saved.iptables</span>
+and
+<span class="filename">/etc/firehol/saved.ip6tables</span>
+before running
+<span class="filename">/sbin/firehol</span>, if they are present.
+They can be created by running this:</p>
+<pre class="programlisting">
+export FIREHOL_AUTOSAVE=/etc/firehol/saved.iptables
+export FIREHOL_AUTOSAVE6=/etc/firehol/saved.ip6tables
+/sbin/firehol save
+</pre>
+
+<p>These files are not required for correct operation but ensure some
+kind of firewall is in place very quickly after a reboot. Any config will
+do provided that you know it will allow you to access the device yet protect
+your network if you break your firehol.conf file and reboot before
+realising.</p>
+
+<p>When you are happy that everything is as it should be, disable the
+default firewall, and enable FireHOL instead:</p>
+
+<pre class="programlisting">
+  /etc/init.d/firewall disable
+  /etc/init.d/firehol enable
+</pre>
+
+<p>To check the link was created:
+<span class="command">ls -l /etc/rc.d/S45firehol</span> should point
+to the correct init file.</p>
+
+<h3>FireQOS</h3>
+
+<p>This section assumes you have already installed FireHOL. If not
+you should run the initial <span class="command">mkdir</span> and 
+<span class="command">opkg</span> installation commands as a minimum.</p>
+
+<p>On the router:</p>
+<pre class="programlisting">
+opkg install tc
+opkg install ip
+opkg install tcpdump
+opkg install kmod-ifb
+opkg install kmod-sched
+opkg install kmod-dummy
+</pre>
+
+<p>Copying up files from the host:</p>
+<pre class="programlisting">
+scp sbin/fireqos.in border:/sbin/fireqos
+scp openwrt-fireqos.init root@router:/etc/init.d/fireqos
+scp openwrt-fireqos.conf root@router:/etc/firehol/fireqos.conf
+</pre>
+
+<p>The init script is this:</p>
+<pre class="programlisting">
+#!/bin/sh /etc/rc.common
+
+# The OpenWRT system uses this to determine start order for links to
+# create in /etc/rc.d when you run e.g. /etc/init.d/fireqos enable
+START=46
+
+start() {
+  /sbin/fireqos start
+}
+
+restart() {
+  /sbin/fireqos start
+}
+
+reload() {
+  /sbin/fireqos start
+}
+
+stop() {
+  /sbin/fireqos stop
+}
+</pre>
+
+<p>This is roughly my config (public is my open wifi for anyone, but my
+ISP is very expensive, so I limit it heavily):</p>
+
+<%= fhmanual_qosexample('openwrt-qos-01') %>
+
+<p>Running <span class="command">/sbin/fireqos start</span> for the first
+time:</p>
+
+<pre class="programoutput">
+FireQOS $Id: 41004cd0a5f6c3a3bfa0beb67c3bdcb2ecf1a3fe $
+(C) 2013 Costa Tsaousis, GPL
+
+
+: interface pppoe-wan world-in input rate 10500kbit adsl local pppoe-llc
+mtu 1492 (pppoe-wan-ifb, MTU 1492, quantum 1492)
+: 	class public rate 5% ceil 5% (1:11, 525kbit, prio 0)
+: 	class interactive commit 20% (1:12, 2100kbit, prio 1)
+: 	class facetime commit 200kbit (1:13, 200kbit, prio 2)
+: 	class vpns commit 20% (1:14, 2100kbit, prio 3)
+: 	class surfing commit 30% (1:15, 3150kbit, prio 4)
+: 	class synacks (1:16, 105kbit, prio 5)
+: 	class default (1:5000, 105kbit, prio 6)
+: 	class torrents (1:18, 105kbit, prio 7)
+: 	committed rate 8390kbit (79%), the remaining 2110kbit will be spare
+bandwidth.
+
+: interface pppoe-wan world-out output rate 819kbit adsl local pppoe-llc
+mtu 1492 (pppoe-wan, MTU 1492, quantum 1492)
+: 	class public rate 5% ceil 5% (1:11, 40kbit, prio 0)
+: 	class interactive commit 20% (1:12, 163kbit, prio 1)
+: 	class facetime commit 200kbit (1:13, 200kbit, prio 2)
+: 	class vpns commit 20% (1:14, 163kbit, prio 3)
+: 	class surfing commit 5% (1:15, 40kbit, prio 4)
+: 	class synacks (1:16, 11kbit, prio 5)
+: 	class default (1:5000, 11kbit, prio 6)
+: 	class torrents (1:18, 11kbit, prio 7)
+: 	committed rate 645kbit (78%), the remaining 173kbit will be spare
+bandwidth.
+
+
+All Done!. Enjoy...
+bye...
+</pre>
+
+<p>Now enable FireQOS at boot:</p>
+
+<pre class="programlisting">
+  /etc/init.d/fireqos enable
+</pre>
+
+<p>To check the link was created:
+<span class="command">ls -l /etc/rc.d/S46fireqos</span> should point
+to the correct init file.</p>
