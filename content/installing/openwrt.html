@@ -25,12 +25,24 @@ TL-WR1043ND</a> without trouble for a couple of years. This device has
 <p>On the router:</p>
 <pre class="programlisting">
 mkdir -p /etc/firehol/services
+opkg update
 opkg install bash
 opkg install coreutils-fold
 opkg install flock
 opkg install iptables-mod-conntrack-extra
 opkg install kmod-ipt-nathelper-extra
 </pre>
+
+<p>I will assume you want IPv6, so ensure the appropriate bits are present:</p>
+<pre class="programlisting">
+opkg install kmod-ip6tables
+opkg install ip6tables
+</pre>
+
+<p>Since we have not yet configured FireHOL, we must update the default
+ruleset to protect your installation: <span class="command">fw restart</span>.
+The OpenWRT wiki has more information on
+<a href="http://wiki.openwrt.org/doc/howto/ipv6">IPv6 in OpenWRT</a>.</p>
 
 <p>OpenWRT is too lightweight to be worth running the configure script,
 so from my host I just copied up the files:</p>
