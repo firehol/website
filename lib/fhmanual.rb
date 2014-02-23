@@ -31,14 +31,6 @@ module FireholManualHelper
     "\n</pre>"
   end
 
-  def fhmanual_fwexample(name)
-    fhmanual_example(name)
-  end
-
-  def fhmanual_qosexample(name)
-    fhmanual_example(name)
-  end
-
   def fhmanual_services_by_alpha(letter)
     keys = @config[:fhmanual_service_list].keys
     matched = keys.select {|i| i.upcase.match("^#{letter.upcase}") }
