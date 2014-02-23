@@ -13,13 +13,13 @@ module FireholManualHelper
 
   def fhmanual_fwexample(name)
     "<pre class='programlisting'>\n" +
-        fhmanual_fixup(fhmanual(name).raw_content, :fhmanual_hol, :fhmanual_services) +
+        fhmanual_fixup(fhmanual(name, "hol").raw_content, :fhmanual_hol, :fhmanual_services) +
     "\n</pre>"
   end
 
   def fhmanual_qosexample(name)
     "<pre class='programlisting'>\n" +
-        fhmanual_fixup(fhmanual(name).raw_content, :fhmanual_qos) +
+        fhmanual_fixup(fhmanual(name, "qos").raw_content, :fhmanual_qos) +
     "\n</pre>"
   end
 
@@ -167,8 +167,8 @@ module FireholManualHelper
     @items.select { |i| i[:kind] == 'example' }
   end
 
-  def fhmanual(name)
-    l = fhmanuals.select { |i| i[:name] == name }
+  def fhmanual(name, section)
+    l = fhmanuals.select { |i| i[:name] == name and i[:keywords] == section }
     raise "No example named #{name}" if l.size == 0
     l.shift
   end
