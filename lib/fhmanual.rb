@@ -11,16 +11,32 @@ module FireholManualHelper
      fhmanual_ref(id,text)
   end
 
-  def fhmanual_fwexample(name)
+  def fhmanual_example(name)
+     example = fhmanual(name)
+
+    if example[:keywords] == nil
+      raise "example #{name} is missing a keyword declaration (qos/hol)"
+    end
+
+    if example[:keywords] == "hol"
+      params = [ :fhmanual_hol, :fhmanual_services ]
+    elsif example[:keywords] == "qos"
+      params = [ :fhmanual_qos ]
+    else
+      raise "example #{name} has unknown keyword type '#{example[:keywords]}'"
+    end
+
     "<pre class='programlisting'>\n" +
-        fhmanual_fixup(fhmanual(name, "hol").raw_content, :fhmanual_hol, :fhmanual_services) +
+        fhmanual_fixup(example.raw_content, *params) +
     "\n</pre>"
   end
 
+  def fhmanual_fwexample(name)
+    fhmanual_example(name)
+  end
+
   def fhmanual_qosexample(name)
-    "<pre class='programlisting'>\n" +
-        fhmanual_fixup(fhmanual(name, "qos").raw_content, :fhmanual_qos) +
-    "\n</pre>"
+    fhmanual_example(name)
   end
 
   def fhmanual_services_by_alpha(letter)
@@ -167,8 +183,8 @@ module FireholManualHelper
     @items.select { |i| i[:kind] == 'example' }
   end
 
-  def fhmanual(name, section)
-    l = fhmanuals.select { |i| i[:name] == name and i[:keywords] == section }
+  def fhmanual(name)
+    l = fhmanuals.select { |i| i[:name] == name }
     raise "No example named #{name}" if l.size == 0
     l.shift
   end
