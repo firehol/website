@@ -42,15 +42,28 @@ module FireholManualHelper
   ###################### Internal ######################
   private
 
+  class SpecialManualReference
+    attr_accessor :match
+    attr_accessor :url
+
+    def applies?(is_first_word,  line)
+      if @match == :is_first
+        is_first_word ? true : false
+      elsif @match == :is_not_first
+        is_first_word ? false : true
+      elsif @match and line.match(@match)
+        true
+      else
+        false
+      end
+    end
+  end
+
   class ManualReference
     attr_accessor :keyword
     attr_accessor :url
     attr_accessor :anchor
-    attr_accessor :special
-
-    def special?
-      @special != nil
-    end
+    attr_accessor :specials
   end
 
   def fhmanual_ref(id, text, url = nil)
@@ -73,16 +86,32 @@ module FireholManualHelper
   def fhmanual_special_r(word, id_if_first, id_if_not_first)
     # These special cases are keywords that mean something different
     # at the beginning of a configuration line than elsewhere in the line
+    w1 = SpecialManualReference.new
+    w1.match = :is_first
+    w1.url = fhmanual_ref(id_if_first, word)
+
+    w2 = SpecialManualReference.new
+    w2.match = :is_not_first
+    w2.url = fhmanual_ref(id_if_not_first, word)
+
     manref = ManualReference.new
     manref.keyword = word
-    manref.special = [ fhmanual_ref(id_if_first, word), fhmanual_ref(id_if_not_first, word) ]
+    manref.specials = [ w1, w2 ]
     manref
   end
 
-  def fhmanual_special_x(word)
+  def fhmanual_special_q(word)
+    w1 = SpecialManualReference.new
+    w1.match = /match/;
+    w1.url = fhmanual_ref('qos-match-params', word)
+
+    w2 = SpecialManualReference.new
+    w2.match = /./;
+    w2.url = fhmanual_ref('qos-class-params', word)
+
     manref = ManualReference.new
     manref.keyword = word
-    manref.special = [ ]
+    manref.specials = [ w1, w2 ]
     manref
   end
 
@@ -90,14 +119,6 @@ module FireholManualHelper
     puts "Loading example code => uri data"
     current_html_anchor = nil
 
-#    qspecial['prio'] = {
-#     /^( *)class( )/ => "\\1#{fhmanual_ref('qos-class-params', 'prio')}\\2",
-#     /^( *)match( )/ => "\\1#{fhmanual_ref('qos-match-params', 'prio')}\\2"
-#                      }
-#    qspecial['priority'] = {
-#     /^( *)class( )/ => "\\1#{fhmanual_ref('qos-class-params', 'priority')}\\2",
-#     /^( *)match( )/ => "\\1#{fhmanual_ref('qos-match-params', 'priority')}\\2"
-#                      }
     hol_data = nil
     manual_data = Hash.new
     manual_data['mac'] =fhmanual_special_r('mac','helpconf-mac','rule-params')
@@ -114,8 +135,8 @@ module FireholManualHelper
             manual_data = Hash.new
             manual_data['class'] = fhmanual_special_r('class','qos-class',
                                                       'qos-match-params')
-            manual_data['prio'] = fhmanual_special_x('prio')
-            manual_data['priority'] =fhmanual_special_x('priority')
+            manual_data['prio'] = fhmanual_special_q('prio')
+            manual_data['priority'] =fhmanual_special_q('priority')
           end
 
           if m = real_line.match(/<a name="([^"]+)">/)
@@ -126,7 +147,7 @@ module FireholManualHelper
             m[1].gsub(/ +or +/, "|").split(/\|/).each do |keyword|
               next if keyword == ""
               if manual_data[keyword]
-                if not manual_data[keyword].special? and
+                if not manual_data[keyword].specials and
                        manual_data[keyword].anchor != current_html_anchor
                   puts "'#{keyword}' in examples is both '#{manual_data[keyword].anchor}' and '#{current_html_anchor}', define a special"
                   errors = true
@@ -218,14 +239,17 @@ module FireholManualHelper
                else
                  ss.getch
                end
+
         break if word.nil?
+
         sections.each do |manrefs|
           manref = manrefs[word]
-          if manref and manref.special and manref.special.size > 1
-            if first_word
-              word = manref.special[0].to_s
-            else
-              word = manref.special[1].to_s
+          if manref and manref.specials
+            manref.specials.each do |special|
+              if special.applies?(first_word, line)
+                word = special.url
+                break
+              end
             end
           elsif manref and manref.url
             word = manref.url
