@@ -1,0 +1,19 @@
+---
+title: Testimonials
+submenu: home
+---
+
+<div id="testimonials">
+<h2>Testimonials</h2>
+  <% testimonial_items.each do |entry| %>
+  <div class="news_item">
+    <h3><%= testimonial_date(entry) %></h3>
+    <%= testimonial_content(entry) %>
+    <p class="testimonial_from"/><%= testimonial_from(entry) %></p>
+  </div>
+  <% end %>
+</div>
+
+<p>If you love FireHOL and want to provide your own testimonial,
+   just <a href="/email/">drop us a quick line</a>, we'd love to
+   hear from you.</p>

@@ -20,7 +20,7 @@
   <body>
     <div id="header">
        <p>
-         <span class="title">FireHOL</span>
+         <a class="title" href="/">FireHOL</a>
           FireHOL and FireQOS - simple and powerful firewall and traffic
           shaping languages for Linux
        </p>
@@ -29,10 +29,14 @@
       <%= yield %>
     </div>
     <div id="sidebar">
-      <h2><a href="/">Home</a></h2>
       <ul>
-      </ul>
-      <ul>
+        <li>
+          <h2><a href="/">Home</a> <%= submenu_ind("home", @item[:submenu]) %></h2>
+          <ul class="<%= submenu_class("home", @item[:submenu]) %>" >
+            <li><a href="/news/">News</a></li>
+            <li><a href="/testimonials/">Testimonials</a></li>
+          </ul>
+        </li>
         <li>
           <h2><a href="/documentation/">Documentation</a> <%= submenu_ind("documentation", @item[:submenu]) %></h2>
           <ul class="<%= submenu_class("documentation", @item[:submenu]) %>" >
@@ -47,7 +51,7 @@
           </ul>
         </li>
         <li>
-          <h2><a href="/support/">Community</a> <%= submenu_ind("support", @item[:submenu]) %></h2>
+          <h2><a href="/support/">Support / Community</a> <%= submenu_ind("support", @item[:submenu]) %></h2>
           <ul class="<%= submenu_class("support", @item[:submenu]) %>" >
             <li><a href="/getting-help/">Getting Help</a></li>
             <li><a href="/getting-involved/">Getting Involved</a></li>
@@ -62,7 +66,7 @@
           </ul>
         </li>
         <li>
-          <h2><a href="/downloads/">Download</a> <%= submenu_ind("downloads", @item[:submenu]) %></h2>
+          <h2><a href="/downloads/">Install / Download</a> <%= submenu_ind("downloads", @item[:submenu]) %></h2>
           <ul class="<%= submenu_class("downloads", @item[:submenu]) %>" >
             <li><a href="/packages/">Distribution Packages</a></li>
             <li><a href="/installing/">Install from tar-file</a></li>

@@ -59,7 +59,7 @@ route '/newsitems/*' do
   # These items are pulled directly into the appropriate page
 end
 
-route '/testimonials/*' do
+route '/testimonies/*' do
   # These items are pulled directly into the appropriate page
 end
 
