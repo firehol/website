@@ -262,3 +262,13 @@ table.services-table td {
   height: 130px;
   background-color: #E0E0E0;
 }
+
+a[href^=http] {
+    background: url(/images/external.png) center right no-repeat;
+    padding-right: 13px;
+}
+
+a[href^="http://www.foxyhosting"]  {
+    background: none;
+    padding-right: 0;
+}
