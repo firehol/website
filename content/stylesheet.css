@@ -228,7 +228,7 @@ pre .important {
   border-bottom: 2px solid #DDD;
 }
 
-.news_item h2 {
+#news h2 {
   margin-top: 20px;
   font-size: 15px;
   font-weight: bold;
