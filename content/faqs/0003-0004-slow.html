@@ -12,8 +12,8 @@ and
 
 <p>
 Processing of FireHOL configuration files is somewhat slow since all
-processing is done by BASH (I have not programmed a parser, BASH runs
-the configuration as if it was a BASH script). This processing however,
+processing is done by Bash (I have not programmed a parser, Bash runs
+the configuration as if it was a Bash script). This processing however,
 even if it takes several seconds, it does not affect your security,
 since the running firewall is not touched during this phase. 
 </p>
@@ -27,9 +27,9 @@ commands to be executed at the activation phase. This list of iptables
 commands, first clears the running firewall and then it runs iptables
 commands, one-by-one, until all have executed. As an example, my
 personal machine configuration file is about 50 lines. These 50 lines
-produce about 900 iptables statements. For BASH these 900 iptables
+produce about 900 iptables statements. For Bash these 900 iptables
 statements are also followed by another statement to check if the
-command succeeded or failed, which totals to about 1800 BASH statements
+command succeeded or failed, which totals to about 1800 Bash statements
 to be executed. In my machine these 1800 commands take about 8 seconds
 to be executed. During these 8 seconds the firewall is from totally
 empty (all traffic allowed) to simply incomplete (some traffic is

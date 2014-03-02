@@ -1,15 +1,44 @@
 ---
-title: Download the Source
+title: FireHOL Source Code
 submenu: source
 ---
 
-<h1>Download the Source</h1>
+<h1>FireHOL Source Code</h1>
+
+<p>All of FireHOL is made available under the 
+<a href="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2+ Licence</a>.
+To make use of the sources, you need to:</p>
+
+<ul>
+<li><a href="#download">Download</a> from the repository</li>
+<li><a href="#build">Build</a> the package</li>
+</ul>
 
 <p>
-You can download the source from GitHub using the links in the menu.
-If you want to clone the repository, the basic <span class="command">git</span>
-commands are below. Then take a look at the FAQ:
-<a href="/faq/#faq-0001-0002">How do I build from the repository?</a>.
+Note that versions checked out from git will use internal version
+numbers e.g.:
+</p>
+
+<pre class="programoutput">
+$ ./sbin/fireqos.in
+FireQOS $Id: def55bbc9c2a78aef580e88ad6d3f9ba689a6004 $
+</pre>
+
+<p>
+If you want a real version number you should
+<a href="/installing/">download and install a packaged version</a>.
+</p>
+
+<h2 id="download">Download</h2>
+<p>
+You can download or clone the source from our
+<a href="https://github.com/ktsaou/firehol">GitHub repository</a>.
+The basic <span class="command">git</span>
+commands to perform a clone are below.
+We also have GitHub repositories for
+<a href="https://github.com/philwhineray/firehol-website">this website</a>
+and our
+<a href="https://github.com/philwhineray/firehol-infrastructure">build/release infrastructure</a>.
 </p>
 
 <p>
@@ -21,7 +50,7 @@ updated automatically whenever the master repository is changed,
 within a few minutes.
 </p>
 
-<p>First time clone of a repository into directory
+<p>For a first time clone of a repository into directory
 <span class="filename">firehol</span>:
 
 <pre class="programlisting">
@@ -91,3 +120,36 @@ looks very comprehensive. There is also an online version of what you
 get by running
 <a href="http://git-scm.com/docs/gittutorial">man gittutorial</a>.
 </p>
+
+<h2 id="build">Build From Source</h2>
+
+<p>
+FireHOL and FireQOS are
+<a href="http://www.gnu.org/software/bash/bash.html">Bash</a> scripts.
+As such you don't need to do a build to use them. If you are not
+packaging a release you can just copy and/or use
+<span class="filename">sbin/firehol.in</span> and
+<span class="filename">sbin/fireqos.in</span> directly.
+</p>
+
+<p>To build the documentation and/or a tar-file, you will need:</p>
+
+<ul>
+<li><a href="http://xmlsoft.org/XSLT/xsltproc2.html">xsltproc</a></li>
+<li><a href="http://dblatex.sourceforge.net/">dblatex</a></li>
+<li><a href="http://www.docbook.org/xml/">DocBook XML</a></li>
+<li><a href="http://wiki.docbook.org/DocBookXslStylesheets">DocBook XSL Stylesheets</a></li>
+<li><a href="http://www.gnu.org/software/autoconf/">GNU autoconf</a></li>
+<li><a href="http://www.gnu.org/software/automake/">GNU automake</a></li>
+</ul>
+
+<p>
+You can create the Makefiles, enable building the manual and make
+the documentation with these commands:
+</p>
+
+<pre class="programlisting">
+./autogen.sh
+./configure --enable-maintainer-mode
+make
+</pre>
