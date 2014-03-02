@@ -53,20 +53,25 @@
         <li>
           <h2><a href="/support/">Support / Community</a> <%= submenu_ind("support", @item[:submenu]) %></h2>
           <ul class="<%= submenu_class("support", @item[:submenu]) %>" >
-            <li><a href="/getting-help/">Getting Help</a></li>
-            <li><a href="/getting-involved/">Getting Involved</a></li>
+
+            <li><a target="_blank" href="http://lists.firehol.org/mailman/listinfo/firehol-support">Support list</a>
+                /
+                <a target="_blank" href="http://dir.gmane.org/gmane.comp.security.firewalls.firehol.user">archive</a></li>
+            <li><a target="_blank" href="http://lists.firehol.org/mailman/listinfo/firehol-devs">Development list</a>
+                /
+                <a target="_blank" href="http://dir.gmane.org/gmane.comp.security.firewalls.firehol.devel">archive</a></li>
             <li><a target="_blank"
          href="https://github.com/ktsaou/firehol/issues">Issue Tracker</a></li>
-            <li><a href="/email/">Email Authors</a></li>
-            <li><a href="/resources/">External Resources</a></li>
             <li><a target="_blank"
          href="http://freecode.com/projects/firehol">Freecode Project</a></li>
             <li><a target="_blank"
          href="http://www.ohloh.net/p/firehol">Ohloh Project</a></li>
+            <li><a href="/getting-involved/">Getting Involved</a></li>
+            <li><a href="/email/">Email Authors</a></li>
           </ul>
         </li>
         <li>
-          <h2><a href="/installing/">Install / Download</a> <%= submenu_ind("downloads", @item[:submenu]) %></h2>
+          <h2><a href="/installing/">Download / Install</a> <%= submenu_ind("downloads", @item[:submenu]) %></h2>
           <ul class="<%= submenu_class("downloads", @item[:submenu]) %>" >
             <li><a target="_blank"
                      href="/download/latest/">Stable Release</a></li>

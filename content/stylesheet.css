@@ -272,3 +272,8 @@ a[href^="http://www.foxyhosting"]  {
     background: none;
     padding-right: 0;
 }
+
+a[href^="http://lists.firehol"]  {
+    background: none;
+    padding-right: 0;
+}
