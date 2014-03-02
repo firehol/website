@@ -1,0 +1,88 @@
+---
+title: FireHOL Border Router Tutorial
+submenu: documentation
+---
+
+<h1>FireHOL Border Router Tutorial</h1>
+
+<p>
+Dealing with a lot of network interfaces can quickly mess up your ruleset.
+One wait to avoid this is having an outbound perspective.
+Think about you are sitting on your router, holding a network packet in
+your hand that you want to place in one of your network interfaces send
+queue. This is where your <%= fh_manref('def-router','router') %> kicks in.
+
+For this example we assume a <a href="http://en.wikipedia.org/wiki/Regional_Internet_registry" taget="_blank">RIR</a> has dedicated us a provider-independent IPv4 prefix 198.18.0.0/15 and an IPv6 prefix 2001:0002::/48 which we have to announce to our providers.
+</p>
+
+<h2>1. Identify network interfaces</h2>
+<p>
+Let us think about an border router having three Internet uplinks attached
+and that is connected to your internal DMZ network by one NIC.
+</p>
+
+<table>
+ <thead>
+  <tr>
+   <td>Name</td>
+   <td>NIC</td>
+   <td>Peering</td>
+   <td>Note</td>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+   <td>ISP1</td>
+   <td>eth0</td>
+   <td>BGP</td>
+   <td>traffic to ISP2 may transit</td>
+  </tr>
+  <tr>
+   <td>ISP2</td>
+   <td>eth1</td>
+   <td>OSPF</td>
+   <td>traffic to ISP1 may transit</td>
+  </tr>
+  <tr>
+   <td>ISP3</td>
+   <td>ppp0</td>
+   <td>BGP</td>
+   <td>connect via phy. NIC eth2</td>
+  </tr>
+  <tr>
+   <td>DMZ</td>
+   <td>eth3</td>
+   <td>&nbsp;</td>
+   <td>&nbsp;</td>
+  </tr>
+ </tbody>
+</table>
+
+<p>
+We will refer to this layout throughout.
+</p>
+
+<h2>2. Ruleset</h2>
+
+<p>
+Now it is time to start writing the FireHOL configuration file.
+Let us define the interface statements.
+</p>
+
+<%= fhmanual_example("tutorial-border-router-01") %>
+
+<p> Router ISP1</p>
+
+<%= fhmanual_example("tutorial-border-router-02") %>
+
+<p> Router ISP2</p>
+
+<%= fhmanual_example("tutorial-border-router-03") %>
+
+<p> Router ISP3</p>
+
+<%= fhmanual_example("tutorial-border-router-04") %>
+
+<p> Router DMZ</p>
+
+<%= fhmanual_example("tutorial-border-router-05") %>

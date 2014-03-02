@@ -1,0 +1,318 @@
+---
+title: FireHOL New User Tutorial
+submenu: documentation
+---
+
+<h1>FireHOL New User Tutorial</h1>
+<p>
+This is the recommended procedure to manually design a secure FireHOL firewall.
+It applies to FireHOL 2.x versions, which understand both IPv4 and IPv6.
+</p>
+
+<p>
+TODO: this needs updating to start with interface4, then explain
+interface6, then explain merging.
+</p>
+
+<h2>1. Identify all network interfaces on your firewall host</h2>
+<p>
+Network interfaces are there for some reason. You have to do something
+about all the interfaces of your host. If you don't do something at the
+firewall level with a network interface, then it depends of the firewall
+policy what will happen with traffic on this interface. By default
+FireHOL will <span class="action">drop</span> all traffic coming in
+and going out via an undefined network interface, so the network
+interface will have no meaning to be up and running. This is a common
+mistake on some ADSL configurations, where users ignore the loop device
+that connects the Linux router with the ADSL device.
+
+To identify your network interfaces use the
+<span class="command">ip link show</span> command. The example below
+shows my home router <span class="command">ip link show</span> output:
+
+<pre style="width: 100%;" class="programoutput">
+[root@gateway /]# ip link show
+1: <span class="important">lo</span>: &lt;LOOPBACK,UP&gt; mtu 16436 qdisc noqueue
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+2: <span class="important">eth0</span>: &lt;BROADCAST,MULTICAST,PROMISC,UP&gt; mtu 1500 qdisc pfifo_fast qlen 100
+    link/ether 00:50:fc:21:9a:ab brd ff:ff:ff:ff:ff:ff
+12:<span class="important"> ppp0</span>: &lt;POINTOPOINT,MULTICAST,NOARP,UP&gt; mtu 1500 qdisc pfifo_fast qlen 3
+    link/ppp
+</pre>
+
+<p>There are a few important thinks to always remember:</p>
+<ul>
+  <li><span class="interface">lo</span> exists on all machines and is used
+       for communication between programs running on this machine.
+       FireHOL handles this automatically. You don't have to do anything
+       about <span class="interface">lo</span>.
+  </li>
+  <li>Network interfaces (except the <span class="interface">lo</span>
+      interface) are used for two purposes:
+    <ul>
+      <li>By the firewall host for its own communication with the rest
+          of the world. This is the case when the firewall host requests
+          something from some other host (a DNS lookup maybe) for its
+          own needs, or when some other host requests something from the
+          firewall host, when the later is running some daemons (servers) too.
+      </li>
+
+      <li>By other hosts as <span class="important">gateways</span> in
+          order to reach other hosts behind the firewall host.
+          In this case, the firewall host simply passes traffic from
+          one of its network interfaces to another. This is also
+          called <span class="important">routing</span>.
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>
+In the above example, it is clear that I have two network interfaces
+(except <span class="interface">lo</span>):
+<span class="interface">eth0</span> and
+<span class="interface">ppp0</span>.
+</p>
+
+<p>
+One extra step is to identify if the network interfaces appearing here
+might dynamically change during run-time. For example my
+<span class="interface">ppp0</span> might become
+<span class="interface">ppp1</span> or
+<span class="interface">ppp2</span> in certain cases.
+To overcome this problem, I can say that my link to the outside world is
+not <span class="interface">ppp0</span> but
+<span class="interface">ppp+</span>.
+The plus character matches all the interfaces that
+<span class="important">begin</span> with the text given before
+the plus sign. In this case, it matches all the possible network interfaces
+that start with <span class="interface">ppp</span>.
+</p>
+
+<p>
+Keep in mind that FireHOL (and iptables) does not really care if the
+interface defined in a firewall actually exists or not. This means that
+you can setup firewalls on interfaces that might become available later
+or altered during run time. This also means that if you define an
+interface with a wrong name, FireHOL and iptables will not complain.
+</p>
+
+<h2>2. Give a role to each interface identified</h2>
+
+<p>
+Now I have to assign a role to each network interface, i.e. what is the
+function of each of those interfaces? For this, I create a table similar
+to the one below. It is important to focus on the
+<span class=important">requests</span>; forget the replies.
+</p>
+
+<table style="width: 150%">
+  <tr>
+    <th>interface</th>
+    <th>description</th>
+    <th>incoming&nbsp;requests</th>
+    <th>outgoing&nbsp;requests</th>
+    <th>routing&nbsp;requests&nbsp;in</th>
+    <th>routing&nbsp;requests&nbsp;out</th>
+  </tr>
+  <tr class="odd">
+    <td><span class="interface">eth0</span></td>
+    <td>My home LAN</td>
+    <td>Many services from my LAN workstations (i.e. dns, ftp, samba,
+        squid, dhcp, http, ssh, icmp)</td>
+    <td>A few services my LAN workstations provide (i.e. samba, icmp)</td>
+    <td>All LAN workstations requests going to the internet</td>
+    <td>Nothing</td>
+  </tr>
+  <tr class="even">
+    <td><span class="interface">ppp+</span></td>
+    <td>The Internet</td>
+    <td>I run a public mailer, a public web server and a public ftp
+        server for my domain</td>
+    <td>All the services my Linux could ask from the internet</td>
+    <td>Nothing</td>
+    <td>All LAN workstations requests going to the internet</td>
+  </tr>
+</table>
+
+<p>Keep in mind that:</p>
+<ul>
+  <li><span class="li-header">incoming requests</span> represent
+      <span class="important">servers</span> running on the firewall host.
+  </li>
+  <li><span class="li-header">outgoing requests</span> represent
+      <span class="important">clients</span> running on the firewall host.
+  </li>
+  <li><span class="li-header">routing requests in</span> represent
+      <span class="important">clients</span> on hosts at the network
+      interface in question.
+  </li>
+  <li><span class="li-header">routing requests out</span> represent
+      <span class="important">servers</span> on hosts at the network
+      interface in question.
+  </li>
+</ul>
+
+<p>So, the above could also be presented as:</p>
+
+<table style="width: 150%;">
+  <tr>
+    <th>interface</th>
+    <th>name</th>
+    <th>servers&nbsp;provided</th>
+    <th>clients&nbsp;used</th>
+    <th>routing&nbsp;clients</th>
+    <th>routing&nbsp;servers</th>
+  </tr>
+  <tr class="odd">
+    <td><span class="interface">eth0</span></td>
+    <td>home</td>
+    <td>dns, ftp, samba, squid, dhcp, http, ssh, icmp</td>
+    <td>samba, icmp</td>
+    <td>all</td>
+    <td>none</td>
+  </tr>
+  <tr class="even">
+    <td><span class="interface">ppp+</span></td>
+    <td>internet</td>
+    <td>smtp, http, ftp</td>
+    <td>all</td>
+    <td>none</td>
+    <td>all</td>
+  </tr>
+</table>
+
+<p>
+This table can easily be transformed into FireHOL rules.
+</p>
+
+<h2>3. Create the FireHOL configuration structure</h2>
+
+<p>
+Now that you have a list of all the interfaces and their roles, it is
+time to start writing the FireHOL configuration file. First write one
+interface statement for each network interface you identified above:
+</p>
+
+<%= fhmanual_example("tutorial-01") %>
+
+<p> Now, we can add the servers for each interface (based on the table
+above). Remember that these servers are all running on the firewall host:</p>
+
+<%= fhmanual_example("tutorial-02") %>
+
+<p> Now, we can add the clients for each interface. Remember that these
+clients are all running on the firewall host: </p>
+
+<%= fhmanual_example("tutorial-03") %>
+
+<p>
+At this point, everyone should be able to inter-operate correctly
+with the firewall host, but still we don't route any traffic. This
+means that the linux box can "see" all the workstations on the LAN
+and these workstations can "see" the linux box, also that the linux box
+can "see" the Internet and the Internet can "see" the servers of the
+<span class="interface">ppp+</span> interface of the linux box, but
+the LAN workstations cannot "see" the Internet.
+</p>
+
+<p>
+It is now time to setup routing. To do this we will have to define a set
+of routers for all the interface combinations. This means that if we have
+two interfaces we will have to define two routers. If we have 3
+interfaces, we will have to define 6 routers, and so on.
+</p>
+
+<%= fhmanual_example("tutorial-04") %>
+
+<p>
+Remember that <%= fh_manref('rule-params', 'inface') %>
+and <%= fh_manref('rule-params', 'outface') %>
+match the <span class="important">requests</span>, not the replies.
+This means that the router <span class="important">home2internet</span>
+matches all requests originated from <span class="interface">eth0</span>
+and going out to <span class="interface">ppp+</span> (and of course their
+relative replies in the opposite direction), while the router
+<span class="important">internet2home</span> matches all the requests
+from the Internet to the home LAN (and their relative replies back).
+</p>
+
+<p>
+Now, based on the roles table of the previous section we see that we should
+route all requests coming in from <span class="interface">eth0</span>
+and going out to <span class="interface">ppp+</span>, and not route any
+request coming from the Internet and going out to the home LAN. Here it is:
+</p>
+
+<%= fhmanual_example("tutorial-05") %>
+
+<p>
+This is it. We are done! (for the filtering part of the firewall.
+Look below for setting up NAT too.)
+</p>
+
+<h2>4. Optimizing the firewall</h2>
+
+<p>To save typing time, you can use this: </p>
+
+<%= fhmanual_example("tutorial-06") %>
+
+<p>Note that we can remove any <%= fh_manref('def-router','router') %>
+statements not having any rules in them, so the
+<span class="important">internet2home</span> router has been eliminated.</p>
+
+<p>We might want to have extra checks on each interface to prevent spoofing.
+To find the IPs of your network interfaces use
+<span class="command">ip addr show</span> and to find the IP networks
+behind each interface use <span class="command">ip route show</span>.
+
+<%= fhmanual_example("tutorial-07") %>
+
+<p><%= fh_manref('variables-available','UNROUTABLE_IPS') %> is a variable
+defined by FireHOL and contains all the IPs that should not be routed
+on the internet.</p>
+
+<p>If home LAN did not have real IP addresses, we would have to add
+a masquerade command in our router:</p>
+
+<%= fhmanual_example("tutorial-08") %>
+
+<p>The <%= fh_manref('helpcmd-masquerade','masquerade') %> command sets
+itself up on the <%= fh_manref('rule-params','outface') %> of a
+<%= fh_manref('def-router','router') %>.</p>
+
+<p> We can now protect our ppp interface even further. For this we use
+the <%= fh_manref('cmd-protection','protection') %> command:</p>
+
+<%= fhmanual_example("tutorial-09") %>
+
+<p>It could be nice if instead of dropping wrong packets originated from
+the Ethernet, to reject them so that our workstations will not have to
+timeout if we do something that is not allowed. To do this we use
+the <%= fh_manref('cmd-policy','policy') %> command:</p>
+
+<%= fhmanual_example("tutorial-10") %>
+
+<p>Some servers on the Internet try to <span class="important">ident</span>
+back the client to find information about the user requesting the
+service. With our current firewall, such servers will have to timeout
+before accepting our request. To speed thinks up we could write:</p>
+
+<%= fhmanual_example("tutorial-11") %>
+
+<p>Note that we now have added the router we eliminated above, since we
+need to add a service to it.</p>
+
+<p>The whole routing schema could be rewritten as:</p>
+
+<%= fhmanual_example("tutorial-12") %>
+
+<p>Now we have elicited the first router, but we defined everything
+in the second. We have used the <span class="option">reverse</span>
+keyword in <%= fh_manref('helpcmd-masquerade','masquerade') %> to make
+it set up in <%= fh_manref('rule-params', 'inface') %> this time.</p>
+
+<p> We could use the first router (home2internet) to do everything,
+but then the <%= fh_manref('cmd-client','client') %> and
+<%= fh_manref('cmd-server','server') %> commands would need be
+reversed (server all, client ident) which would be confusing.</p>

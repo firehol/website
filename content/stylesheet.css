@@ -219,7 +219,9 @@ pre .important {
 }
 
 .li-header {
+  display: block;
   font-weight: bold;
+  margin-top: 10px;
 }
 
 .news_item {
