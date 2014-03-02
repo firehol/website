@@ -3,13 +3,14 @@ title: News
 submenu: home
 ---
 
+<h1>Latest News</h1>
+
 <div id="news">
-<h2>Latest News</h2>
 
   <% news_items.each do |entry| %>
   <div class="news_item">
-    <h3><%= news_date(entry) %> -
-        <span class="news_title"><%= news_title(entry) %></span></h3>
+    <h2><%= news_date(entry) %> -
+        <span class="news_title"><%= news_title(entry) %></span></h2>
     <%= news_content(entry) %>
   </div>
   <% end %>

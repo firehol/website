@@ -55,12 +55,24 @@ a:hover {
 }
 
 #main h1 {
-  font-size: 40px;
-  font-weight: normal;
+  font-size: 26px;
+  font-weight: bold;
 
-  line-height: 40px;
+  line-height: 26px;
+}
 
-  letter-spacing: -1px;
+#main h2 {
+  font-size: 22px;
+  font-weight: bold;
+
+  line-height: 22px;
+}
+
+#main h3 {
+  font-size: 18px;
+  font-weight: bold;
+
+  line-height: 18px;
 }
 
 #main p, #main hr {
@@ -214,8 +226,8 @@ pre .important {
   border-bottom: 2px solid #DDD;
 }
 
-.news_item h3 {
-  margin-top: 10px;
+.news_item h2 {
+  margin-top: 20px;
   font-size: 15px;
   font-weight: bold;
 }
@@ -230,10 +242,6 @@ pre .important {
 
 #testimonials p.testimonial_from {
   margin: 10px 2px;
-}
-
-#testimonials h2 {
-  margin-top: 20px;
 }
 
 table {

@@ -3,11 +3,12 @@ title: Testimonials
 submenu: home
 ---
 
+<h1>Testimonials</h1>
+
 <div id="testimonials">
-<h2>Testimonials</h2>
   <% testimonial_items.each do |entry| %>
   <div class="news_item">
-    <h3><%= testimonial_date(entry) %></h3>
+    <h2><%= testimonial_date(entry) %></h2>
     <%= testimonial_content(entry) %>
     <p class="testimonial_from"/><%= testimonial_from(entry) %></p>
   </div>
