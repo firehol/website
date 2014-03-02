@@ -3,11 +3,117 @@ title: Installing
 submenu: downloads
 ---
 
-<h1>Installing from a tar-file release</h1>
+<h1>Installing</h1>
 
-<p>You can download tar-file releases from the links in the menu or
-by visiting the
-<a target="_blank" href="/download/">download area</a>.</p>
+<p>
+Packages are available for many distributions, and are often the
+most conventient way of installing FireHOL. If you can provide simple
+install instructions for any others, please <a href="/email/">let us know</a>
+and we will add a page.
+</p>
+
+<ul>
+<li><a href="/installing/debian/">Debian / Ubuntu</a></li>
+<li><a href="/installing/redhat/">RedHat / CentOS</a></li>
+<li><a href="/installing/arch/">Arch Linux</a></li>
+<li><a href="/installing/openwrt/">OpenWRT</a></li>
+</ul>
+
+<p>
+If you cannot find a package or want a more up to date version than is
+provided (e.g. to obtain FireQOS or IPv6 support) it is simple to install
+a tar-file release from this website.
+</p>
+
+<ul>
+<li><a href="#download">Download</a></li>
+<li><a href="#verify">Verify</a></li>
+<li><a href="#install">Install</a></li>
+</ul>
+
+<p>
+<a href="https://github.com/ktsaou/firehol/wiki/Dependencies">Dependencies
+are listed at the Wiki</a>. FireHOL and FireQOS detect at runtime if the
+commands they needs are installed. In general the requirements are not
+onerous, just some common shell and networking commands which come as
+standard with modern Linux distributions.
+</p>
+
+<h2 id="download">Download</h2>
+
+<p>Our tar-files releases are provided compressed with gzip, bz2 and xz.
+You only need one. If you don't know which compression your system can
+handle, gzip (<span class="filename">.gz</span> files) is certain to
+work, so the examples assume you will choose that option.</p>
+
+<p>You can choose to download one of the following:</p>
+
+<ul>
+<li><a href="/download/latest">Latest stable release</a></li>
+<li><a href="/download/releases">Pick from all releases</a></li>
+<li><a href="/download/unsigned/master">Automatic daily build</a></li>
+</ul>
+
+<p>The daily build is in fact even more up to date than its name suggests.
+It rebuilds whenever a change is comitted to the master branch of the code.
+We take care to not break "master", so in general this build is quite
+stable.</p>
+
+<h2 id="verify">Verify</h2>
+
+<p>All tar-files on the site come with MD5 (<span class="filename">.md5</span>)
+and SHA512 (<span class="filename">.sha</span>) checksums. To verify, download
+the checksum files as well as the tar-file and run e.g.:</p>
+
+<pre class="programoutput">
+$ md5sum -c firehol-2.0.0.tar.gz.md5 
+firehol-2.0.0.tar.gz: OK
+</pre>
+
+<p>or:</p>
+
+<pre class="programoutput">
+$ sha512sum -c firehol-2.0.0.tar.gz.sha 
+firehol-2.0.0.tar.gz: OK
+</pre>
+
+<p>Official releases also come with
+<a href="http://gnupg.org/gph/en/manual/x135.html">detached gpg signatures</a>
+in the <span class="filename">.asc</span> files, they should have been created
+with one of these keys:</p>
+
+<ul>
+<li>Key ID <a href="http://pgp.mit.edu/pks/lookup?search=0xD829797E&op=index&fingerprint=on">0xD829797E</a><br/>Fingerprint: 9CCE 9A8D 5328 FBD6 CE29  6DCC 63DF 1E44 D829 797E</li>
+<li>Key ID <a href="http://pgp.mit.edu/pks/lookup?search=0xA8942A3D&op=index&fingerprint=on">0xA8942A3D</a><br/>Fingerprint: 30A6 37E7 FB6A D149 741C  A98B C630 FDD8 A894 2A3D</li>
+</ul>
+
+<p>Initially your gpg keyring will not include these keys, so your first
+time checking might go something like this:</p>
+
+<pre class="programoutput">
+$ gpg --verify firehol-2.0.0.tar.gz.asc firehol-2.0.0.tar.gz
+gpg: Signature made Sat 15 Feb 2014 12:19:56 GMT using RSA key ID D829797E
+gpg: Can't check signature: public key not found
+
+$ gpg --recv-keys D829797E
+gpg: requesting key D829797E from hkp server keys.gnupg.net
+gpg: /home/tmpu/.gnupg/trustdb.gpg: trustdb created
+gpg: key D829797E: public key "Phil Whineray &lt;phil@sanewall.org&gt;" imported
+gpg: Total number processed: 1
+gpg:               imported: 1  (RSA: 1)
+
+$ gpg --verify firehol-2.0.0.tar.gz.asc firehol-2.0.0.tar.gz
+gpg: Signature made Sat 15 Feb 2014 12:19:56 GMT using RSA key ID D829797E
+gpg: Good signature from "Phil Whineray &lt;phil@sanewall.org&gt;"
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: 9CCE 9A8D 5328 FBD6 CE29  6DCC 63DF 1E44 D829 797E
+</pre>
+
+<p>If you really want to be certain you can trust the signature,
+<a href="/email/">contact us</a> and we will see what we can arrange.
+
+<h2 id="install">Install</h2>
 
 <p>Unpack and change directory with:</p>
 <pre class="programlisting">
@@ -29,36 +135,11 @@ file and by running:</p>
 
 <p>Alternatively, just copy the
 <span class="filename">sbin/firehol.in</span> and
-<span class="filename">sbin/fireqos.in</span> files to where you want them.
-All of the common SysVInit command line arguments are recognised which
-makes it easy to deploy the scripts as startup services.</p>
+<span class="filename">sbin/fireqos.in</span> files to where you want them.</p>
 
-<p>Note that 
-<a href="/packages/">packages are available for most
-distributions</a> but they will not always offer the
-latest version.</p>
-
-<p>If you would like to check the
-<a href="http://gnupg.org/gph/en/manual/x135.html">detached gpg signatures</a>
-in the <span class="filename">.asc</span> files, they should have been created
-with key ID D829797E or A8942A3D e.g.:<p>
-
-<pre class="programoutput">
-$ gpg --verify firehol-2.0.0.tar.bz2.asc firehol-2.0.0.tar.bz2
-gpg: Signature made Sat 15 Feb 2014 12:19:56 GMT using RSA key ID D829797E
-gpg: Can't check signature: public key not found
-
-$ gpg --recv-keys D829797E
-gpg: requesting key D829797E from hkp server keys.gnupg.net
-gpg: /home/tmpu/.gnupg/trustdb.gpg: trustdb created
-gpg: key D829797E: public key "Phil Whineray &lt;phil@sanewall.org&gt;" imported
-gpg: Total number processed: 1
-gpg:               imported: 1  (RSA: 1)
-
-$ gpg --verify firehol-2.0.0.tar.bz2.asc firehol-2.0.0.tar.bz2
-gpg: Signature made Sat 15 Feb 2014 12:19:56 GMT using RSA key ID D829797E
-gpg: Good signature from "Phil Whineray &lt;phil@sanewall.org&gt;"
-gpg: WARNING: This key is not certified with a trusted signature!
-gpg:          There is no indication that the signature belongs to the owner.
-Primary key fingerprint: 9CCE 9A8D 5328 FBD6 CE29  6DCC 63DF 1E44 D829 797E
-</pre>
+<p>
+All of the common SysVInit command line arguments are recognised by
+the FireHOL and FireQOS scripts, which make them easy to deploy as
+startup services. In many cases you can just copy or link them into the
+appropriate folder.
+</p>
