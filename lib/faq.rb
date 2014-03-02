@@ -17,7 +17,8 @@ module FaqHelper
   end
 
   def faq_id(f)
-    "faq-" + f[:group].sub(/-.*/, '') + "-" + f[:title].sub(/-.*/, '')
+    raise "FAQ #{f.identifier} has no id!" if f[:id] == nil
+    f[:id]
   end
 end
 
