@@ -1,0 +1,130 @@
+---
+title: Adding Services
+submenu: documentation
+---
+
+<h1>Adding Services</h1>
+
+<p>If you intend to use a definition only once, you can consider
+using the <%= fh_manref('service-custom','custom') %> service.</p>
+
+<p>This
+<a href="http://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers">
+Wikipedia list of ports</a> and this
+<a href="http://www.graffiti.com/services">list of port names and numbers</a>
+may be useful when defining your own services.
+</p>
+
+<h2>Simple Service</h2>
+
+<p>
+To define new services you add the appropriate entries before using them
+later in the configuration file.
+</p>
+
+<p>
+For example, consider a service named "daftnet" that listens at two ports,
+port 1234 TCP and 1234 UDP where the expected client ports are the default
+ports a system may choose plus the same port numbers the server listens at,
+with further dynamic ports for which we have some kernel modules which
+will do the tracking:</p>
+
+<%= fhmanual_example('adding-services-01') %>
+
+<p>Even though multiple ports are used in both directions, this is
+still a simple service. FireHOL determines all of the combinations
+of client and server ports and generates multiple iptables statements
+to match them.</p>
+
+<h3>Required entries</h3>
+
+<p>The following are required for all simple services:</p>
+
+<pre class="programlisting">
+server_<span class="option">myservice</span>_ports="<span class="option">proto</span>/<span class="option">sports</span>"
+client_<span class="option">myservice</span>_ports="<span class="option">cports</span>"
+</pre>
+
+<p><span class="option">myservice</span> is the name we will give our
+service.</p>
+    
+<p><span class="option">proto</span> is anything that
+<span class="command">iptables</span> accepts as a protocol e.g.
+"tcp", "udp", "icmp" and numeric protocol values.</p>
+
+<p><span class="option">sports</span> is the ports the server is listening at.
+It is a space-separated list of port numbers, names and ranges (from:to).
+The keyword <span class="option">any</span> will match any server port.</p>
+
+<p><span class="option">cports</span> is the ports the client may use to
+initiate a connection. It is a space-separated list of port numbers,
+names and ranges (from:to). The keyword <span class="option">any</span>
+will match any client port. The keyword <span class="option">default</span>
+will match default client ports.</p>
+
+<p>For the local machine (e.g. a client within an interface) the default
+client ports resolve to sysctl variable net.ipv4.ip_local_port_range
+(or <span class="filename">/proc/sys/net/ipv4/ip_local_port_range</span>).</p>
+
+<p>For a remote machine (e.g. a client within an interface or anything in
+a router) the default client ports resolve to the variable
+<span class="var">DEFAULT_CLIENT_PORTS</span>. For more information
+see <%= fh_manref('firehol-variables','Control&nbspVariables') %>in
+the manual.</p>
+
+<h3>Optional entries</h3>
+
+<p>The following entries are optional. They are only needed if a
+kernel module must be loaded to help track connections (typically
+because the protocol uses dynamic ports):</p>
+
+<pre class="programlisting">
+require_<span class="option">myservice</span>_modules="<span class="option">modules</span>"
+require_<span class="option">myservice</span>_nat_modules="<span class="option">nat-modules</span>"
+</pre>
+    
+<p>The named kernel modules will be loaded when the definition is used.
+The NAT modules will only be loaded if <span class="var">FIREHOL_NAT</span>
+is non-zero
+(see <%= fh_manref('firehol-variables','Control&nbspVariables') %>).</p>
+
+<h2>Complex Service</h2>
+
+<p>To create more complex rules, or stateless rules, you will need to
+create a bash function prefixed rules_ e.g.
+rules_<span class="var">myservice</span>.
+The best reference is the many such functions in the main firehol
+script.</p>
+
+<h2>Adding your service to "all"</h2>
+
+<p>When adding a service with a custom function or which uses modules, you
+may also wish to include the following:</p>
+
+<pre class="programlisting">
+ALL_SHOULD_ALSO_RUN="${ALL_SHOULD_ALSO_RUN} <span class="var">myservice</span>"
+</pre>
+
+<p>
+which will ensure your service is set-up correctly as part of the all service.
+There is no need to do this with simple services which do not load modules.
+</p>
+
+<h2>Creating your service in a separate file</h2>
+
+<p>To allow definitions to be shared you can create files and
+install them in the <span class="filename">/etc/firehol/services</span>
+directory with a <span class="filename">.conf</span> extension.</p>
+
+<p>The first line must read:</p>
+
+<pre class="programlisting">
+FHVER 1:213
+</pre>
+
+<p>1 is the service definition API version. It will be changed if the API
+is ever modified. The 213 originally referred to a FireHOL 1.x minor
+version but is no longer checked.</p>
+
+<p>FireHOL will refuse to run if the API version does not match the
+expected one.</p>
