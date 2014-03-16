@@ -11,20 +11,20 @@ and variables and then it &quot;sources&quot; (runs inline) its configuration
 file to be executed by
 <a href="http://www.gnu.org/software/bash/bash.html">BASH</a>.</p>
 
-<p>The keywords <%= fh_manref('def-interface','interface') %>,
-<%= fh_manref('cmd-client','client') %>,
-<%= fh_manref('cmd-server','server') %>,
-<%= fh_manref('def-router','router') %>, etc. are all
+<p>The keywords <%= html_to('interface','/keyword/firehol/interface') %>,
+<%= html_to('client','/keyword/firehol/client') %>,
+<%= html_to('server','/keyword/firehol/server') %>,
+<%= html_to('router','/keyword/firehol/router') %>, etc. are all
 <a href="http://www.gnu.org/software/bash/bash.html">BASH</a> functions
 that are executed by
 <a href="http://www.gnu.org/software/bash/bash.html">BASH</a> when 
 and if they appear in the configuration file. Using shared variables 
 these functions share some state information that allows them to know, 
-for example, that a <%= fh_manref('cmd-client','client') %>
-command appears within an <%= fh_manref('def-interface','interface') %>
-and not within a <%= fh_manref('def-router','router') %>
+for example, that a <%= html_to('client','/keyword/firehol/client') %>
+command appears within an <%= html_to('interface','/keyword/firehol/interface') %>
+and not within a <%= html_to('router','/keyword/firehol/router') %>
 and that the name given to an
-<%= fh_manref('def-interface','interface') %> that has not
+<%= html_to('interface','/keyword/firehol/interface') %> that has not
 been used before.</p>
 
 <p>Instead of running iptables commands directly, each of these 
@@ -53,7 +53,7 @@ lock-out situation where you are SSHing to the server to alter its
 firewall, and suddenly you loose the connection (although this can
 still happen if your new firewall doesn't allow the connection).
 To control this behaviour, set the
-<%= fh_manref('firehol-variables-activation','ACTIVATION&nbsp;variables') %>.
+<%= html_to('ACTIVATION_variables','/keyword/manref/firehol/variables-activation') %>.
 </p>
 
 <p>If no error has been seen, FireHOL deletes all temporary files 

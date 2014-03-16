@@ -16,28 +16,32 @@ See the <a href="/guides/adding-services">Adding Services Guide</a>.
   </tr>
   <tr>
     <td>
-      <%= fhmanual_services_by_alpha('a').collect { |entry|
-                                   fh_manref('service-'+entry,entry)
+      <%= services_starting('a').collect { |entry|
+                                   html_to(entry.attributes[:service_name],
+                                           entry.identifier)
                                    }.join(', ') %>
-      <%= if fhmanual_services_by_alpha('a').size==0;then "None" else "" end %>
+      <%= if services_starting('a').size==0;then "None" else "" end %>
     </td>
     <td>
-      <%= fhmanual_services_by_alpha('b').collect { |entry|
-                                   fh_manref('service-'+entry,entry)
+      <%= services_starting('b').collect { |entry|
+                                   html_to(entry.attributes[:service_name],
+                                           entry.identifier)
                                    }.join(', ') %>
-      <%= if fhmanual_services_by_alpha('b').size==0;then "None" else "" end %>
+      <%= if services_starting('b').size==0;then "None" else "" end %>
     </td>
     <td>
-      <%= fhmanual_services_by_alpha('c').collect { |entry|
-                                   fh_manref('service-'+entry,entry)
+      <%= services_starting('c').collect { |entry|
+                                   html_to(entry.attributes[:service_name],
+                                           entry.identifier)
                                    }.join(', ') %>
-      <%= if fhmanual_services_by_alpha('c').size==0;then "None" else "" end %>
+      <%= if services_starting('c').size==0;then "None" else "" end %>
     </td>
     <td>
-      <%= fhmanual_services_by_alpha('d').collect { |entry|
-                                   fh_manref('service-'+entry,entry)
+      <%= services_starting('d').collect { |entry|
+                                   html_to(entry.attributes[:service_name],
+                                           entry.identifier)
                                    }.join(', ') %>
-      <%= if fhmanual_services_by_alpha('d').size==0;then "None" else "" end %>
+      <%= if services_starting('d').size==0;then "None" else "" end %>
     </td>
   </tr>
 
@@ -46,28 +50,32 @@ See the <a href="/guides/adding-services">Adding Services Guide</a>.
   </tr>
   <tr style="height: 150%;">
     <td>
-      <%= fhmanual_services_by_alpha('e').collect { |entry|
-                                   fh_manref('service-'+entry,entry)
+      <%= services_starting('e').collect { |entry|
+                                   html_to(entry.attributes[:service_name],
+                                           entry.identifier)
                                    }.join(', ') %>
-      <%= if fhmanual_services_by_alpha('e').size==0;then "None" else "" end %>
+      <%= if services_starting('e').size==0;then "None" else "" end %>
     </td>
     <td>
-      <%= fhmanual_services_by_alpha('f').collect { |entry|
-                                   fh_manref('service-'+entry,entry)
+      <%= services_starting('f').collect { |entry|
+                                   html_to(entry.attributes[:service_name],
+                                           entry.identifier)
                                    }.join(', ') %>
-      <%= if fhmanual_services_by_alpha('f').size==0;then "None" else "" end %>
+      <%= if services_starting('f').size==0;then "None" else "" end %>
     </td>
     <td>
-      <%= fhmanual_services_by_alpha('g').collect { |entry|
-                                   fh_manref('service-'+entry,entry)
+      <%= services_starting('g').collect { |entry|
+                                   html_to(entry.attributes[:service_name],
+                                           entry.identifier)
                                    }.join(', ') %>
-      <%= if fhmanual_services_by_alpha('g').size==0;then "None" else "" end %>
+      <%= if services_starting('g').size==0;then "None" else "" end %>
     </td>
     <td>
-      <%= fhmanual_services_by_alpha('h').collect { |entry|
-                                   fh_manref('service-'+entry,entry)
+      <%= services_starting('h').collect { |entry|
+                                   html_to(entry.attributes[:service_name],
+                                           entry.identifier)
                                    }.join(', ') %>
-      <%= if fhmanual_services_by_alpha('h').size==0;then "None" else "" end %>
+      <%= if services_starting('h').size==0;then "None" else "" end %>
     </td>
   </tr>
 
@@ -76,28 +84,32 @@ See the <a href="/guides/adding-services">Adding Services Guide</a>.
   </tr>
   <tr>
     <td>
-      <%= fhmanual_services_by_alpha('i').collect { |entry|
-                                   fh_manref('service-'+entry,entry)
+      <%= services_starting('i').collect { |entry|
+                                   html_to(entry.attributes[:service_name],
+                                           entry.identifier)
                                    }.join(', ') %>
-      <%= if fhmanual_services_by_alpha('i').size==0;then "None" else "" end %>
+      <%= if services_starting('i').size==0;then "None" else "" end %>
     </td>
     <td>
-      <%= fhmanual_services_by_alpha('j').collect { |entry|
-                                   fh_manref('service-'+entry,entry)
+      <%= services_starting('j').collect { |entry|
+                                   html_to(entry.attributes[:service_name],
+                                           entry.identifier)
                                    }.join(', ') %>
-      <%= if fhmanual_services_by_alpha('j').size==0;then "None" else "" end %>
+      <%= if services_starting('j').size==0;then "None" else "" end %>
     </td>
     <td>
-      <%= fhmanual_services_by_alpha('k').collect { |entry|
-                                   fh_manref('service-'+entry,entry)
+      <%= services_starting('k').collect { |entry|
+                                   html_to(entry.attributes[:service_name],
+                                           entry.identifier)
                                    }.join(', ') %>
-      <%= if fhmanual_services_by_alpha('k').size==0;then "None" else "" end %>
+      <%= if services_starting('k').size==0;then "None" else "" end %>
     </td>
     <td>
-      <%= fhmanual_services_by_alpha('l').collect { |entry|
-                                   fh_manref('service-'+entry,entry)
+      <%= services_starting('l').collect { |entry|
+                                   html_to(entry.attributes[:service_name],
+                                           entry.identifier)
                                    }.join(', ') %>
-      <%= if fhmanual_services_by_alpha('l').size==0;then "None" else "" end %>
+      <%= if services_starting('l').size==0;then "None" else "" end %>
     </td>
   </tr>
 
@@ -106,28 +118,32 @@ See the <a href="/guides/adding-services">Adding Services Guide</a>.
   </tr>
   <tr>
     <td>
-      <%= fhmanual_services_by_alpha('m').collect { |entry|
-                                   fh_manref('service-'+entry,entry)
+      <%= services_starting('m').collect { |entry|
+                                   html_to(entry.attributes[:service_name],
+                                           entry.identifier)
                                    }.join(', ') %>
-      <%= if fhmanual_services_by_alpha('m').size==0;then "None" else "" end %>
+      <%= if services_starting('m').size==0;then "None" else "" end %>
     </td>
     <td>
-      <%= fhmanual_services_by_alpha('n').collect { |entry|
-                                   fh_manref('service-'+entry,entry)
+      <%= services_starting('n').collect { |entry|
+                                   html_to(entry.attributes[:service_name],
+                                           entry.identifier)
                                    }.join(', ') %>
-      <%= if fhmanual_services_by_alpha('n').size==0;then "None" else "" end %>
+      <%= if services_starting('n').size==0;then "None" else "" end %>
     </td>
     <td>
-      <%= fhmanual_services_by_alpha('o').collect { |entry|
-                                   fh_manref('service-'+entry,entry)
+      <%= services_starting('o').collect { |entry|
+                                   html_to(entry.attributes[:service_name],
+                                           entry.identifier)
                                    }.join(', ') %>
-      <%= if fhmanual_services_by_alpha('o').size==0;then "None" else "" end %>
+      <%= if services_starting('o').size==0;then "None" else "" end %>
     </td>
     <td>
-      <%= fhmanual_services_by_alpha('p').collect { |entry|
-                                   fh_manref('service-'+entry,entry)
+      <%= services_starting('p').collect { |entry|
+                                   html_to(entry.attributes[:service_name],
+                                           entry.identifier)
                                    }.join(', ') %>
-      <%= if fhmanual_services_by_alpha('p').size==0;then "None" else "" end %>
+      <%= if services_starting('p').size==0;then "None" else "" end %>
     </td>
   </tr>
 
@@ -136,28 +152,32 @@ See the <a href="/guides/adding-services">Adding Services Guide</a>.
   </tr>
   <tr>
     <td>
-      <%= fhmanual_services_by_alpha('q').collect { |entry|
-                                   fh_manref('service-'+entry,entry)
+      <%= services_starting('q').collect { |entry|
+                                   html_to(entry.attributes[:service_name],
+                                           entry.identifier)
                                    }.join(', ') %>
-      <%= if fhmanual_services_by_alpha('q').size==0;then "None" else "" end %>
+      <%= if services_starting('q').size==0;then "None" else "" end %>
     </td>
     <td>
-      <%= fhmanual_services_by_alpha('r').collect { |entry|
-                                   fh_manref('service-'+entry,entry)
+      <%= services_starting('r').collect { |entry|
+                                   html_to(entry.attributes[:service_name],
+                                           entry.identifier)
                                    }.join(', ') %>
-      <%= if fhmanual_services_by_alpha('r').size==0;then "None" else "" end %>
+      <%= if services_starting('r').size==0;then "None" else "" end %>
     </td>
     <td>
-      <%= fhmanual_services_by_alpha('s').collect { |entry|
-                                   fh_manref('service-'+entry,entry)
+      <%= services_starting('s').collect { |entry|
+                                   html_to(entry.attributes[:service_name],
+                                           entry.identifier)
                                    }.join(', ') %>
-      <%= if fhmanual_services_by_alpha('s').size==0;then "None" else "" end %>
+      <%= if services_starting('s').size==0;then "None" else "" end %>
     </td>
     <td>
-      <%= fhmanual_services_by_alpha('t').collect { |entry|
-                                   fh_manref('service-'+entry,entry)
+      <%= services_starting('t').collect { |entry|
+                                   html_to(entry.attributes[:service_name],
+                                           entry.identifier)
                                    }.join(', ') %>
-      <%= if fhmanual_services_by_alpha('t').size==0;then "None" else "" end %>
+      <%= if services_starting('t').size==0;then "None" else "" end %>
     </td>
   </tr>
 
@@ -166,28 +186,32 @@ See the <a href="/guides/adding-services">Adding Services Guide</a>.
   </tr>
   <tr>
     <td>
-      <%= fhmanual_services_by_alpha('u').collect { |entry|
-                                   fh_manref('service-'+entry,entry)
+      <%= services_starting('u').collect { |entry|
+                                   html_to(entry.attributes[:service_name],
+                                           entry.identifier)
                                    }.join(', ') %>
-      <%= if fhmanual_services_by_alpha('u').size==0;then "None" else "" end %>
+      <%= if services_starting('u').size==0;then "None" else "" end %>
     </td>
     <td>
-      <%= fhmanual_services_by_alpha('v').collect { |entry|
-                                   fh_manref('service-'+entry,entry)
+      <%= services_starting('v').collect { |entry|
+                                   html_to(entry.attributes[:service_name],
+                                           entry.identifier)
                                    }.join(', ') %>
-      <%= if fhmanual_services_by_alpha('v').size==0;then "None" else "" end %>
+      <%= if services_starting('v').size==0;then "None" else "" end %>
     </td>
     <td>
-      <%= fhmanual_services_by_alpha('w').collect { |entry|
-                                   fh_manref('service-'+entry,entry)
+      <%= services_starting('w').collect { |entry|
+                                   html_to(entry.attributes[:service_name],
+                                           entry.identifier)
                                    }.join(', ') %>
-      <%= if fhmanual_services_by_alpha('w').size==0;then "None" else "" end %>
+      <%= if services_starting('w').size==0;then "None" else "" end %>
     </td>
     <td>
-      <%= fhmanual_services_by_alpha('x').collect { |entry|
-                                   fh_manref('service-'+entry,entry)
+      <%= services_starting('x').collect { |entry|
+                                   html_to(entry.attributes[:service_name],
+                                           entry.identifier)
                                    }.join(', ') %>
-      <%= if fhmanual_services_by_alpha('x').size==0;then "None" else "" end %>
+      <%= if services_starting('x').size==0;then "None" else "" end %>
     </td>
   </tr>
 
@@ -196,16 +220,18 @@ See the <a href="/guides/adding-services">Adding Services Guide</a>.
   </tr>
   <tr>
     <td>
-      <%= fhmanual_services_by_alpha('y').collect { |entry|
-                                   fh_manref('service-'+entry,entry)
+      <%= services_starting('y').collect { |entry|
+                                   html_to(entry.attributes[:service_name],
+                                           entry.identifier)
                                    }.join(', ') %>
-      <%= if fhmanual_services_by_alpha('y').size==0;then "None" else "" end %>
+      <%= if services_starting('y').size==0;then "None" else "" end %>
     </td>
     <td>
-      <%= fhmanual_services_by_alpha('z').collect { |entry|
-                                   fh_manref('service-'+entry,entry)
+      <%= services_starting('z').collect { |entry|
+                                   html_to(entry.attributes[:service_name],
+                                           entry.identifier)
                                    }.join(', ') %>
-      <%= if fhmanual_services_by_alpha('z').size==0;then "None" else "" end %>
+      <%= if services_starting('z').size==0;then "None" else "" end %>
     </td>
   </tr>
 </table>

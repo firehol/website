@@ -13,7 +13,7 @@ guess the configuration for your machine, simply run:
 
     firehol helpme > /tmp/firehol.conf
 
-The purpose of the [helpme](/firehol-manual.html#firehol-opt-helpme) feature
+The purpose of the [helpme](/keyword/manref/firehol/helpme) feature
 is to give you a configuration file that you can modify to get an operational
 firewall quickly, especially if your firewalling and iptables knowledge
 is limited. This feature does not stop or alter the running firewall of

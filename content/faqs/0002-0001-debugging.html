@@ -8,16 +8,15 @@ kind: faq
 <p>
 If you want to investigate why some traffic is being blocked, the best
 place to start may be with the
-<a target="_blank"
-   href="/firehol-manual.html#troubleshooting">troubleshooting section of the manual</a>.
+<a href="/guides/firehol-troubleshooting/">troubleshooting guide</a>.
 </p>
 
 <p>
 To get a listing of the actions FireHOL would take based on your
 configuration, you can run:</p>
-<pre class="programlisting">
+<pre class="programlisting"><code>
 firehol debug
-</pre>
+</code></pre>
 
 <p>
 In the event of an unexpected problem, FireHOL will leave behind its
@@ -28,8 +27,8 @@ help you diagnose the problem.
 <p>
 FireHOL runs as a bash script so if you need detailed information about
 what is going on internally you can add these lines to your configuration:
-<pre class="programlisting">
+<pre class="programlisting"><code>
 set -x
 set -v
-</pre>
+</code></pre>
 </p>

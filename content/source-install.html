@@ -19,10 +19,10 @@ Note that versions checked out from git will use internal version
 numbers e.g.:
 </p>
 
-<pre class="programoutput">
+<pre class="programoutput"><code>
 $ ./sbin/fireqos.in
 FireQOS $Id: def55bbc9c2a78aef580e88ad6d3f9ba689a6004 $
-</pre>
+</code></pre>
 
 <p>
 If you want a real version number you should
@@ -53,7 +53,7 @@ within a few minutes.
 <p>For a first time clone of a repository into directory
 <span class="filename">firehol</span>:
 
-<pre class="programlisting">
+<pre class="programlisting"><code>
 $ git clone https://github.com/ktsaou/firehol.git
 Cloning into 'firehol'...
 remote: Reusing existing pack: 4651, done.
@@ -63,15 +63,15 @@ remote: Total 4671 (delta 5), reused 20 (delta 5)
 Receiving objects: 100% (4671/4671), 1.80 MiB | 714 KiB/s, done.
 Resolving deltas: 100% (3008/3008), done.
 $ cd firehol
-</pre>
+</code></pre>
 </p>
 
 <p>Update a previously cloned repository to the latest version:
-<pre class="programlisting">
+<pre class="programlisting"><code>
 $ cd firehol
 $ git pull
 Already up-to-date.
-</pre>
+</code></pre>
 </p>
 
 <p>If you have successfully checked out the sources, you should be
@@ -79,7 +79,7 @@ able to run the scripts as
 <span class="command">sudo ./sbin/firehol.in</span> and
 <span class="command">sudo ./sbin/fireqos.in</span> to get basic
 help information.
-<pre class="programlisting">
+<pre class="programlisting"><code>
 $ sudo ./sbin/firehol.in
 FireHOL $Id: 483e51d16996e3b78c7c3df15058ef0f03a4408a $
 (C) Copyright 2003-2013 Costa Tsaousis &lt;costa@tsaousis.gr&gt;
@@ -109,7 +109,7 @@ action can be one of:
 		or
 	[filename] start [-- options]
   ...
-</pre>
+</code></pre>
 </p>
 
 <p>
@@ -148,8 +148,8 @@ You can create the Makefiles, enable building the manual and make
 the documentation with these commands:
 </p>
 
-<pre class="programlisting">
+<pre class="programlisting"><code>
 ./autogen.sh
 ./configure --enable-maintainer-mode
 make
-</pre>
+</code></pre>

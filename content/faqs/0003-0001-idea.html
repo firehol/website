@@ -65,10 +65,10 @@ configuration of many systems, etc.  But consider the following:</p>
      <span class="li-header">FireHOL minimises the configuration
                              directives.</span>
      Do you know how many iptables statements is this:
-     <pre class="programlisting">route "smtp http ftp" accept src not "a.client b.client c.client" dst "a.server b.server c.server"</pre>
+     <pre class="programlisting"><code>route "smtp http ftp" accept src not "a.client b.client c.client" dst "a.server b.server c.server"</code></pre>
      It is <span class="important">92</span> iptables statements and it
      would be more than 1000 if in the clients list there was the
-     <%= fh_manref('variables-available','UNROUTABLE_IPS') %> variable.
+     <%= html_to('UNROUTABLE_IPS','/keyword/manref/firehol/variables-unroutable') %> variable.
   </li>
     
   <li>
@@ -80,12 +80,12 @@ configuration of many systems, etc.  But consider the following:</p>
      accessed from the outside world.
      <br/>
      Also, this is why I like the
-     <%= fh_manref('cmd-client','client') %>
+     <%= html_to('client','/keyword/firehol/client') %>
      statement so much. Personally, I expect all production systems
      to be configured with client statements that specifically allow only
      client requests that are really needed. Although it is pretty
      helpful for workstations, I consider
-     <pre class="programlisting">client all accept</pre>
+     <pre class="programlisting"><code>client all accept</code></pre>
      as a security threat for production servers.
   </li>
 </ul>

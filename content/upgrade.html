@@ -28,7 +28,7 @@ The configuration version of FireHOL 2.0.0-pre6 and later has been updated
 from 5 to 6. Review your configuration and then update your version line to:
 </p>
 
-<%= fhmanual_example('upgrade-6-01') %>
+<%= include_example('upgrade-6-01') %>
 
 <p>
 FireHOL v2.0.0-pre6 adds combined IPv6/IPv6 support. When upgrading from
@@ -56,7 +56,7 @@ configuration can be labelled. For instance to mark something as IPv4
 only, write it as:
 </p>
 
-<%= fhmanual_example('upgrade-6-02') %>
+<%= include_example('upgrade-6-02') %>
 
 <p>
 Some commands (interface, router, client, server, route, group) have been
@@ -68,7 +68,7 @@ labelling them with ipv4 or ipv6.
 We will show how to adapt this simple config in a few possible ways:
 </p>
 
-<%= fhmanual_example('upgrade-6-03') %>
+<%= include_example('upgrade-6-03') %>
 
 <ul>
 <li>
@@ -80,7 +80,7 @@ We will show how to adapt this simple config in a few possible ways:
    FireHOL, so just rewrite to this:
 </p>
 
-<%= fhmanual_example('upgrade-6-04') %>
+<%= include_example('upgrade-6-04') %>
 
 <p>
   The only behaviour change to your version 5 config is that your host
@@ -98,7 +98,7 @@ We will show how to adapt this simple config in a few possible ways:
    as only applying to IPv4:
 </p>
 
-<%= fhmanual_example('upgrade-6-05') %>
+<%= include_example('upgrade-6-05') %>
 
 <p>
  It is possible to also add rules which only apply to IPv6.
@@ -113,27 +113,27 @@ We will show how to adapt this simple config in a few possible ways:
    explicitly with src4/src6 and dst4/dst6 e.g.:
 </p>
 
-<%= fhmanual_example('upgrade-6-06') %>
+<%= include_example('upgrade-6-06') %>
 
 <p>
   The FireHOL variables such as $UNROUTABLE_IPS will work automatically
   in both contexts, so you can still write:
 </p>
 
-<%= fhmanual_example('upgrade-6-07') %>
+<%= include_example('upgrade-6-07') %>
 
 <p>
   If you want to combine this with your own IPs or ranges, you will need to
   be explicit, either with:
 </p>
 
-<%= fhmanual_example('upgrade-6-08') %>
+<%= include_example('upgrade-6-08') %>
 
 <p>
   or the equivalent:
 </p>
 
-<%= fhmanual_example('upgrade-6-09') %>
+<%= include_example('upgrade-6-09') %>
 
 <p>
   which is more explicit.
@@ -148,15 +148,15 @@ We will show how to adapt this simple config in a few possible ways:
    specified to the opposite mode.</p>
 
 <p>IPv4 only:
-   <%= fh_manref('service-dhcp','dhcp') %> and
-   <%= fh_manref('service-timestamp','timestamp') %>.
+   <%= html_to('dhcp','/keyword/service/dhcp') %> and
+   <%= html_to('timestamp','/keyword/service/timestamp') %>.
 </p>
 
 <p>IPv6 only:
-   <%= fh_manref('service-dhcpv6','dhcpv6') %>,
-   <%= fh_manref('service-ipv6error','ipv6error') %>,
-   <%= fh_manref('service-ipv6neigh','ipv6neigh') %>,
-   and <%= fh_manref('service-ipv6router','ipv6router') %>.
+   <%= html_to('dhcpv6','/keyword/service/dhcpv6') %>,
+   <%= html_to('ipv6error','/keyword/service/ipv6error') %>,
+   <%= html_to('ipv6neigh','/keyword/service/ipv6neigh') %>,
+   and <%= html_to('ipv6router','/keyword/service/ipv6router') %>.
 </p>
 </li>
 
@@ -170,7 +170,7 @@ We will show how to adapt this simple config in a few possible ways:
  They should generally not be used in routers.
 </p>
 
-<%= fhmanual_example('upgrade-6-10') %>
+<%= include_example('upgrade-6-10') %>
 
 <p>
 Do not use <span class="code">client ipv6error accept</span> in interfaces,
@@ -182,18 +182,18 @@ the server rule has already set up what you need.
  to allow router auto-configuration.
 </p>
 
-<%= fhmanual_example('upgrade-6-11') %>
+<%= include_example('upgrade-6-11') %>
 
 <p>
   If your machine will be routing IPv6, it will also need to be able
   to send Router Advertisment messages from the relevant interface.
 </p>
 
-<%= fhmanual_example('upgrade-6-12') %>
+<%= include_example('upgrade-6-12') %>
 
 <p>
    When routing, you will need to allow
-   <%= fh_manref('service-ipv6error','ipv6error') %> in routers.
+   <%= html_to('ipv6error','/keyword/service/ipv6error') %> in routers.
    See its documentation for more information.
 </p>
 </li>

@@ -25,13 +25,13 @@ This means any packets which do not match any rules in the configuration file.
 FireHOL always logs packets not matched by any rule, although it does not
 log every single packet, in order to protect you from an attack that could
 use all of your free hard disk space. The rate is controlled in the same
-way as <%= fh_manref('rule-params','loglimit') %>.
+way as <%= html_to('loglimit','/keyword/firehol/loglimit') %>.
 </p>
 
 <p>
 In the system log you will find entries that look like:
 </p>
-<pre class="programoutput">
+<pre class="programoutput"><code>
 Dec 21 20:01:07 gateway kernel: IN-internet:IN=ppp0 OUT= MAC= \
   SRC=200.75.88.187 DST=195.97.5.193 LEN=78 TOS=0x00 PREC=0x00 \
   TTL=111 ID=63816 PROTO=UDP SPT=34165 DPT=137 LEN=58 
@@ -44,7 +44,7 @@ Dec 21 22:25:39 gateway kernel: OUT-unknown:IN= OUT=ppp0 \
 Dec 21 20:01:07 gateway kernel: PASS-unknown:IN=ppp0 OUT=eth0 \
   SRC=200.75.88.187 DST=195.97.5.194 LEN=78 TOS=0x00 PREC=0x00 \
   TTL=110 ID=64840 PROTO=UDP SPT=34132 DPT=137 LEN=58 
-</pre>
+</code></pre>
 
 <p>
 Each of such lines represent one packet that did not satisfy the
@@ -68,11 +68,11 @@ The important things to look in these logs are:
           routed traffic).
           <br/>
           <span class="important">Name</span> matches the name given to
-          a FireHOL <%= fh_manref('def-interface','interface') %>
+          a FireHOL <%= html_to('interface','/keyword/firehol/interface') %>
           There is also the special name
           <span class="important">unknown</span> that matches packets
           tried to come into this host but did not match any of
-          the <%= fh_manref('def-interface','interfaces') %>
+          the <%= html_to('interface','/keyword/firehol/interface') %>s
           given in FireHOL's configuration file.
       </li>
   
@@ -83,22 +83,22 @@ The important things to look in these logs are:
           routed).
           <br/>
           <span class="important">Name</span> matches the name given to
-          a FireHOL <%= fh_manref('def-interface','interface') %>
+          a FireHOL <%= html_to('interface','/keyword/firehol/interface') %>
           There is also the special name
           <span class="important">unknown</span> that matches packets
           that tried to go out of this host but did not match any of
-          the <%= fh_manref('def-interface','interfaces') %>
+          the <%= html_to('interface','/keyword/firehol/interface') %>s
           given in FireHOL's configuration file.
       </li>
   
       <li><span class="important">PASS-unknown</span> matches packets
            that dropped at the end of all
-           <%= fh_manref('def-router','routers') %>
+           <%= html_to('router','/keyword/firehol/router') %>s
            This matches forwarded traffic.
            <br/>
            There is no <span class="important">name</span> here, since
-           all FireHOL <%= fh_manref('def-router','routers') %>
-           have only one <%= fh_manref('cmd-policy','policy') %>
+           all FireHOL <%= html_to('router','/keyword/firehol/router') %>s
+           have only one <%= html_to('policy','/keyword/firehol/policy') %>
            <span class="important">RETURN</span>.
            This makes all packets traverse all routers and then get
            dropped at the end of the firewall.

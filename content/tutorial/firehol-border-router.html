@@ -10,7 +10,7 @@ Dealing with a lot of network interfaces can quickly mess up your ruleset.
 One wait to avoid this is having an outbound perspective.
 Think about you are sitting on your router, holding a network packet in
 your hand that you want to place in one of your network interfaces send
-queue. This is where your <%= fh_manref('def-router','router') %> kicks in.
+queue. This is where your <%= html_to('router','/keyword/firehol/router') %> kicks in.
 
 For this example we assume a <a href="http://en.wikipedia.org/wiki/Regional_Internet_registry" taget="_blank">RIR</a> has dedicated us a provider-independent IPv4 prefix 198.18.0.0/15 and an IPv6 prefix 2001:0002::/48 which we have to announce to our providers.
 </p>
@@ -69,20 +69,20 @@ Now it is time to start writing the FireHOL configuration file.
 Let us define the interface statements.
 </p>
 
-<%= fhmanual_example("tutorial-border-router-01") %>
+<%= include_example("tutorial-border-router-01") %>
 
 <p> Router ISP1</p>
 
-<%= fhmanual_example("tutorial-border-router-02") %>
+<%= include_example("tutorial-border-router-02") %>
 
 <p> Router ISP2</p>
 
-<%= fhmanual_example("tutorial-border-router-03") %>
+<%= include_example("tutorial-border-router-03") %>
 
 <p> Router ISP3</p>
 
-<%= fhmanual_example("tutorial-border-router-04") %>
+<%= include_example("tutorial-border-router-04") %>
 
 <p> Router DMZ</p>
 
-<%= fhmanual_example("tutorial-border-router-05") %>
+<%= include_example("tutorial-border-router-05") %>

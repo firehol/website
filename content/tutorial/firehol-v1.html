@@ -26,7 +26,7 @@ To identify your network interfaces use the
 <span class="command">ip link show</span> command. The example below
 shows my home router <span class="command">ip link show</span> output:
 
-<pre style="width: 100%;" class="programoutput">
+<pre style="width: 100%;" class="programoutput"><code>
 [root@gateway /]# ip link show
 1: <span class="important">lo</span>: &lt;LOOPBACK,UP&gt; mtu 16436 qdisc noqueue
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
@@ -34,7 +34,7 @@ shows my home router <span class="command">ip link show</span> output:
     link/ether 00:50:fc:21:9a:ab brd ff:ff:ff:ff:ff:ff
 12:<span class="important"> ppp0</span>: &lt;POINTOPOINT,MULTICAST,NOARP,UP&gt; mtu 1500 qdisc pfifo_fast qlen 3
     link/ppp
-</pre>
+</code></pre>
 
 <p>There are a few important thinks to always remember:</p>
 <ul>
@@ -190,17 +190,17 @@ time to start writing the FireHOL configuration file. First write one
 interface statement for each network interface you identified above:
 </p>
 
-<%= fhmanual_example("tutorial-v1-01") %>
+<%= include_example("tutorial-v1-01") %>
 
 <p> Now, we can add the servers for each interface (based on the table
 above). Remember that these servers are all running on the firewall host:</p>
 
-<%= fhmanual_example("tutorial-v1-02") %>
+<%= include_example("tutorial-v1-02") %>
 
 <p> Now, we can add the clients for each interface. Remember that these
 clients are all running on the firewall host: </p>
 
-<%= fhmanual_example("tutorial-v1-03") %>
+<%= include_example("tutorial-v1-03") %>
 
 <p>
 At this point, everyone should be able to inter-operate correctly
@@ -219,11 +219,11 @@ two interfaces we will have to define two routers. If we have 3
 interfaces, we will have to define 6 routers, and so on.
 </p>
 
-<%= fhmanual_example("tutorial-v1-04") %>
+<%= include_example("tutorial-v1-04") %>
 
 <p>
-Remember that <%= fh_manref('rule-params', 'inface') %>
-and <%= fh_manref('rule-params', 'outface') %>
+Remember that <%= html_to('inface','/keyword/firehol/inface') %>
+and <%= html_to('outface','/keyword/firehol/outface') %>
 match the <span class="important">requests</span>, not the replies.
 This means that the router <span class="important">home2internet</span>
 matches all requests originated from <span class="interface">eth0</span>
@@ -240,7 +240,7 @@ and going out to <span class="interface">ppp+</span>, and not route any
 request coming from the Internet and going out to the home LAN. Here it is:
 </p>
 
-<%= fhmanual_example("tutorial-v1-05") %>
+<%= include_example("tutorial-v1-05") %>
 
 <p>
 This is it. We are done! (for the filtering part of the firewall.
@@ -251,9 +251,9 @@ Look below for setting up NAT too.)
 
 <p>To save typing time, you can use this: </p>
 
-<%= fhmanual_example("tutorial-v1-06") %>
+<%= include_example("tutorial-v1-06") %>
 
-<p>Note that we can remove any <%= fh_manref('def-router','router') %>
+<p>Note that we can remove any <%= html_to('router','/keyword/firehol/router') %>
 statements not having any rules in them, so the
 <span class="important">internet2home</span> router has been eliminated.</p>
 
@@ -262,53 +262,53 @@ To find the IPs of your network interfaces use
 <span class="command">ip addr show</span> and to find the IP networks
 behind each interface use <span class="command">ip route show</span>.
 
-<%= fhmanual_example("tutorial-v1-07") %>
+<%= include_example("tutorial-v1-07") %>
 
-<p><%= fh_manref('variables-available','UNROUTABLE_IPS') %> is a variable
+<p><%= html_to('UNROUTABLE_IPS','/keyword/manref/firehol/variables-unroutable') %> is a variable
 defined by FireHOL and contains all the IPs that should not be routed
 on the internet.</p>
 
 <p>If home LAN did not have real IP addresses, we would have to add
 a masquerade command in our router:</p>
 
-<%= fhmanual_example("tutorial-v1-08") %>
+<%= include_example("tutorial-v1-08") %>
 
-<p>The <%= fh_manref('helpcmd-masquerade','masquerade') %> command sets
-itself up on the <%= fh_manref('rule-params','outface') %> of a
-<%= fh_manref('def-router','router') %>.</p>
+<p>The <%= html_to('masquerade','/keyword/firehol/masquerade') %> command sets
+itself up on the <%= html_to('outface','/keyword/firehol/outface') %> of a
+<%= html_to('router','/keyword/firehol/router') %>.</p>
 
 <p> We can now protect our ppp interface even further. For this we use
-the <%= fh_manref('cmd-protection','protection') %> command:</p>
+the <%= html_to('protection','/keyword/firehol/protection') %> command:</p>
 
-<%= fhmanual_example("tutorial-v1-09") %>
+<%= include_example("tutorial-v1-09") %>
 
 <p>It could be nice if instead of dropping wrong packets originated from
 the Ethernet, to reject them so that our workstations will not have to
 timeout if we do something that is not allowed. To do this we use
-the <%= fh_manref('cmd-policy','policy') %> command:</p>
+the <%= html_to('policy','/keyword/firehol/policy') %> command:</p>
 
-<%= fhmanual_example("tutorial-v1-10") %>
+<%= include_example("tutorial-v1-10") %>
 
 <p>Some servers on the Internet try to <span class="important">ident</span>
 back the client to find information about the user requesting the
 service. With our current firewall, such servers will have to timeout
 before accepting our request. To speed thinks up we could write:</p>
 
-<%= fhmanual_example("tutorial-v1-11") %>
+<%= include_example("tutorial-v1-11") %>
 
 <p>Note that we now have added the router we eliminated above, since we
 need to add a service to it.</p>
 
 <p>The whole routing schema could be rewritten as:</p>
 
-<%= fhmanual_example("tutorial-v1-12") %>
+<%= include_example("tutorial-v1-12") %>
 
 <p>Now we have elicited the first router, but we defined everything
 in the second. We have used the <span class="option">reverse</span>
-keyword in <%= fh_manref('helpcmd-masquerade','masquerade') %> to make
-it set up in <%= fh_manref('rule-params', 'inface') %> this time.</p>
+keyword in <%= html_to('masquerade','/keyword/firehol/masquerade') %> to make
+it set up in <%= html_to('inface','/keyword/firehol/inface') %> this time.</p>
 
 <p> We could use the first router (home2internet) to do everything,
-but then the <%= fh_manref('cmd-client','client') %> and
-<%= fh_manref('cmd-server','server') %> commands would need be
+but then the <%= html_to('client','/keyword/firehol/client') %> and
+<%= html_to('server','/keyword/firehol/server') %> commands would need be
 reversed (server all, client ident) which would be confusing.</p>

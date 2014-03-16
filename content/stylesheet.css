@@ -66,6 +66,7 @@ a:hover {
   font-weight: bold;
 
   line-height: 22px;
+  margin-top: 20px;
 }
 
 #main h3 {
@@ -73,10 +74,11 @@ a:hover {
   font-weight: bold;
 
   line-height: 18px;
+  margin-top: 20px;
 }
 
 #main p, #main hr {
-  margin: 20px 0;
+  margin-top: 20px;
 
   font-size: 15px;
 
@@ -142,11 +144,20 @@ a:hover {
   line-height: 20px;
 }
 
-.programoutput {
+blockquote {
+  margin-left: 10px;
+}
+
+blockquote code {
+  margin-left: 0;
+}
+
+code {
   font-family: monospace;
   font-size: 12px;
   display: block;
   width: 110%;
+  line-height: 120%;
   padding: 10px;
   border: 1px solid #bbb;
   background-color: #ddd;
@@ -154,37 +165,23 @@ a:hover {
   overflow: auto;
   border-radius: 2.5px;
   -moz-border-radius: 2.5px;
-  margin: 0.5em 2em;
+  margin-top: 20px;
+  margin-left: 10px;
 }
 
-code, .programlisting {
-  font-family: monospace;
-  font-size: 12px;
-  display: block;
-  width: 110%;
-  padding: 10px;
-  border: 1px solid #bbb;
-  background-color: #ddd;
-  color: #000;
-  overflow: auto;
-  border-radius: 2.5px;
-  -moz-border-radius: 2.5px;
-  margin: 0.5em 2em;
-}
-
-td pre.programlisting {
+td code {
   border-style: none;
   background-color: transparent;
 }
 
-.programlisting a:link,
-.programlisting a:visited {
+code a:link,
+code a:visited {
   color: #03f;
   font-family: monospace;
   font-size: 12px;
 }
 
-.programlisting a:hover {
+code a:hover {
   color: #09f;
   font-family: monospace;
   font-size: 12px;
@@ -209,7 +206,7 @@ td pre.programlisting {
   font-size: 12px;
 }
 
-pre .important {
+code .important {
   color: red;
   font-weight: normal;
 }

@@ -64,7 +64,7 @@ for just monitoring the traffic: without any traffic shaping at all.
 
 <p>Now edit <span class="filename">/etc/firehol/fireqos.conf</span> and add these:</p>
 
-<%= fhmanual_example("qos-tutorial-01") %>
+<%= include_example("qos-tutorial-01") %>
 
 <p><span class="code">DEVICE</span> is the interface you will be using. <span class="code">INPUT_SPEED</span> is the download speed of your interface. <span class="code">OUTPUT_SPEED</span> is the upload speed of your interface.</p>
 
@@ -74,7 +74,7 @@ for just monitoring the traffic: without any traffic shaping at all.
 
 <p>Now, lets add the interface definitions. Unlike FireHOL, FireQOS requires from you to define INPUT and OUTPUT of interfaces separately. So for just one interface, you will have to define two interfaces in FireQOS: one <span class="code">input</span> (traffic coming in) and one <span class="code">output</span> (traffic going out). Each of these can be configured in a completely independent way.</p>
 
-<%= fhmanual_example("qos-tutorial-02") %>
+<%= include_example("qos-tutorial-02") %>
 
 <p><span class="code">world-in</span> and <span class="code">world-out</span> are just names. Use anything you like, but make sure they do not have a space in them.</p>
 
@@ -114,7 +114,7 @@ for just monitoring the traffic: without any traffic shaping at all.
 
 <p>Here is an updated version of the config, updated with the DSL information:</p>
 
-<%= fhmanual_example("qos-tutorial-03") %>
+<%= include_example("qos-tutorial-03") %>
 
 <p>I used the variable <span class="code">LINKTYPE</span>, so that for the rest of the tutorial you can just copy-paste the interfaces. Put your link type in the <span class="code">LINKTYPE</span> variable.</p>
 
@@ -125,7 +125,7 @@ for just monitoring the traffic: without any traffic shaping at all.
 <hr/>
 <p>Now we are ready for our first run. Without giving anything else, lets run it with <span class="code">sudo fireqos start</span>:</p>
 
-<pre class="programoutput">
+<pre class="programoutput"><code>
 # sudo fireqos start
 FireQOS v1.0 DEVELOPMENT
 (C) 2013 Costa Tsaousis, GPL
@@ -139,13 +139,13 @@ FireQOS v1.0 DEVELOPMENT
 
 All Done!. Enjoy...
 bye...
-</pre>
+</code></pre>
 
 <p>Applied! As you can see, FireQOS found the MTU. It also added by itself the <span class="code">default</span> class. The <span class="code">default</span> class is the one that gets all traffic we leave unclassified. We will discuss classification in detail later.</p>
 
 <p>Let's now see the traffic we are sending with <span class="code">sudo fireqos status world-out</span>. We expect to see just one class, the <span class="code">default</span>, having all the traffic we are sending out.</p>
 
-<pre class="programoutput">
+<pre class="programoutput"><code>
 # sudo fireqos status world-out
 Password:
 FireQOS v1.0 DEVELOPMENT
@@ -176,7 +176,7 @@ COMMIT     12
    807    807
    795    795
    817    817
-</pre>
+</code></pre>
 
 <p>Press Control-C to stop it.</p>
 
@@ -214,11 +214,11 @@ b. FireQOS gives a priority to each class, in the order they appear in the confi
 
 <p>So, here are the classes in order of importance:</p>
 
-<%= fhmanual_example("qos-tutorial-04") %>
+<%= include_example("qos-tutorial-04") %>
 
 <p>Lets apply this. Again, using this config we will not disrupt the traffic. We expect to see all classes configured, but all the traffic will again be running through the default class.</p>
 
-<pre class="programoutput">
+<pre class="programoutput"><code>
 # sudo fireqos start
 FireQOS v1.0 DEVELOPMENT
 (C) 2013 Costa Tsaousis, GPL
@@ -244,13 +244,13 @@ FireQOS v1.0 DEVELOPMENT
 
 All Done!. Enjoy...
 bye...
-</pre>
+</code></pre>
 
 <p>FireQOS added the <span class="code">default</span> class again.</p>
 
 <p>Let's now see what is happening to traffic:</p>
 
-<pre class="programoutput">
+<pre class="programoutput"><code>
 # sudo fireqos status world-out
 FireQOS v1.0 DEVELOPMENT
 (C) 2013 Costa Tsaousis, GPL
@@ -278,7 +278,7 @@ COMMIT     12     12     12     12     12     12     12
    784      -      -      -      -      -      -    784
    783      -      -      -      -      -      -    783
    785      -      -      -      -      -      -    785
-</pre>
+</code></pre>
 
 <p>Ok. Traffic is still at the default class.</p>
 
@@ -290,7 +290,7 @@ COMMIT     12     12     12     12     12     12     12
 
 <p><span class="important">To ensure we will not disrupt the currently running traffic</span>, before we start experimenting with traffic classification, there is one change we have to make to our configuration. The way our configuration is now, each class is assigned a different priority. You can find this priority as <span class="code">prio X</span> in FireQOS output when we applied our configuration, but also as the PRIORITY line in FireQOS status output. The priority is increased for every class. The class with the higher priority is the first (<span class="code">prio 0</span>). For the moment we need all classes to have the same priority, to ensure no class can monopolize the available traffic. To accomplish this, we just add the keyword <span class="code">balanced</span> to each interface, like this:</p>
 
-<%= fhmanual_example("qos-tutorial-05") %>
+<%= include_example("qos-tutorial-05") %>
 
 <p>If you apply this configuration, you will get exactly the same result as before, but this time all classes will have <span class="code">prio 4</span>. This ensures that once we assign some traffic to higher priority classes, these classes will not monopolize the available bandwidth. Of course, classes should have different priorities to achieve our goal. We will assign them priorities at the next step, where we will discuss traffic shaping. For the moment, this <span class="code">balanced</span> policy allows us to experiment with classification, without worrying about the currently running traffic. We will not disrupt it.</p>
 
@@ -311,11 +311,11 @@ COMMIT     12     12     12     12     12     12     12
 
 <p>Lets see it:</p>
 
-<%= fhmanual_example("qos-tutorial-06") %>
+<%= include_example("qos-tutorial-06") %>
 
 <p>Apply it (it will not disrupt the traffic):</p>
 
-<pre class="programoutput">
+<pre class="programoutput"><code>
 # sudo fireqos start
 FireQOS v1.0 DEVELOPMENT
 (C) 2013 Costa Tsaousis, GPL
@@ -342,13 +342,13 @@ FireQOS v1.0 DEVELOPMENT
 
 All Done!. Enjoy...
 bye...
-</pre>
+</code></pre>
 
 <p>Applied! FireQOS gave <span class="code">prio 4</span> to all classes as it was asked to, by the <span class="code">balanced</span> keyword.</p>
 
 <p>Lets now see the traffic:</p>
 
-<pre class="programoutput">
+<pre class="programoutput"><code>
 # sudo fireqos status world-out
 FireQOS v1.0 DEVELOPMENT
 (C) 2013 Costa Tsaousis, GPL
@@ -374,7 +374,7 @@ COMMIT     12     12     12     12     12     12     12
    781      -      -      -      -    257      -    524
    786      -      -      -      -     64      -    722
    794      -      -      -      -     18      -    776
-</pre>
+</code></pre>
 
 <p>Nice. As you can see, the <span class="code">surfing</span> class got some traffic. This is normal internet surfing traffic going out (I asked status on <span class="code">world-out</span>).</p>
 
@@ -394,7 +394,7 @@ COMMIT     12     12     12     12     12     12     12
 
 <p>Here are all together in the configuration:</p>
 
-<%= fhmanual_example("qos-tutorial-07") %>
+<%= include_example("qos-tutorial-07") %>
 
 <h3 id="classifying-voip-vpns-and-facetime-traffic">Classifying VoIP, VPNs and Facetime traffic</h3>
 
@@ -412,7 +412,7 @@ COMMIT     12     12     12     12     12     12     12
 
 <p>For OpenVPN I have 4 permanent tunnels on ports 1195 to 1198. From time to time though I use these tunnels over TCP or UDP. So I'll omit the protocol to match any of them. Since I run the OpenVPN server, for <span class="code">input</span> I'll match the destination ports: <span class="code">match dport 1195:1198</span>, while for <span class="code">output</span> I'll match the source ports: <span class="code">match sport 1195:1198</span>.</p>
 
-<%= fhmanual_example("qos-tutorial-08") %>
+<%= include_example("qos-tutorial-08") %>
 
 <h3 id="classifying-torrents">Classifying torrents</h3>
 
@@ -440,11 +440,11 @@ COMMIT     12     12     12     12     12     12     12
 <li><p>Even if a few torrent sockets end up in the <span class="code">default</span> class, I would like to have all TCP handshake packets of the traffic in the <span class="code">default</span> class, preferred over the packets with data in them. So, the handshake of a new socket going out or coming in, will be preferred over the torrent packets. TCP handshake packets are packets with the SYN option set and small packets with the ACK option set. I'll add a new class <span class="code">synacks</span> just above <span class="code">default</span>.</p></li>
 </ol>
 
-<%= fhmanual_example("qos-tutorial-09") %>
+<%= include_example("qos-tutorial-09") %>
 
 <p>Lets activate it. All traffic should now be classified in classes, but no shaping will occur for any class. We do not expect to disrupt the current traffic. Running this will just allow us to see the traffic we have assigned in every class. Traffic will still be competing with each other, much like it is done without traffic control in place.</p>
 
-<pre class="programoutput">
+<pre class="programoutput"><code>
 # sudo fireqos start
 FireQOS v1.0 DEVELOPMENT
 (C) 2013 Costa Tsaousis, GPL
@@ -472,11 +472,11 @@ FireQOS v1.0 DEVELOPMENT
 
 All Done!. Enjoy...
 bye...
-</pre>
+</code></pre>
 
 <p>Lets now see the traffic:</p>
 
-<pre class="programoutput">
+<pre class="programoutput"><code>
 # sudo fireqos status world-out
 FireQOS v1.0 DEVELOPMENT
 (C) 2013 Costa Tsaousis, GPL
@@ -507,12 +507,12 @@ COMMIT     12     12     12     12     12     12     12     12
    787      -      -      -     18     83      1    348    337
    789      -      -      -     53    246      3    244    243 # balancing, check surfing, default, torrents
 ^C
-</pre>
+</code></pre>
 
 <p>Nice. This was the <span class="code">output</span> interface.
 Lets check the <span class="code">input</span> too:</p>
 
-<pre class="programoutput">
+<pre class="programoutput"><code>
 # sudo fireqos status world-in
 FireQOS v1.0 DEVELOPMENT
 (C) 2013 Costa Tsaousis, GPL
@@ -544,7 +544,7 @@ COMMIT    120    120    120    120    120    120    120    120
   3643      -      -      -      -      -      1    171   3470
   4026      -      -      -      -      7      1      4   4014
 ^C
-</pre>
+</code></pre>
 
 <p>Perfect!</p>
 
@@ -608,7 +608,7 @@ COMMIT    120    120    120    120    120    120    120    120
 <li><p><span class="code">surfing</span>, 30% download, 5% upload.</p></li>
 </ol>
 
-<%= fhmanual_example("qos-tutorial-09b") %>
+<%= include_example("qos-tutorial-09b") %>
 
 <p>All the bandwidth I have not committed to classes, will be considered <span class="important">spare bandwidth</span>.</p>
 
@@ -640,11 +640,11 @@ COMMIT    120    120    120    120    120    120    120    120
 </li>
 </ol><p>I will go with plan 2, the aggressive one. Here it is:</p>
 
-<%= fhmanual_example("qos-tutorial-10") %>
+<%= include_example("qos-tutorial-10") %>
 
 <p>Apply it:</p>
 
-<pre class="programoutput">
+<pre class="programoutput"><code>
 # sudo fireqos start
 FireQOS v1.0 DEVELOPMENT
 (C) 2013 Costa Tsaousis, GPL
@@ -672,11 +672,11 @@ FireQOS v1.0 DEVELOPMENT
 
 All Done!. Enjoy...
 bye...
-</pre>
+</code></pre>
 
 <p>Lets test it with an ADSL speed tester, first the <span class="code">input</span> interface:</p>
 
-<pre class="programoutput">
+<pre class="programoutput"><code>
 # sudo fireqos status world-in
 FireQOS v1.0 DEVELOPMENT
 (C) 2013 Costa Tsaousis, GPL
@@ -710,13 +710,13 @@ COMMIT    120   2400    200   2400   3600    120    120    120
   4126      -      2      -      8      -      8    197   3911
   4434     15      3      -      5      -      3    187   4220
 ^C
-</pre>
+</code></pre>
 
 <p>Remember, if you want traffic to be shaped faster in the inbound direction, use 90% or 85% of the incoming bandwidth.</p>
 
 <p>Lets see the <span class="code">output</span>:</p>
 
-<pre class="programoutput">
+<pre class="programoutput"><code>
 # sudo fireqos status world-out
 FireQOS v1.0 DEVELOPMENT
 (C) 2013 Costa Tsaousis, GPL
@@ -751,7 +751,7 @@ COMMIT    100    160    200    160     40     12     12     12
    790      -      -      -     36      -     20     29    706
    743      -      -      -      2      -     11      6    725
 ^C
-</pre>
+</code></pre>
 
 <p>Excellent! Traffic shaping works as expected.</p>
 

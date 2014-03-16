@@ -74,17 +74,17 @@ stable.</p>
 and SHA512 (<span class="filename">.sha</span>) checksums. To verify, download
 the checksum files as well as the tar-file and run e.g.:</p>
 
-<pre class="programoutput">
+<pre class="programoutput"><code>
 $ md5sum -c firehol-2.0.0.tar.gz.md5 
 firehol-2.0.0.tar.gz: OK
-</pre>
+</code></pre>
 
 <p>or:</p>
 
-<pre class="programoutput">
+<pre class="programoutput"><code>
 $ sha512sum -c firehol-2.0.0.tar.gz.sha 
 firehol-2.0.0.tar.gz: OK
-</pre>
+</code></pre>
 
 <p>Official releases also come with
 <a href="http://gnupg.org/gph/en/manual/x135.html">detached gpg signatures</a>
@@ -99,7 +99,7 @@ with one of these keys:</p>
 <p>Initially your gpg keyring will not include these keys, so your first
 time checking might go something like this:</p>
 
-<pre class="programoutput">
+<pre class="programoutput"><code>
 $ gpg --verify firehol-2.0.0.tar.gz.asc firehol-2.0.0.tar.gz
 gpg: Signature made Sat 15 Feb 2014 12:19:56 GMT using RSA key ID D829797E
 gpg: Can't check signature: public key not found
@@ -117,7 +117,7 @@ gpg: Good signature from "Phil Whineray &lt;phil@sanewall.org&gt;"
 gpg: WARNING: This key is not certified with a trusted signature!
 gpg:          There is no indication that the signature belongs to the owner.
 Primary key fingerprint: 9CCE 9A8D 5328 FBD6 CE29  6DCC 63DF 1E44 D829 797E
-</pre>
+</code></pre>
 
 <p>If you really want to be certain you can trust the signature,
 <a href="/email/">contact us</a> and we will see what we can arrange.
@@ -125,22 +125,22 @@ Primary key fingerprint: 9CCE 9A8D 5328 FBD6 CE29  6DCC 63DF 1E44 D829 797E
 <h3 id="install">Install</h3>
 
 <p>Unpack and change directory with:</p>
-<pre class="programlisting">
+<pre class="programlisting"><code>
 tar xfz firehol-<em>version</em>.tar.gz
 cd firehol-<em>version</em>
-</pre>
+</code></pre>
 
 <p>Options for the <span class="command">configure</span> program can be
 seen in the <span class="filename">INSTALL</span>
 file and by running:</p>
-<pre class="programlisting">
+<pre class="programlisting"><code>
 ./configure --help
-</pre>
+</code></pre>
 
 <p>To build and install taking the default options:</p>
-<pre class="programlisting">
+<pre class="programlisting"><code>
 ./configure &amp;&amp; make &amp;&amp; sudo make install
-</pre>
+</code></pre>
 
 <p>Alternatively, just copy the
 <span class="filename">sbin/firehol.in</span> and

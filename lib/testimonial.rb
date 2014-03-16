@@ -1,4 +1,4 @@
-module FaqHelper
+module TestimonialHelper
 
   def testimonial_items
     @items.select { |item| item[:kind] == 'testimonial' } .
@@ -19,4 +19,4 @@ module FaqHelper
   end
 end
 
-include FaqHelper
+include TestimonialHelper

@@ -22,7 +22,7 @@ since the running firewall is not touched during this phase.
 <p>
 Firewall activation is again slow in a few situations, especially if
 you have lists of hosts that should be allowed or rejected (like
-<%= fh_manref('variables-available','UNROUTABLE_IPS') %>).
+<%= html_to('UNROUTABLE_IPS','/keyword/manref/firehol/variables-unroutable') %>).
 During the processing phase, FireHOL produces a list of the iptables
 commands to be executed at the activation phase. This list of iptables
 commands, first clears the running firewall and then it runs iptables
@@ -68,6 +68,6 @@ these few seconds, his socket will simply timeout after FireHOL completes.
 <p>
 If you would prefer to ensure no traffic passes whilst the firewall
 is being activated, read about the
-<%= fh_manref('firehol-variables-activation','ACTIVATION&nbsp;variables') %>,
+<%= html_to('ACTIVATION_variables','/keyword/manref/firehol/variables-activation') %>,
 which are able to control this behaviour.
 </p>

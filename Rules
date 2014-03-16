@@ -14,8 +14,6 @@
 #   because “*” matches zero or more characters.
 
 preprocess do
-  # The manual should be copied into place by the Makefile
-  fhmanual_prepare("tmp/firehol-manual.html", "tmp/firehol-services.html")
 end
 
 compile '/stylesheet/' do
@@ -34,13 +32,15 @@ compile '*' do
   if item.binary?
     # don’t filter binary items
   else
-    ext = item[:extension].nil? ? nil : item[:extension].split('.').last
-    if ext == 'md'
+    filter :erb
+    # filter :debug_filter
+    if @item[:extension] and @item[:extension].end_with? "md"
       filter :pandoc
-    else
-      filter :erb
+      # filter :debug_filter
     end
     layout 'default'
+    filter :syntax_highlight
+    filter :manual_url
   end
 end
 
@@ -70,6 +70,11 @@ end
 
 route '/examples/*' do
   # These items are pulled directly into wherever they are needed
+end
+
+route '/keyword/*' do
+  # These are not items for formatting; they are used for syntax highlighting
+  # and translation of /keyword/firehol/interface type URIs
 end
 
 route '*' do

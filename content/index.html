@@ -67,7 +67,7 @@ expressions).</p>
 
 <p>Writing a firewall can be this easy:</p>
 
-<%= fhmanual_example('overview-01') %>
+<%= include_example('overview-01') %>
 
 <p>Jump straight to the <a href="/tutorial/">tutorials</a> to learn how
 to configure your own.</p>
@@ -118,40 +118,39 @@ same way you think of it. Its language is extremely simple.
 Basically you have to learn four commands:</p>
 
 <ul>
-  <li><%= fh_manref('def-interface','interface') %>, to setup a
+  <li><%= html_to('interface','/keyword/firehol/interface') %>, to setup a
       firewall on a network interface
   </li>
 
-  <li><%= fh_manref('def-router','router') %>, to setup a 
+  <li><%= html_to('router','/keyword/firehol/router') %>, to setup a 
       firewall on traffic routed from one network interface to another
   </li>
 
-  <li><%= fh_manref('cmd-server','server') %>, to setup a
+  <li><%= html_to('server','/keyword/firehol/server') %>, to setup a
       listening service within an interface or router.
       The same command can be used as
-      <%= fh_manref('cmd-server','route') %> within routers
+      <%= html_to('route','/keyword/firehol/server') %> within routers
   </li>
 
-  <li><%= fh_manref('cmd-client','client') %>, to setup a service
+  <li><%= html_to('client','/keyword/firehol/client') %>, to setup a service
       client within an interface or router
   </li>
 </ul>
 
 <p>
-Commands <%= fh_manref('cmd-client','client') %> and
-<%= fh_manref('cmd-server','server') %> have exactly the same syntax.
-A FireHOL <%= fh_manref('def-interface','interface') %> has two mandatory
-arguments and a <%= fh_manref('def-router','router') %> has only one
-(and this is the same with one of the two
-<%= fh_manref('def-interface','interface') %> requires).
-All the <%= fh_manref('rule-params','optional&nbsp;parameters') %> are the
-same to all of them. This sounds like just one command is to be learned...
+Commands <%= html_to('client','/keyword/firehol/client') %> and
+<%= html_to('server','/keyword/firehol/server') %> have exactly the same syntax.
+A FireHOL <%= html_to('interface','/keyword/firehol/interface') %> has two mandatory
+arguments and a <%= html_to('router','/keyword/firehol/router') %> has only one
+(and this is the same as one of the two that
+<%= html_to('interface','/keyword/firehol/interface') %> requires).
+All of the optional parameters are the same to all of them. This sounds
+like just one command is to be learned...
 </p>
 
 <p>
-Of course there are a
-<%= fh_manref('firehol.conf-commands','few&nbsp;more&nbsp;commands') %>
-defined, but all of them exist just to give you finer control on these four.
+Of course there are a few more commands defined, but all of them exist
+just to give you finer control on these four.
 </p>
 
 <p>If you don't believe it is simple, consider
@@ -222,14 +221,14 @@ FireHOL supports the following services:</p>
 
 <p>Configuring traffic shaping can be this easy:</p>
 
-<%= fhmanual_example('overview-qos-01') %>
+<%= include_example('overview-qos-01') %>
 
 <p>Jump straight to the <a href="/tutorial/">tutorials</a> to learn how
 to configure your own.</p>
 
 <p>FireQOS also allows you to monitor the live status of traffic:</p>
 
-<pre class="programoutput">
+<pre class="programoutput"><code>
 # ./sbin/fireqos.in status adsl-in
 FireQOS v1.0 DEVELOPMENT
 (C) 2013 Costa Tsaousis, GPL
@@ -254,7 +253,7 @@ PRIORIT       1       2       3       5       4
     103      19       3       -      79       2
      56       -       3       -      50       3
      84       -       5       -      70       9
-</pre>
+</code></pre>
 
 <ul>
   <li>

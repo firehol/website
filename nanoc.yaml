@@ -57,6 +57,11 @@ data_sources:
     # will have the identifier “/about/” when turned off, but when turned on
     # it will become “/about.html/” instead.
     allow_periods_in_identifiers: false
+  -
+    type: keyword_url
+    config:
+      manual_file: "tmp/firehol-manual.html"
+      service_file: "tmp/firehol-services.html"
 
 # Configuration for the “watch” command, which watches a site for changes and
 # recompiles if necessary.
