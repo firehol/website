@@ -225,7 +225,7 @@ module FireholManualHelper
                  w = ss.scan(/.*/)
                  '<span class="comment">' + w + '</span>'
                elsif ss.peek(1) == "$"
-                 w = ss.scan(/\${?[A-Za-z0-9_]+}?/)
+                 w = ss.scan(/\$\{?[A-Za-z0-9_]+\}?/)
                  '<span class="var">' + w + '</span>'
                elsif ss.match?(/\s+/)
                  ss.scan(/\s+/)
