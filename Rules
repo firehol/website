@@ -34,7 +34,12 @@ compile '*' do
   if item.binary?
     # don’t filter binary items
   else
-    filter :erb
+    ext = item[:extension].nil? ? nil : item[:extension].split('.').last
+    if ext == 'md'
+      filter :pandoc
+    else
+      filter :erb
+    end
     layout 'default'
   end
 end

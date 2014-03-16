@@ -8,6 +8,9 @@ The website is built using nanoc, which if you have ruby can be installed
 as follows:
     sudo gem install nanoc
 
+We use the pandoc filter, which requires pandoc-ruby also:
+    sudo gem install pandoc-ruby
+
 To be able to preview the site with a mini web-server, also install adsf:
     sudo gem install adsf
 

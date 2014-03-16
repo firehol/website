@@ -157,7 +157,7 @@ a:hover {
   margin: 0.5em 2em;
 }
 
-.programlisting {
+code, .programlisting {
   font-family: monospace;
   font-size: 12px;
   display: block;
