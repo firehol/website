@@ -243,6 +243,10 @@ code .important {
   margin: 10px 2px;
 }
 
+div#latest-news {
+  margin-bottom: 20px;
+}
+
 table {
   border: 0;
   width: 70%;

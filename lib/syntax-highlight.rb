@@ -10,19 +10,19 @@ class SyntaxHighlight < Nanoc::Filter
     doc.search("//pre[@class='firehol']").each do |node|
       if node.children.count == 1
         node.inner_html =
-          firehol_highlight(node.inner_html).sub(/\n+$/, "").sub(/^\n+/, "")
+          firehol_highlight(node.inner_html).strip
       end
     end
 
     doc.search("//pre[@class='fireqos']").each do |node|
       if node.children.count == 1
         node.inner_html =
-          fireqos_highlight(node.inner_html).sub(/\n+$/, "").sub(/^\n+/, "")
+          fireqos_highlight(node.inner_html).strip
       end
     end
 
     doc.search("//code").each do |node|
-      node.inner_html = node.inner_html.sub(/\n+$/, "").sub(/^\n+/, "")
+      node.inner_html = node.inner_html.strip
     end
 
     doc.to_html
