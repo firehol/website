@@ -54,11 +54,20 @@ a:hover {
   width: 850px;
 }
 
+#main h1:first-child {
+  font-size: 26px;
+  font-weight: bold;
+
+  line-height: 26px;
+  margin-top: 0px;
+}
+
 #main h1 {
   font-size: 26px;
   font-weight: bold;
 
   line-height: 26px;
+  margin-top: 20px;
 }
 
 #main h2 {
@@ -77,12 +86,16 @@ a:hover {
   margin-top: 20px;
 }
 
-#main p, #main hr {
+#main p, #main hr, #main dt {
   margin-top: 20px;
 
   font-size: 15px;
 
   line-height: 20px;
+}
+
+#main dd {
+  margin-left: 10px;
 }
 
 #main ul, #main ol {
@@ -152,7 +165,7 @@ blockquote code {
   margin-left: 0;
 }
 
-code {
+pre code {
   font-family: monospace;
   font-size: 12px;
   display: block;
@@ -167,6 +180,11 @@ code {
   -moz-border-radius: 2.5px;
   margin-top: 20px;
   margin-left: 10px;
+}
+
+code {
+  font-family: monospace;
+  font-size: 12px;
 }
 
 td code {
