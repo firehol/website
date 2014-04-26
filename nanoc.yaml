@@ -62,6 +62,7 @@ data_sources:
     config:
       manual_file: "tmp/firehol-manual.html"
       service_file: "tmp/firehol-services.html"
+      pandoc_link_files: [ "tmp/links-internal", "tmp/links-keywords-firehol", "tmp/links-keywords-fireqos", "tmp/service-links" ]
 
 # Configuration for the “watch” command, which watches a site for changes and
 # recompiles if necessary.

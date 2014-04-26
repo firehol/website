@@ -8,9 +8,10 @@ s=firehol-services.html
 
 all: website
 
-website: tmp/$(m) tmp/$(s) tmp/$(c)
+website:
 	@echo Compiling site $(site)
 	mkdir -p output
+	./extract-manual
 	nanoc compile
 
 tmp/$(m):
@@ -28,7 +29,7 @@ tmp/$(c):
 tmp/$(site).firehol.org/firehol-manual/:
 	(cd tmp; wget -q -r --no-parent http://$(site).firehol.org/firehol-manual/)
 
-fakeman: website tmp/$(site).firehol.org/firehol-manual/
+fakeman: tmp/$(m) tmp/$(s) tmp/$(c) website tmp/$(site).firehol.org/firehol-manual/
 	cp -rp tmp/$(c) output/
 	cp -rp tmp/$(m) output/
 	cp -rp tmp/$(s) output/
@@ -46,4 +47,5 @@ clean:
 	rm -rf output crash.log
 
 cleanall: clean
-	rm -rf tmp
+	rm -rf tmp content/manual content/manual.md
+	git checkout HEAD content/manual.html

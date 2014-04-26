@@ -1,0 +1,101 @@
+#!/bin/sh
+
+#
+# extract-manual - get ahold of the latest manual and unpack it for use
+#
+
+# Look for built files, then built tar-file in each of these in turn
+locations="/home/web/firehol/download/latest/ $HOME/src/firehol"
+
+scriptname=extract-manual
+if ! MYTMP=$(mktemp -d -t $scriptname-XXXXXX)
+then
+            echo >&2
+            echo >&2
+            echo >&2 "Cannot create temporary directory."
+            echo >&2
+            exit 1
+fi
+
+cleanup() {
+  status=$?
+  rm -rf "${MYTMP}"
+  exit $status
+}
+
+# clean up if we get stopped by Crtl-C or forced logout or normal exit
+trap cleanup INT
+trap cleanup HUP
+trap cleanup 0
+
+src=
+for l in $locations
+do
+  if [ -f $l/doc/firehol-manual.html ]
+  then
+    src=$l/doc
+    echo "Extracting manual from $l/doc"
+    break
+  fi
+  if [ $(ls $l/firehol-*.tar.gz 2> /dev/null | wc -l) -eq 1 ]
+  then
+    echo "Extracting manual from" $l/firehol-*.tar.gz
+    tar xfzC $l/firehol-*.tar.gz $MYTMP
+    if [ -f $MYTMP/firehol*/doc/firehol-manual.html ]
+    then
+      src=$(ls -d $MYTMP/firehol*/doc 2> /dev/null)
+      break
+    else
+      # Docs not in this tar, continue looking
+      rm -rf $MYTMP/firehol*
+    fi
+  fi
+done
+
+if [ ! "$src" ]
+then
+  1>&2 echo "No single tar.gz or built docs found in expected locations"
+  1>&2 echo "  ($locations)"
+  exit 1
+fi
+
+if [ -f $src/firehol.ent.in ]
+then
+  echo "Old-style manual: sending the built HTML files for processing"
+  mkdir -p tmp
+  cp $src/firehol-manual.html tmp/. || exit 1
+  cp $src/firehol-services.html tmp/. || exit 1
+  exit 0
+fi
+
+echo "New style manual: importing the pandoc directly into the website"
+dest=manual
+rm -rf content/$dest
+mkdir -p content/$dest
+cd content/$dest || exit 1
+
+for i in $src/*.md
+do
+  o=$(basename $i)
+  # Remove manpage headers and change references into the final website form
+  sed -e '1i---' \
+      -e '1isubmenu: documentation' \
+      -e '4i---' \
+      -e '1s/^% \([^ ]*\) .*/title: Reference Manual - \1\ndescription: \1 Reference Manual\nkeywords: firewall, linux, free, gpl, manual, reference, \1/p' \
+      -e '1,3d' \
+      -e '/^%/d' \
+      -e 's;\.[0-9]*\.md;.md;g' \
+      -e "s;(\([^)]*\)\.md\([^)]*\));(/$dest/\1/\2);" \
+      -e 's;http://firehol.org/;/;g' $i > $o
+
+  # Import links
+  sed -e 's;\.[0-9]*\.md;.md;g' \
+      -e "s;: \(.*\)\.md\(.*\);: /$dest/\1/\2;" \
+         $src/links* $src/service-links >> $o
+done
+
+rm -f README.md
+mv contents.md ../manual.md && rm -f ../manual.html
+
+mkdir -p ../../tmp
+cp $src/links* $src/service-links ../../tmp/.

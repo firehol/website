@@ -19,10 +19,14 @@ class ManualURLFilter < Nanoc::Filter
       if (src != nil and src.match(/^\/keyword\//))
         if items[src] then
           node[url_param] = items[src].raw_content
-          node["target"] = "_blank"
+          if items[src].attributes[:newpage]
+            node["target"] = "_blank"
+          end
         elsif items[src + "/"] then
           node[url_param] = items[src + "/"].raw_content
-          node["target"] = "_blank"
+          if items[src + "/"].attributes[:newpage]
+            node["target"] = "_blank"
+          end
         else
           raise "No manual url: #{src}"
         end

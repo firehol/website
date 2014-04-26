@@ -4,3 +4,5 @@ output/
 tmp/
 *.bak
 *~
+content/manual/
+content/manual.md
