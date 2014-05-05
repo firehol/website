@@ -5,7 +5,7 @@
 #
 
 # Look for built files, then built tar-file in each of these in turn
-locations="/home/web/firehol/download/latest/ $HOME/src/firehol"
+locations="/home/web/firehol/download/unsigned/master/ $HOME/src/firehol"
 
 scriptname=extract-manual
 if ! MYTMP=$(mktemp -d -t $scriptname-XXXXXX)
