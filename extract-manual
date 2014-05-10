@@ -59,13 +59,10 @@ then
   exit 1
 fi
 
-if [ -f $src/firehol.ent.in ]
+if [ ! -f $src/contents.md ]
 then
-  echo "Old-style manual: sending the built HTML files for processing"
-  mkdir -p tmp
-  cp $src/firehol-manual.html tmp/. || exit 1
-  cp $src/firehol-services.html tmp/. || exit 1
-  exit 0
+  echo "Old-style manual: no longer supported"
+  exit 1
 fi
 
 echo "New style manual: importing the pandoc directly into the website"

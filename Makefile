@@ -48,4 +48,3 @@ clean:
 
 cleanall: clean
 	rm -rf tmp content/manual content/manual.md
-	git checkout HEAD content/manual.html
