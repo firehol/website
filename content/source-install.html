@@ -135,17 +135,25 @@ packaging a release you can just copy and/or use
 <p>To build the documentation and/or a tar-file, you will need:</p>
 
 <ul>
-<li><a href="http://xmlsoft.org/XSLT/xsltproc2.html">xsltproc</a></li>
-<li><a href="http://dblatex.sourceforge.net/">dblatex</a></li>
-<li><a href="http://www.docbook.org/xml/">DocBook XML</a></li>
-<li><a href="http://wiki.docbook.org/DocBookXslStylesheets">DocBook XSL Stylesheets</a></li>
+<li><a href="http://johnmacfarlane.net/pandoc/installing.html">pandoc 1.9.4.2 or higher</a></li>
+<li><a href="https://www.tug.org/texlive/pkginstall.html">pdflatex from e.g. TeX Live</a></li>
 <li><a href="http://www.gnu.org/software/autoconf/">GNU autoconf</a></li>
 <li><a href="http://www.gnu.org/software/automake/">GNU automake</a></li>
 </ul>
 
 <p>
-You can create the Makefiles, enable building the manual and make
-the documentation with these commands:
+If you are building from a git repository, a complete clean of your tree
+and build of a firehol-development-tar.gz can be done by running:
+</p>
+
+<pre class="programlisting"><code>
+./packaging/git-build
+</code></pre>
+
+<p>
+The key steps of creating Makefiles, enabling build of the manual and
+producing the outputs work from both a repository or an unpacked source
+tar-file. Use these commands:
 </p>
 
 <pre class="programlisting"><code>
