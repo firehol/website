@@ -164,37 +164,55 @@ We will show how to adapt this simple config in a few possible ways:
 <h3>Important ICMP differences</h3>
 
 <p>
- Various ICMPv6 messages need to be allowed on interfaces for correct
- operation of IPv6, including some ICMPv6 error messages and network
- neighbour solicitation/advertisement messages (which replace ARP in IPV6).
- They should generally not be used in routers.
+ Various ICMPv6 messages need to be explicitly allowed for correct
+ operation of IPv6. Firstly, certain ICMPv6 error messages must be
+ enabled.
 </p>
 
 <%= include_example('upgrade-6-10') %>
 
 <p>
-Do not use <span class="code">client ipv6error accept</span> in interfaces,
-the server rule has already set up what you need.
+ Incoming and outgoing rules are different and are set up automatically.
+ Do not use <span class="code">client ipv6error accept</span> except
+ in a <%= html_to('router','/keyword/firehol/router') %> where the outface
+ is the "inside" of your firewall.  See the
+ <%= html_to('ipv6error','/keyword/service/ipv6error') %> documentation
+ for more information.
 </p>
 
 <p>
- Router solicitation/advertisement messages must also be enabled
- to allow router auto-configuration.
+ The remaining ICMPv6 messages should generally not be used in FireHOL
+ router definitions, since the information they convey should be kept
+ to the local network.
+</p>
+
+<p>
+ To allow hosts to communicate with one another over IPv6,
+ network neighbour solicitation/advertisement messages (which do in IPv6
+ what ARP does in IPv4) must be enabled on interfaces.
+</p>
+
+<%= include_example('upgrade-6-10a') %>
+
+<p>
+ To allow network route auto-discovery,
+ router solicitation/advertisement messages must be enabled
+ on interfaces as a client.
 </p>
 
 <%= include_example('upgrade-6-11') %>
 
 <p>
+  You can accept these messages from multiple interfaces, for
+  instance on "home" above, if there are multiple IPv6 routes available.
+</p>
+
+<p>
   If your machine will be routing IPv6, it will also need to be able
-  to send Router Advertisment messages from the relevant interface.
+  to send router advertisment messages from the relevant interface(s).
 </p>
 
 <%= include_example('upgrade-6-12') %>
 
-<p>
-   When routing, you will need to allow
-   <%= html_to('ipv6error','/keyword/service/ipv6error') %> in routers.
-   See its documentation for more information.
-</p>
 </li>
 </ul>
