@@ -2,10 +2,16 @@ class KeywordUrl < Nanoc::DataSource
   identifier :keyword_url
 
   def setup
+    error=nil
     self.config[:pandoc_link_files].each { |f|
-      if not File.file?(f) then raise "Missing #{f} link generation" end
+      if not File.file?(f) then error="Missing #{f} link generation" end
     }
-    return setup_links_from_pandoc(self.config[:pandoc_link_files])
+    return setup_links_from_pandoc(true, self.config[:pandoc_link_files]) unless error
+
+    self.config[:pandoc_link_old].each { |f|
+      raise error if not File.file?(f)
+    }
+    return setup_links_from_pandoc(false, self.config[:pandoc_link_old])
   end
 
   def setup_pandoc_specials
@@ -66,7 +72,7 @@ class KeywordUrl < Nanoc::DataSource
     @items << item
   end
 
-  def setup_links_from_pandoc(file_list)
+  def setup_links_from_pandoc(separate_manuals, file_list)
     @errors = nil
     @items = []
     @item_hash = {}
@@ -75,6 +81,16 @@ class KeywordUrl < Nanoc::DataSource
     setup_pandoc_specials
 
     file_list.each do |file|
+      manual_base = if separate_manuals
+                      if file =~ /qos/
+                        "fireqos-manual"
+                      else
+                        "firehol-manual"
+                      end
+                    else
+                      "manual"
+                    end
+
       open(file, "rb") do |infile|
         infile.each_line do |line|
           if m = line.match(/^\[keyword-manref-(.*)\]:\s+([^#\s]*?)\.?[0-9]?\.md#([^\s]*)\s*$/)
@@ -82,7 +98,7 @@ class KeywordUrl < Nanoc::DataSource
             filebase = m[2]
             anchor = m[3]
             replace_link("/keyword/manref/#{keyword.sub(/-/, '/')}",
-                         "/manual/#{filebase}/\##{anchor}")
+                         "/#{manual_base}/#{filebase}/\##{anchor}")
           elsif m = line.match(/^\[keyword-([^-]+)-([^-]+)-?([^-]+)?\]:\s+([^#\s]*?)\.?[0-9]?\.md#([^\s]*)\s*$/)
             # Regexp matches lines such as:
             #   [keyword-firehol-tos-param]: firehol-params.5.md#tos
@@ -93,7 +109,7 @@ class KeywordUrl < Nanoc::DataSource
             disambiguate = m[3]
             filebase = m[4]
             anchor = m[5]
-            real_url = "/manual/#{filebase}/\##{anchor}"
+            real_url = "/#{manual_base}/#{filebase}/\##{anchor}"
             if product == "service"
               id = "/keyword/#{product}/#{keyword}"
               create_item real_url,

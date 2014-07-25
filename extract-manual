@@ -28,12 +28,22 @@ trap cleanup INT
 trap cleanup HUP
 trap cleanup 0
 
+set -e
+
+mode=single
 src=
 for l in $locations
 do
   if [ -f $l/doc/firehol-manual.html ]
   then
     src=$l/doc
+    echo "Extracting manual from $l/doc"
+    break
+  fi
+  if [ -f $l/doc/firehol/firehol-manual.html ]
+  then
+    src=$l/doc
+    mode=separate
     echo "Extracting manual from $l/doc"
     break
   fi
@@ -44,6 +54,11 @@ do
     if [ -f $MYTMP/firehol*/doc/firehol-manual.html ]
     then
       src=$(ls -d $MYTMP/firehol*/doc 2> /dev/null)
+      break
+    elif [ -f $MYTMP/firehol*/doc/firehol/firehol-manual.html ]
+    then
+      src=$(ls -d $MYTMP/firehol*/doc 2> /dev/null)
+      mode=separate
       break
     else
       # Docs not in this tar, continue looking
@@ -59,40 +74,66 @@ then
   exit 1
 fi
 
-if [ ! -f $src/contents.md ]
+if [ $mode = "single" -a ! -f $src/contents.md ]
 then
   echo "Old-style manual: no longer supported"
   exit 1
 fi
 
-echo "New style manual: importing the pandoc directly into the website"
-dest=manual
-rm -rf content/$dest
-mkdir -p content/$dest
-cd content/$dest || exit 1
+if [ $mode = "separate" -a ! -f $src/firehol/contents.md ]
+then
+  echo "New-style manual: missing firehol contents"
+  exit 1
+fi
 
-for i in $src/*.md
-do
-  o=$(basename $i)
-  # Remove manpage headers and change references into the final website form
-  sed -e '1i---' \
-      -e '1isubmenu: documentation' \
-      -e '4i---' \
-      -e '1s/^% \([^ ]*\) .*/title: Reference Manual - \1\ndescription: \1 Reference Manual\nkeywords: firewall, linux, free, gpl, manual, reference, \1/p' \
-      -e '1,3d' \
-      -e '/^%/d' \
-      -e 's;\.[0-9]*\.md;.md;g' \
-      -e "s;(\([^)]*\)\.md\([^)]*\));(/$dest/\1/\2);" \
-      -e 's;http://firehol.org/;/;g' $i > $o
+if [ $mode = "separate" -a ! -f $src/fireqos/contents.md ]
+then
+  echo "New-style manual: missing fireqos contents"
+  exit 1
+fi
 
-  # Import links
-  sed -e 's;\.[0-9]*\.md;.md;g' \
-      -e "s;: \(.*\)\.md\(.*\);: /$dest/\1/\2;" \
-         $src/links* $src/service-links >> $o
-done
+process() {
+  echo "Importing pandoc directly to website: $2 .. $3"
+  base="$1"
+  doc="$2"
+  dest="$3"
 
-rm -f README.md
-mv contents.md ../manual.md && rm -f ../manual.html
+  rm -rf content/$dest
+  mkdir -p content/$dest
+  cd content/$dest || exit 1
 
-mkdir -p ../../tmp
-cp $src/links* $src/service-links ../../tmp/.
+  for i in $doc/*.md
+  do
+    o=$(basename $i)
+    # Remove manpage headers and change references into the final website form
+    sed -e '1i---' \
+        -e '1isubmenu: documentation' \
+        -e '4i---' \
+        -e '1s/^% \([^ ]*\) .*/title: Reference Manual - \1\ndescription: \1 Reference Manual\nkeywords: firewall, linux, free, gpl, manual, reference, \1/p' \
+        -e '1,3d' \
+        -e '/^%/d' \
+        -e 's;\.[0-9]*\.md;.md;g' \
+        -e "s;(\([^)]*\)\.md\([^)]*\));(/$dest/\1/\2);" \
+        -e 's;http://firehol.org/;/;g' $i > $o
+
+    # Import links
+    sed -e 's;\.[0-9]*\.md;.md;g' \
+        -e "s;: \(.*\)\.md\(.*\);: /$dest/\1/\2;" \
+           $base/links* $base/service-links >> $o
+  done
+
+  mv contents.md ../$dest.md
+  cd ../..
+}
+
+mkdir -p tmp
+cp $src/links* $src/service-links tmp/.
+
+if [ $mode = separate ]
+then
+  process $src $src/firehol firehol-manual
+  process $src $src/fireqos fireqos-manual
+else
+  process $src $src manual
+  rm -f content/manual/README.md
+fi

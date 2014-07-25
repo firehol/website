@@ -4,5 +4,7 @@ output/
 tmp/
 *.bak
 *~
-content/manual/
-content/manual.md
+content/firehol-manual/
+content/firehol-manual.md
+content/fireqos-manual/
+content/fireqos-manual.md

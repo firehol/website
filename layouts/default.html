@@ -42,7 +42,12 @@
           <ul class="<%= submenu_class("documentation", @item[:submenu]) %>" >
             <li><a href="/tutorial/">Tutorials</a></li>
             <li><a href="/guides/">Guides</a></li>
+            <% if @items["/firehol-manual/firehol-conf/"] %>
+            <li><a href="/firehol-manual/">FireHOL Reference Manual</a></li>
+            <li><a href="/fireqos-manual/">FireQOS Reference Manual</a></li>
+            <% else %>
             <li><a href="/manual/">Reference Manual</a></li>
+            <% end %>
             <li><a href="/services/">FireHOL Services List</a></li>
             <li><a href="/faq/">Frequently Asked Questions</a></li>
           </ul>
