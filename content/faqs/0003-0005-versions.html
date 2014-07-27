@@ -1,0 +1,42 @@
+---
+group: 0003-General
+title: 0005-How do version numbers work in FireHOL and FireQOS
+id: version-numbers
+kind: faq
+---
+<p>FireHOL and FireQOS share a common version number. The numbers
+used follow the <a href="http://semver.org/">Semantic Versioning</a>
+scheme.</p>
+
+<p>Thus releases will be 3 digits e.g.:</p>
+
+<pre class="programoutput"><code>
+2.0.0
+</code></pre>
+
+<p>Pre-release versions will have an additional identifier e.g.:</p>
+
+<pre class="programoutput"><code>
+2.0.0-rc.5
+</code></pre>
+
+<p>Daily builds use the commit id from which they were built:</p>
+
+<pre class="programoutput"><code>
+$ sudo ./sbin/firehol
+FireHOL commit-61d70a2
+</code></pre>
+
+<p>
+When checked out from git, the programs will report internal version
+numbers e.g.:
+</p>
+
+<pre class="programoutput"><code>
+$ ./sbin/firehol.in
+FireHOL $Id: 8c6fd57f0b7a3c76fe848dc118f0637cb853f1e4 $
+</code></pre>
+
+<p>Earlier packages were in the form 1.xxx, which related to the CVS
+revision of the FireHOL script. Nine pre-releases exist up to 2.0.0-pre9
+which are limited by semantic versioning. The -rc.nnnn come after these.</p>
