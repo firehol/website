@@ -15,13 +15,17 @@ submenu: home
 <h1>What are FireHOL and FireQOS?</h1>
 
 <p>FireHOL is a language (and a program to run it) which builds secure,
-   stateful firewalls of any complexity from easy to understand,
-   human-readable configurations.
+   stateful firewalls from easy to understand, human-readable configurations.
+   The configurations stay readable even for very complex setups.
 </p>
 
 <p>FireQOS is a program which sets up traffic shaping from an
    easy-to-understand and flexible configuration file.
 </p>
+
+<p>Both programs abstract away the differences between IPv4 and IPv6.
+so you can concentrate on the rules you want. You can apply rules for
+IPv4 or IPv6, or both, as you need.</p>
 
 <p>We think the best advert for these programs are their configurations.
 See below for:
@@ -65,7 +69,8 @@ number of services served, any number of complexity between
 variations of the services (including positive and negative
 expressions).</p>
 
-<p>Writing a firewall can be this easy:</p>
+<p>Writing a complete, safe, firewall, suitable for protecting a host
+and a network can be this easy:</p>
 
 <%= include_example('overview-01') %>
 
@@ -219,7 +224,8 @@ FireHOL supports the following services:</p>
     always to apply traffic shaping.
 </p>
 
-<p>Configuring traffic shaping can be this easy:</p>
+<p>Configuring a complete, functional, traffic shaping setup can be
+this easy:</p>
 
 <%= include_example('overview-qos-01') %>
 
