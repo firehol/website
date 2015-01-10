@@ -28,6 +28,7 @@ opkg update
 opkg install bash
 opkg install coreutils-fold
 opkg install flock
+opkg install iptables-mod-extra
 opkg install iptables-mod-conntrack-extra
 opkg install kmod-ipt-nathelper-extra
 </code></pre>
@@ -94,7 +95,14 @@ reload() {
 <p>Your configuration depends on your router setup. Be careful not
 to firewall yourself out or you will find yourself using
 <a href="http://wiki.openwrt.org/doc/howto/generic.failsafe">OpenWRT
-failsafe mode</a>. This is roughly my config:</p>
+failsafe mode</a>. You can help avoid this by editing the firewall
+setup in a temporary location and running
+<span class="command">/sbin/firehol /tmp/new-firehol.conf</span>
+which will automatically revert after 30 seconds if you do not explicitly
+accept the new configuration (impossible if you have disabled your
+current connection).</p>
+
+<p>This is roughly my config:</p>
 
 <%= include_example('openwrt-01') %>
 
@@ -158,6 +166,22 @@ default firewall, and enable FireHOL instead:</p>
 <p>To check the link was created:
 <span class="command">ls -l /etc/rc.d/S45firehol</span> should point
 to the correct init file.</p>
+
+<p>If you want to use the firewall on bridged interfaces, edit
+<span class="filename">/etc/sysctl.conf</span> to enable it:</p>
+
+<pre class="programlisting"><code>
+net.bridge.bridge-nf-call-arptables=0
+net.bridge.bridge-nf-call-ip6tables=1
+net.bridge.bridge-nf-call-iptables=1
+</code></pre>
+
+<p>and reload the configuraion:</p>
+
+<pre class="programlisting"><code>
+sysctl -p
+</code></pre>
+
 
 <h3>FireQOS</h3>
 
