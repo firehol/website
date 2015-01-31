@@ -47,6 +47,11 @@ private
 
     outtext = ""
     lines = text.split("\n").collect do |line|
+      # The gsub()s undo pandoc treating the span newcode from included
+      # examples as literal text
+      line.gsub!(/&lt;span class="newcode"&gt;/, '<span class="newcode">')
+      line.gsub!(/&lt;\/span&gt;/, '</span>')
+
       first_word = true
       ss = StringScanner.new(line)
       loop do

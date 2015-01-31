@@ -110,6 +110,12 @@ or:
 
     <%= include_example("name-in-example-header") %>
 
+    *   Examples in a list need to understand the indentation level
+
+        <%= include_example("name-in-example-header", "    ") %>
+
+        Or the output will not work as expected
+
     Here is an inline example which will be highlighted/linked for FireHOL:
 
     ~~~~ {.firehol}

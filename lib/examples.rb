@@ -1,5 +1,6 @@
 module FireholExamples
-  def include_example(name)
+  def include_example(name, *param_array)
+    spaces = param_array.first || ""
     examples = @items.select { |i| i[:kind] == 'example' && i[:name] == name }
     raise "No example named #{name}" if examples.size < 1
     raise "Multiple examples named #{name}" if examples.size > 1
@@ -15,17 +16,17 @@ module FireholExamples
     end
 
     if @item[:extension] and @item[:extension].end_with? "md"
-      prefix = "\n~~~~~~~~ {.#{example[:keyword]}}\n"
+      prefix = "\n#{spaces}~~~~ {.#{example[:keyword]}}\n"
       suffix = if example.raw_content.end_with? "\n"
                  ""
                else
                  "\n"
-               end + "~~~~~~~~\n\n"
+               end + "#{spaces}~~~~~\n\n"
     else
       prefix = "<pre class='#{example[:keyword]}'><code>"
       suffix = "\n</code></pre>\n"
     end
-    prefix + example.raw_content + suffix
+    prefix + example.raw_content.gsub(/^/, spaces) + suffix
   end
 end
 
