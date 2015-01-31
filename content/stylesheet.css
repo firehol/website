@@ -224,15 +224,6 @@ code a:hover {
   font-size: 12px;
 }
 
-code .important {
-  color: red;
-  font-weight: normal;
-}
-
-.important {
-  font-weight: bold;
-}
-
 .li-header {
   display: block;
   font-weight: bold;

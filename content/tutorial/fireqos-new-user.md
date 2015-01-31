@@ -141,7 +141,7 @@ FireQOS can configure the kernel for proper ATM overheads calculation.
 To do it though, it needs the following information:
 
 1.  The protocol used. This can either be `PPPoE`, `PPPoA`, `IPoA`
-    or`Bridged`. Note that RFC 1483 Bridging should be PPPoE. `Bridged`
+    or `Bridged`. Note that RFC 1483 Bridging should be PPPoE. `Bridged`
     should only be used when neither PPPoE, PPPoA nor IPoA are used.
 2.  The ATM encapsulation used. This can either be `VC/Mux` or
     `LLC/SNAP`
@@ -405,7 +405,7 @@ We are now ready to classify traffic.
 Classification is the process of assigning traffic to classes. Once all
 traffic is assigned to classes, we will discuss traffic shaping.
 
-`To ensure we will not disrupt the currently running traffic`{.important},
+**To ensure we will not disrupt the currently running traffic**,
 before we start experimenting with traffic classification, there is one
 change we have to make to our configuration. The way our configuration
 is now, each class is assigned a different priority. You can find this
