@@ -13,6 +13,7 @@ website:
 	mkdir -p output
 	./extract-manual
 	nanoc compile
+	cp -rp external/ output/.
 
 tmp/$(m):
 	mkdir -p tmp

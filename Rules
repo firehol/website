@@ -16,15 +16,7 @@
 preprocess do
 end
 
-compile '/stylesheet/' do
-  # don’t filter or layout
-end
-
-compile '/semantic/' do
-  # don’t filter or layout
-end
-
-compile '/jquery-1/' do
+compile '/css/*' do
   # don’t filter or layout
 end
 
@@ -42,18 +34,6 @@ compile '*' do
     filter :syntax_highlight
     filter :manual_url
   end
-end
-
-route '/stylesheet/' do
-  '/style.css'
-end
-
-route '/semantic/' do
-  '/semantic.css'
-end
-
-route '/jquery-1/' do
-  '/lib/jquery.js'
 end
 
 route '/faqs/*' do
@@ -75,6 +55,10 @@ end
 route '/keyword/*' do
   # These are not items for formatting; they are used for syntax highlighting
   # and translation of /keyword/firehol/interface type URIs
+end
+
+route '/css/*' do
+  item.identifier.chop + '.' + item[:extension]
 end
 
 route '*' do

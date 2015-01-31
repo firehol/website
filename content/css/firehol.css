@@ -1,0 +1,12 @@
+body {
+    padding-top: 70px;
+}
+
+.newcode a:link,
+.newcode a:visited {
+  color: #f30;
+}
+
+.newcode a:hover {
+  color: #f90;
+}

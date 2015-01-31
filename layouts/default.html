@@ -1,7 +1,9 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8"/>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="<%= item[:description] ||
       'FireHOL and FireQOS offer simple and powerful configuration
        for all Linux firewall and traffic shaping requirements' %>"/>
@@ -13,108 +15,55 @@
     <meta name="author" content="Phil Whineray, Costa Tsaousis"/>
     <meta name="msapplication-config" content="none"/>
     <title>FireHOL - <%= @item[:title] %></title>
-    <link rel="stylesheet" href="/style.css"/>
-    <link rel="stylesheet" href="/semantic.css"/>
-    <script src="/lib/jquery.js"/></script>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="/external/bootstrap-3.3.2-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/firehol.css"/>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="/external/html5shiv-3.7.2.min.js"></script>
+      <script src="/external/respond-1.4.2.min.js"></script>
+    <![endif]-->
   </head>
   <body>
-    <div id="header">
-       <p>
-         <a class="title" href="/">FireHOL</a>
-          FireHOL and FireQOS - simple and powerful firewall and traffic
-          shaping languages for Linux
-       </p>
-    </div>
-    <div id="main" class="<%= @item[:main_class] ? @item[:main_class] : "regular" %>">
-      <%= yield %>
-    </div>
-    <div id="sidebar">
-      <ul>
-        <li>
-          <h2><a href="/">Home</a> <%= submenu_ind("home", @item[:submenu]) %></h2>
-          <ul class="<%= submenu_class("home", @item[:submenu]) %>" >
-            <li><a href="/uses/">Uses</a></li>
-            <li><a href="/news/">News</a></li>
-            <li><a href="/testimonials/">Testimonials</a></li>
-          </ul>
-        </li>
-        <li>
-          <h2><a href="/documentation/">Documentation</a> <%= submenu_ind("documentation", @item[:submenu]) %></h2>
-          <ul class="<%= submenu_class("documentation", @item[:submenu]) %>" >
-            <li><a href="/tutorial/">Tutorials</a></li>
-            <li><a href="/guides/">Guides</a></li>
-            <li><a href="/services/">FireHOL Services List</a></li>
-            <% if @items["/firehol-manual/firehol-conf/"] %>
-            <li><a href="/firehol-manual/">FireHOL Reference Manual</a></li>
-            <li><a href="/fireqos-manual/">FireQOS Reference Manual</a></li>
-            <% else %>
-            <li><a href="/manual/">Reference Manual</a></li>
-            <% end %>
-            <li><a href="/upgrade/">Upgrading configurations</a></li>
-            <li><a href="/faq/">Frequently Asked Questions</a></li>
-            <li><a href="https://github.com/ktsaou/firehol/wiki">Wiki</a></li>
-          </ul>
-        </li>
-        <li>
-          <h2><a href="/support/">Support / Community</a> <%= submenu_ind("support", @item[:submenu]) %></h2>
-          <ul class="<%= submenu_class("support", @item[:submenu]) %>" >
 
-            <li><a target="_blank" href="http://lists.firehol.org/mailman/listinfo/firehol-support">Support list</a>
-                /
-                <a target="_blank" href="http://dir.gmane.org/gmane.comp.security.firewalls.firehol.user">archive</a></li>
-            <li><a target="_blank" href="http://lists.firehol.org/mailman/listinfo/firehol-devs">Development list</a>
-                /
-                <a target="_blank" href="http://dir.gmane.org/gmane.comp.security.firewalls.firehol.devel">archive</a></li>
-            <li><a target="_blank"
-         href="https://github.com/ktsaou/firehol/issues">Issue Tracker</a></li>
-            <li><a target="_blank"
-          href="https://github.com/ktsaou/firehol/wiki">Wiki</a></li>
-            <li><a target="_blank"
-         href="https://www.openhub.net/p/firehol">Openhub Project</a></li>
-            <li><a href="/getting-involved/">Getting Involved</a></li>
-            <li><a href="/email/">Email Authors</a></li>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">FireHOL</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <%= li_active("home",@item[:submenu]) %><a
+                  href="/">About</a></li>
+            <%= li_active("documentation",@item[:submenu]) %><a
+                  href="/documentation/">Documentation</a></li>
+            <%= li_active("support",@item[:submenu]) %><a
+                  href="/support/">Support</a></li>
+            <%= li_active("downloads",@item[:submenu]) %><a
+                  href="/installing/">Download</a></li>
+            <%= li_active("source",@item[:submenu]) %><a
+                  href="/source-install/">Source</a></li>
           </ul>
-        </li>
-        <li>
-          <h2><a href="/installing/">Download / Install</a> <%= submenu_ind("downloads", @item[:submenu]) %></h2>
-          <ul class="<%= submenu_class("downloads", @item[:submenu]) %>" >
-            <li><a target="_blank"
-                     href="/download/latest/">Stable Release</a></li>
-            <li><a target="_blank"
-                     href="/download/releases/">All Releases</a></li>
-            <li><a target="_blank"
-                     href="/download/unsigned/master/">Daily Build</a></li>
-          </ul>
-        </li>
-        <li>
-          <h2><a href="/source-install/">Source Code</a> <%= submenu_ind("source", @item[:submenu]) %></h2>
-          <ul class="<%= submenu_class("source", @item[:submenu]) %>" >
-            <li><a target="_blank"
-         href="https://github.com/ktsaou/firehol">FireHOL GitHub Repository</a></li>
-            <li><a target="_blank"
-         href="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2+ Licence</a></li>
-          </ul>
-      </ul>
-      <h2>Hosted By</h2>
-      <ul>
-        <li>
-          <a target="_blank"
-             href="http://www.foxyhosting.cz/"><img alt="www.foxyhosting.cz"
-                                             src="/images/foxyhosting.png"></a>
-        </li>
-      </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container">
+    <%= yield %>
     </div>
-<script>
-// Show menus items only if they are current or the title is clicked
-$('#sidebar ul li ul.closedbydefault').hide();
-$('#sidebar li h2 a.toggle').click(function() {
-  $(this).parent().next().slideToggle("slow");
-  if ($(this).text() == "[+]") {
-    $(this).text("[-]");
-  } else {
-    $(this).text("[+]");
-  }
-});
-</script>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="/external/jquery-1.11.2.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="/external/bootstrap-3.3.2-dist/js/bootstrap.min.js"></script>
   </body>
 </html>
