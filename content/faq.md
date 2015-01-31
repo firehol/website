@@ -3,9 +3,10 @@ title: Frequently Asked Questions
 submenu: documentation
 ---
 
-<h1 name="top">FAQ</h1>
+FAQ
+===
 
-<p>FireHOL - Frequently Asked Questions</p>
+FireHOL - Frequently Asked Questions
 
 <% faq_groups.each do |group| %>
 <h2><%= group.sub(/[^-]*-/, "") %></h2>

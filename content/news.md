@@ -3,7 +3,8 @@ title: News
 submenu: home
 ---
 
-<h1>Latest News</h1>
+Latest News
+===========
 
 <div id="news">
 
