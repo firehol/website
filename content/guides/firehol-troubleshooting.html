@@ -8,16 +8,16 @@ submenu: documentation
 <p>
 Troubleshooting a running firewall is relatively simple and for almost all
 iptables firewalls the means you have are the same tool,
-<span class="important">the system log</span>. This is typically
-<span class="filename">/var/log/messages</span>,
-<span class="filename">/var/log/syslog</span> or similar.
+<strong>the system log</strong>. This is typically
+<code class="filename">/var/log/messages</code>,
+<code class="filename">/var/log/syslog</code> or similar.
 </p>
 
 <h2>Reading log output</h2>
 
 <p>
 The system log will log any packets dropped
-<span class="important">implicitly</span> by FireHOL.
+<strong>implicitly</strong> by FireHOL.
 This means any packets which do not match any rules in the configuration file. 
 </p>
 
@@ -57,49 +57,49 @@ The important things to look in these logs are:
 
 <ul>
   <li><span class="li-header">Its reason text</span>.
-    In FireHOL this has the form <span class="important">IN-name</span>,
-    <span class="important">OUT-name</span>,
-    <span class="important">PASS-name</span>.
+    In FireHOL this has the form <strong>IN-name</strong>,
+    <strong>OUT-name</strong>,
+    <strong>PASS-name</strong>.
     <ul>
       <li><span class="li-header">IN-name</span> matches packets that
           dropped at the end of the interface's
-          <span class="important">name</span> input.
+          <strong>name</strong> input.
           These are packets tried to come into this host (it is not
           routed traffic).
           <br/>
-          <span class="important">Name</span> matches the name given to
+          <strong>Name</strong> matches the name given to
           a FireHOL <%= html_to('interface','/keyword/firehol/interface') %>
           There is also the special name
-          <span class="important">unknown</span> that matches packets
+          <strong>unknown</strong> that matches packets
           tried to come into this host but did not match any of
           the <%= html_to('interface','/keyword/firehol/interface') %>s
           given in FireHOL's configuration file.
       </li>
   
-      <li><span class="important">OUT-name</span> matches packets that
+      <li><strong>OUT-name</strong> matches packets that
           dropped at the end of the interface's
-          <span class="important">name</span> output.
+          <strong>name</strong> output.
           These are packets the host tried to send (it is not traffic
           routed).
           <br/>
-          <span class="important">Name</span> matches the name given to
+          <strong>Name</strong> matches the name given to
           a FireHOL <%= html_to('interface','/keyword/firehol/interface') %>
           There is also the special name
-          <span class="important">unknown</span> that matches packets
+          <strong>unknown</strong> that matches packets
           that tried to go out of this host but did not match any of
           the <%= html_to('interface','/keyword/firehol/interface') %>s
           given in FireHOL's configuration file.
       </li>
   
-      <li><span class="important">PASS-unknown</span> matches packets
+      <li><strong>PASS-unknown</strong> matches packets
            that dropped at the end of all
            <%= html_to('router','/keyword/firehol/router') %>s
            This matches forwarded traffic.
            <br/>
-           There is no <span class="important">name</span> here, since
+           There is no <strong>name</strong> here, since
            all FireHOL <%= html_to('router','/keyword/firehol/router') %>s
            have only one <%= html_to('policy','/keyword/firehol/policy') %>
-           <span class="important">RETURN</span>.
+           <strong>RETURN</strong>.
            This makes all packets traverse all routers and then get
            dropped at the end of the firewall.
       </li>
@@ -159,9 +159,9 @@ The iptables connection tracker has a mechanism for matching request
 packets and reply packets.  When an allowed request comes in, the
 connection tracker keeps it in a list and then waits for a matching reply to
 come in the opposite direction. This list of
-<span class="important">active connections</span> is available for you
-to see at <span class="filename">/proc/net/ip_conntrack</span>.
-Simply <span class="command">cat</span> this file to see all the current
+<strong>active connections</strong> is available for you
+to see at <code class="filename">/proc/net/ip_conntrack</code>.
+Simply <code class="command">cat</code> this file to see all the current
 connections your system has.
 </p>
 

@@ -66,7 +66,7 @@ configuration of many systems, etc.  But consider the following:</p>
                              directives.</span>
      Do you know how many iptables statements is this:
      <pre class="programlisting"><code>route "smtp http ftp" accept src not "a.client b.client c.client" dst "a.server b.server c.server"</code></pre>
-     It is <span class="important">92</span> iptables statements and it
+     It is <strong>92</strong> iptables statements and it
      would be more than 1000 if in the clients list there was the
      <%= html_to('UNROUTABLE_IPS','/keyword/manref/firehol/variables-unroutable') %> variable.
   </li>
@@ -92,6 +92,6 @@ configuration of many systems, etc.  But consider the following:</p>
 
 <p>
 For all the above, I consider FireHOL as the most
-<span class="important">functional</span> way for working with iptables
+<strong>functional</strong> way for working with iptables
 firewalls.
 </p>

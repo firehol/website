@@ -78,29 +78,29 @@ and a network can be this easy:</p>
 to configure your own.</p>
 
 <p>Hopefully you have noticed that all the rules given match just one
-direction of the traffic: <span class="important">the request</span>.
+direction of the traffic: <strong>the request</strong>.
 They don't say anything about replies. This is because FireHOL handles
 the replies automatically. You don't have to do anything about them: if
 a request is allowed, then the corresponding reply is also allowed.
 This also means that FireHOL produces the iptables statements to exactly
-match what is allowed <span class="important">in both directions</span>
+match what is allowed <strong>in both directions</strong>
 and nothing more.<p>
 
 <p>
-FireHOL is a <span class="important">language to express firewalling
-rules</span>, not just a script that produces some kind of a firewall.
+FireHOL is a <strong>language to express firewalling
+rules</strong>, not just a script that produces some kind of a firewall.
 </p>
 
 <h3>Is it secure?</h3>
 
 <p>
-FireHOL is <span class="important">secure</span> because it has been
+FireHOL is <strong>secure</strong> because it has been
 designed with the right firewalling concept:
-<span class="important">deny everything, then allow only what is needed</span>.
+<strong>deny everything, then allow only what is needed</strong>.
 </p>
 
 <p>
-Also, FireHOL produces <span class="important">stateful</span> iptables
+Also, FireHOL produces <strong>stateful</strong> iptables
 packet filtering firewalls (and possibly, the only generic tool today that
 does that for all services in both directions of the firewall).
 </p>
@@ -113,7 +113,7 @@ For example: you can choose to be able to ping anyone on the internet,
 but no one to be able to ping you. If for example you don't need to
 run a server on your Linux host, you can easily achieve a situation where
 you are able to do anything to anyone, but as far as the rest of world
-is concerned, <span class="important">you do not exist</span>!
+is concerned, <strong>you do not exist</strong>!
 </p>
 
 <h3>Learn another language?</h3>
@@ -174,7 +174,7 @@ flexible, open, easy, and simple enough for what I needed.</p>
 
 <p>I decided to write FireHOL in a way that will allow me, or anyone else,
 to view, verify and audit the firewall of any Linux server or Linux router
-<span class="important">in seconds</span>. FireHOL's configuration is
+<strong>in seconds</strong>. FireHOL's configuration is
 extremely simple... you don't have to be an expert to design a complicated
 but secure firewall.</p>
 

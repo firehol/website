@@ -25,8 +25,8 @@ for the rules of the firewall.</p>
 
 <p>The only <a href="http://www.gnu.org/software/bash/bash.html">Bash</a>
 commands a FireHOL configuration should never use are
-<span class="important">trap</span>
-and <span class="important">exit</span>.</p>
+<strong>trap</strong>
+and <strong>exit</strong>.</p>
 
 <p>Traps are used by FireHOL for cleaning up all temporary files, and
 possibly restoring the previously running firewall in case FireHOL
@@ -40,16 +40,16 @@ variables and function names defined within the configuration file
 overwrite the ones defined by FireHOL so you should avoid some names.</p>
 
 <p>Avoid using variables that start with
-<span class="important">FIREHOL_</span>,
-<span class="important">work_</span>, <span class="important">server_</span>,
-and <span class="important">client_</span> as many such variables are used
+<strong>FIREHOL_</strong>,
+<strong>work_</strong>, <strong>server_</strong>,
+and <strong>client_</strong> as many such variables are used
 by FireHOL internally.</p>
 
 <p>There are also a number of functions names you
 should avoid, but there is no generic pattern at the moment. I suggest
 you should avoid defining functions with the names of FireHOL commands
 (interface, router, client, server, etc) and functions starting
-with <span class="important">rules_</span>.</p>
+with <strong>rules_</strong>.</p>
 
 <p>Note however that you may wish to overwrite a few variables and
 functions if you want to modify FireHOL services. See the

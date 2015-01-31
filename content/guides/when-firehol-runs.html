@@ -45,10 +45,10 @@ Such an error is possible when for example, you specify an invalid
 IP address or hostname, or an invalid argument to some parameter that
 gets passed to iptables as-is.</p>
 
-<p>It is important to understand that <span class="important">during
+<p>It is important to understand that <strong>during
 the run of the generated iptables script (including the possible
 restoration of the old firewall), FireHOL allows all traffic to reach
-its destination</span>. This has been done to prevent a possible
+its destination</strong>. This has been done to prevent a possible
 lock-out situation where you are SSHing to the server to alter its
 firewall, and suddenly you loose the connection (although this can
 still happen if your new firewall doesn't allow the connection).

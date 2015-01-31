@@ -41,34 +41,34 @@ to match them.</p>
 <p>The following are required for all simple services:</p>
 
 <pre class="programlisting"><code>
-server_<span class="option">myservice</span>_ports="<span class="option">proto</span>/<span class="option">sports</span>"
-client_<span class="option">myservice</span>_ports="<span class="option">cports</span>"
+server_<em>myservice</em>_ports="<em>proto</em>/<em>sports</em>"
+client_<em>myservice</em>_ports="<em>cports</em>"
 </code></pre>
 
-<p><span class="option">myservice</span> is the name we will give our
+<p><em>myservice</em> is the name we will give our
 service.</p>
     
-<p><span class="option">proto</span> is anything that
-<span class="command">iptables</span> accepts as a protocol e.g.
+<p><em>proto</em> is anything that
+<code class="command">iptables</code> accepts as a protocol e.g.
 "tcp", "udp", "icmp" and numeric protocol values.</p>
 
-<p><span class="option">sports</span> is the ports the server is listening at.
+<p><em>sports</em> is the ports the server is listening at.
 It is a space-separated list of port numbers, names and ranges (from:to).
-The keyword <span class="option">any</span> will match any server port.</p>
+The keyword <em>any</em> will match any server port.</p>
 
-<p><span class="option">cports</span> is the ports the client may use to
+<p><em>cports</em> is the ports the client may use to
 initiate a connection. It is a space-separated list of port numbers,
-names and ranges (from:to). The keyword <span class="option">any</span>
-will match any client port. The keyword <span class="option">default</span>
+names and ranges (from:to). The keyword <em>any</em>
+will match any client port. The keyword <em>default</em>
 will match default client ports.</p>
 
 <p>For the local machine (e.g. a client within an interface) the default
 client ports resolve to sysctl variable net.ipv4.ip_local_port_range
-(or <span class="filename">/proc/sys/net/ipv4/ip_local_port_range</span>).</p>
+(or <code class="filename">/proc/sys/net/ipv4/ip_local_port_range</code>).</p>
 
 <p>For a remote machine (e.g. a client within an interface or anything in
 a router) the default client ports resolve to the variable
-<span class="var">DEFAULT_CLIENT_PORTS</span>. For more information
+<code class="var">DEFAULT_CLIENT_PORTS</code>. For more information
 see <%= html_to('Control_Variables','/keyword/manref/firehol/variables-control') %>
 in the manual.</p>
 
@@ -79,12 +79,12 @@ kernel module must be loaded to help track connections (typically
 because the protocol uses dynamic ports):</p>
 
 <pre class="programlisting"><code>
-require_<span class="option">myservice</span>_modules="<span class="option">modules</span>"
-require_<span class="option">myservice</span>_nat_modules="<span class="option">nat-modules</span>"
+require_<em>myservice</em>_modules="<em>modules</em>"
+require_<em>myservice</em>_nat_modules="<em>nat-modules</em>"
 </code></pre>
     
 <p>The named kernel modules will be loaded when the definition is used.
-The NAT modules will only be loaded if <span class="var">FIREHOL_NAT</span>
+The NAT modules will only be loaded if <code class="var">FIREHOL_NAT</code>
 is non-zero
 (see <%= html_to('Control_Variables','/keyword/manref/firehol/variables-control') %>).</p>
 
@@ -92,7 +92,7 @@ is non-zero
 
 <p>To create more complex rules, or stateless rules, you will need to
 create a bash function prefixed rules_ e.g.
-rules_<span class="var">myservice</span>.
+rules_<code class="var">myservice</code>.
 The best reference is the many such functions in the main firehol
 script.</p>
 
@@ -102,7 +102,7 @@ script.</p>
 may also wish to include the following:</p>
 
 <pre class="programlisting"><code>
-ALL_SHOULD_ALSO_RUN="${ALL_SHOULD_ALSO_RUN} <span class="var">myservice</span>"
+ALL_SHOULD_ALSO_RUN="${ALL_SHOULD_ALSO_RUN} <code class="var">myservice</code>"
 </code></pre>
 
 <p>
@@ -113,8 +113,8 @@ There is no need to do this with simple services which do not load modules.
 <h2>Creating your service in a separate file</h2>
 
 <p>To allow definitions to be shared you can create files and
-install them in the <span class="filename">/etc/firehol/services</span>
-directory with a <span class="filename">.conf</span> extension.</p>
+install them in the <code class="filename">/etc/firehol/services</code>
+directory with a <code class="filename">.conf</code> extension.</p>
 
 <p>The first line must read:</p>
 

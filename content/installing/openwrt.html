@@ -41,7 +41,7 @@ opkg install ip6tables
 </code></pre>
 
 <p>Since we have not yet configured FireHOL, we must update the default
-ruleset to protect your installation: <span class="command">fw restart</span>.
+ruleset to protect your installation: <code class="command">fw restart</code>.
 The OpenWRT wiki has more information on
 <a href="http://wiki.openwrt.org/doc/howto/ipv6">IPv6 in OpenWRT</a>.</p>
 
@@ -98,7 +98,7 @@ to firewall yourself out or you will find yourself using
 <a href="http://wiki.openwrt.org/doc/howto/generic.failsafe">OpenWRT
 failsafe mode</a>. You can help avoid this by editing the firewall
 setup in a temporary location and running
-<span class="command">/sbin/firehol /tmp/new-firehol.conf</span>
+<code class="command">/sbin/firehol /tmp/new-firehol.conf</code>
 which will automatically revert after 30 seconds if you do not explicitly
 accept the new configuration (impossible if you have disabled your
 current connection).</p>
@@ -107,7 +107,7 @@ current connection).</p>
 
 <%= include_example('openwrt-01') %>
 
-<p>Running <span class="command">/sbin/firehol start</span> for the first
+<p>Running <code class="command">/sbin/firehol start</code> for the first
 time:</p>
 
 <pre class="programoutput"><code>
@@ -138,11 +138,11 @@ importantly almost all of them are spent calculating the firewall, the
 activation (replacing existing firewall) is less than 5 seconds.</p>
 
 <p>The init script will load
-<span class="filename">/etc/firehol/saved.iptables</span>
+<code class="filename">/etc/firehol/saved.iptables</code>
 and
-<span class="filename">/etc/firehol/saved.ip6tables</span>
+<code class="filename">/etc/firehol/saved.ip6tables</code>
 before running
-<span class="filename">/sbin/firehol</span>, if they are present.
+<code class="filename">/sbin/firehol</code>, if they are present.
 They can be created by running this:</p>
 <pre class="programlisting"><code>
 export FIREHOL_AUTOSAVE=/etc/firehol/saved.iptables
@@ -165,11 +165,11 @@ default firewall, and enable FireHOL instead:</p>
 </code></pre>
 
 <p>To check the link was created:
-<span class="command">ls -l /etc/rc.d/S45firehol</span> should point
+<code class="command">ls -l /etc/rc.d/S45firehol</code> should point
 to the correct init file.</p>
 
 <p>If you want to use the firewall on bridged interfaces, edit
-<span class="filename">/etc/sysctl.conf</span> to enable it:</p>
+<code class="filename">/etc/sysctl.conf</code> to enable it:</p>
 
 <pre class="programlisting"><code>
 net.bridge.bridge-nf-call-arptables=0
@@ -187,8 +187,8 @@ sysctl -p
 <h3>FireQOS</h3>
 
 <p>This section assumes you have already installed FireHOL. If not
-you should run the initial <span class="command">mkdir</span> and 
-<span class="command">opkg</span> installation commands as a minimum.</p>
+you should run the initial <code class="command">mkdir</code> and 
+<code class="command">opkg</code> installation commands as a minimum.</p>
 
 <p>On the router:</p>
 <pre class="programlisting"><code>
@@ -236,11 +236,11 @@ stop() {
 }
 </code></pre>
 
-<p>OpenWRT lacks the <span class="command">modprobe</span> command.
-FireQOS is able to deal with this by using <span class="command">insmod</span>
+<p>OpenWRT lacks the <code class="command">modprobe</code> command.
+FireQOS is able to deal with this by using <code class="command">insmod</code>
 instead.</p>
 
-<p>The <span class="command">tc</span> command that FireQOS uses to setup
+<p>The <code class="command">tc</code> command that FireQOS uses to setup
 traffic control communicates with the kernel using RTNETLINK. The kernel then
 tries to autoload more modules. By default it tries to do this with modprobe.
 If it is not able to do so, you will get cryptic errors such as:
@@ -258,8 +258,8 @@ FAILED TO ACTIVATE TRAFFIC CONTROL.
 </code></pre>
 
 <p>If you see such an error, the first thing to do is check if you
-have <span class="filename">/sbin/modprobe</span>, and if you do not, to
-tell the kernel to use <span class="command">insmod</span> to autoload
+have <code class="filename">/sbin/modprobe</code>, and if you do not, to
+tell the kernel to use <code class="command">insmod</code> to autoload
 modules:</p>
 
 <pre class="programoutput"><code>
@@ -275,7 +275,7 @@ data limits are quite low, so I limit it heavily):</p>
 
 <%= include_example('openwrt-qos-01') %>
 
-<p>Running <span class="command">/sbin/fireqos start</span> for the first
+<p>Running <code class="command">/sbin/fireqos start</code> for the first
 time:</p>
 
 <pre class="programoutput"><code>
@@ -321,5 +321,5 @@ bye...
 </code></pre>
 
 <p>To check the link was created:
-<span class="command">ls -l /etc/rc.d/S46fireqos</span> should point
+<code class="command">ls -l /etc/rc.d/S46fireqos</code> should point
 to the correct init file.</p>

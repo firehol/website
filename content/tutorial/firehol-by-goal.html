@@ -20,13 +20,13 @@ translated into FireHOL rules:
       <td>I have a Linux host with two network interfaces.
         <ul>
           <li>
-            The first is <span class="interface">eth0</span> that connects
-            to my <span class="important">LAN</span>
+            The first is <code class="interface">eth0</code> that connects
+            to my <strong>LAN</strong>
           </li>
 
           <li>
-            The other is a <span class="interface">PPP</span> device that
-            connects to the <span class="important">internet</span>
+            The other is a <code class="interface">PPP</code> device that
+            connects to the <strong>internet</strong>
           </li>
         </ul>
       </td>
@@ -34,7 +34,7 @@ translated into FireHOL rules:
     </tr>
 
     <tr class="even">
-      <td>To the <span class="important">internet</span> my Linux provides:
+      <td>To the <strong>internet</strong> my Linux provides:
         <ul>
           <li>a MAIL server</li>
           <li>a WEB server</li>
@@ -52,7 +52,7 @@ translated into FireHOL rules:
     </tr>
 
     <tr class="even">
-      <td>My <span class="important">LAN</span> is trusted.
+      <td>My <strong>LAN</strong> is trusted.
           <br/>
           If a server is running on my Linux I want my LAN PCs to use it.
       </td>
@@ -60,9 +60,9 @@ translated into FireHOL rules:
     </tr>
 
     <tr class="odd">
-      <td>I would like my <span class="important">LAN</span> PCs to use
+      <td>I would like my <strong>LAN</strong> PCs to use
           this Linux as a gateway for connecting, as clients, to the
-          <span class="important">internet</span> for all the services
+          <strong>internet</strong> for all the services
           they wish.
       </td>
       <td><%= include_example('overview-thoughts-05') %></td>
@@ -79,18 +79,18 @@ translated into FireHOL rules:
 </table>
 
 <p>
-<span class="important">This is it!</span> The firewall is ready.
-Only the <span class="important">request</span> needs to be specified,
+<strong>This is it!</strong> The firewall is ready.
+Only the <strong>request</strong> needs to be specified,
 FireHOL handles the replies automatically and produces the iptables
 statements to exactly match what is allowed
-<span class="important">in both directions</span> and nothing more.
+<strong>in both directions</strong> and nothing more.
 </p>
 
 <p>
-If for example we remove the <span class="option">client all accept</span>
-from the <span class="important">internet</span> interface, our Linux
+If for example we remove the <em>client all accept</em>
+from the <strong>internet</strong> interface, our Linux
 will not be able to do anything with its PPP device except to send
-replies matching the <span class="important">server</span> statements
+replies matching the <strong>server</strong> statements
 within this interface; no pings, no DNS, no web browsing, no nothing!
 </p>
 
@@ -101,6 +101,6 @@ example could be:
 
 <%= include_example('overview-02') %>
 
-<p>FireHOL is completely <span class="important">dynamic</span>, since
+<p>FireHOL is completely <strong>dynamic</strong>, since
 with its language you can describe any firewall configuration you wish
 using simple commands.</p>

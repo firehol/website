@@ -52,7 +52,7 @@ standard with modern Linux distributions.
 
 <p>Our tar-files releases are provided compressed with gzip, bz2 and xz.
 You only need one. If you don't know which compression your system can
-handle, gzip (<span class="filename">.gz</span> files) is certain to
+handle, gzip (<code class="filename">.gz</code> files) is certain to
 work, so the examples assume you will choose that option.</p>
 
 <p>You can choose to download one of the following:</p>
@@ -70,8 +70,8 @@ stable.</p>
 
 <h3 id="verify">Verify</h3>
 
-<p>All tar-files on the site come with MD5 (<span class="filename">.md5</span>)
-and SHA512 (<span class="filename">.sha</span>) checksums. To verify, download
+<p>All tar-files on the site come with MD5 (<code class="filename">.md5</code>)
+and SHA512 (<code class="filename">.sha</code>) checksums. To verify, download
 the checksum files as well as the tar-file and run e.g.:</p>
 
 <pre class="programoutput"><code>
@@ -88,7 +88,7 @@ firehol-2.0.0.tar.gz: OK
 
 <p>Official releases also come with
 <a href="http://gnupg.org/gph/en/manual/x135.html">detached gpg signatures</a>
-in the <span class="filename">.asc</span> files, they should have been created
+in the <code class="filename">.asc</code> files, they should have been created
 with one of these keys:</p>
 
 <ul>
@@ -130,8 +130,8 @@ tar xfz firehol-<em>version</em>.tar.gz
 cd firehol-<em>version</em>
 </code></pre>
 
-<p>Options for the <span class="command">configure</span> program can be
-seen in the <span class="filename">INSTALL</span>
+<p>Options for the <code class="command">configure</code> program can be
+seen in the <code class="filename">INSTALL</code>
 file and by running:</p>
 <pre class="programlisting"><code>
 ./configure --help
@@ -143,8 +143,8 @@ file and by running:</p>
 </code></pre>
 
 <p>Alternatively, just copy the
-<span class="filename">sbin/firehol.in</span> and
-<span class="filename">sbin/fireqos.in</span> files to where you want them.</p>
+<code class="filename">sbin/firehol.in</code> and
+<code class="filename">sbin/fireqos.in</code> files to where you want them.</p>
 
 <p>
 All of the common SysVInit command line arguments are recognised by
