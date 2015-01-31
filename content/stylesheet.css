@@ -288,6 +288,10 @@ tr.even {
   background-color: #E0E0E0;
 }
 
+.wide-table table {
+  width: 150%;
+}
+
 table.services-table {
   width: 150%;
   table-layout: fixed;
