@@ -3,7 +3,8 @@ title: Testimonials
 submenu: home
 ---
 
-<h1>Testimonials</h1>
+Testimonials
+============
 
 <div id="news">
   <% testimonial_items.each do |entry| %>
@@ -15,6 +16,6 @@ submenu: home
   <% end %>
 </div>
 
-<p>If you love FireHOL and want to provide your own testimonial,
-   just <a href="/email/">drop us a quick line</a>, we'd love to
-   hear from you.</p>
+If you like FireHOL and want to provide your own testimonial,
+just <a href="/email/">drop us a quick line</a>, there's no greater
+endorsment than the words of satisfied users.
