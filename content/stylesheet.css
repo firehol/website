@@ -239,6 +239,12 @@ code .important {
   margin-top: 10px;
 }
 
+.list-with-header li :first-child {
+  display: block;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
 .news_item {
   border-bottom: 2px solid #DDD;
 }
