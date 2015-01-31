@@ -4,9 +4,7 @@ title: 0001-How do I install? What are the prerequisites?
 id: install
 kind: faq
 ---
-<p>
-Please see the 
-<a href="/installing/">standard installation instructions</a>. These
+
+Please see the [standard installation instructions](/installing/). These
 cover both installation from distribution-specific packages and
 downloads from this site.
-</p>

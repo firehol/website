@@ -5,30 +5,26 @@ id: debugging
 kind: faq
 ---
 
-<p>
 If you want to investigate why some traffic is being blocked, the best
-place to start may be with the
-<a href="/guides/firehol-troubleshooting/">troubleshooting guide</a>.
-</p>
+place to start may be with the [troubleshooting
+guide](/guides/firehol-troubleshooting/).
 
-<p>
 To get a listing of the actions FireHOL would take based on your
-configuration, you can run:</p>
-<pre class="programlisting"><code>
-firehol debug
-</code></pre>
+configuration, you can run:
 
-<p>
+~~~~ {.programlisting}
+firehol debug
+~~~~
+
 In the event of an unexpected problem, FireHOL will leave behind its
 temporary files (and let you know where they are located) in order to
 help you diagnose the problem.
-</p>
 
-<p>
 FireHOL runs as a bash script so if you need detailed information about
-what is going on internally you can add these lines to your configuration:
-<pre class="programlisting"><code>
+what is going on internally you can add these lines to your
+configuration:
+
+~~~~ {.programlisting}
 set -x
 set -v
-</code></pre>
-</p>
+~~~~
