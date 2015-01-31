@@ -7,13 +7,23 @@ Testimonials
 ============
 
 <div id="news">
-  <% testimonial_items.each do |entry| %>
-  <div class="news_item">
-    <h2><%= testimonial_date(entry) %></h2>
-    <%= testimonial_content(entry) %>
-    <p class="testimonial_from"/><%= testimonial_from(entry) %></p>
-  </div>
-  <% end %>
+<% testimonial_items.each do |entry| %>
+
+<div class="news-item">
+## <%= testimonial_date(entry) %>
+
+<%= testimonial_content(entry) %>
+
+<div class="testimonial-from">
+
+<%= testimonial_from(entry) %>
+
+</div>
+
+</div>
+
+<% end %>
+
 </div>
 
 If you like FireHOL and want to provide your own testimonial,

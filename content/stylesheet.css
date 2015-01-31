@@ -263,7 +263,7 @@ code .important {
   margin: 5px 0;
 }
 
-#testimonials p.testimonial_from {
+.testimonial-from p {
   margin: 10px 2px;
 }
 
