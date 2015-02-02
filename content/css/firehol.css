@@ -1,5 +1,17 @@
 body {
-    padding-top: 70px;
+    padding-top: 60px;
+}
+
+/* make room for the nav bar when choosing links */
+h1[id],
+h2[id],
+h3[id],
+h4[id],
+h5[id],
+h6[id],
+dt[id]{
+	padding-top: 60px;
+	margin-top: -40px;
 }
 
 .newcode a:link,
