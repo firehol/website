@@ -176,7 +176,7 @@ net.bridge.bridge-nf-call-ip6tables=1
 net.bridge.bridge-nf-call-iptables=1
 ~~~~
 
-and reload the configuraion:
+and reload the configuration:
 
 ~~~~ {.programlisting}
 sysctl -p

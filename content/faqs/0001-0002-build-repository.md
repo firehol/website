@@ -6,6 +6,6 @@ kind: faq
 ---
 
 Please see the [source installation documentation](/source-install/).
-This covers downloading from the respository and the extra steps needed
+This covers downloading from the repository and the extra steps needed
 to perform a build
 (`./autogen.sh && ./configure --enable-maintainer-mode`{.command}).

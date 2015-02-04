@@ -88,7 +88,7 @@ INPUT and OUTPUT. We all know that classful QoS can only be applied to
 the output of an interface. How does FireQOS apply classful traffic
 shaping on the INPUT of an interface?
 
-FireQOS utilizes Linux kernel magic. Linux kernels have a special device
+FireQOS utilises Linux kernel magic. Linux kernels have a special device
 called
 [IFB](http://www.linuxfoundation.org/collaborate/workgroups/networking/ifb).
 These devices can get incoming traffic from a real interface and provide
@@ -107,7 +107,7 @@ packets arrive at you, Linux kernel will recalculate the classes and
 shape the traffic accordingly. During this process the previous router
 in your path will be de-queued.
 
-To minimize the time needed to dequeue the previous router, you should
+To minimise the time needed to dequeue the previous router, you should
 not use all the incoming bandwidth. If you give 90% of the bandwidth as
 the `rate` at the `input` interface definition, there will be enough
 bandwidth for your machine to learn quickly there is new traffic coming
@@ -413,7 +413,7 @@ priority as `prio X` in FireQOS output when we applied our
 configuration, but also as the PRIORITY line in FireQOS status output.
 The priority is increased for every class. The class with the higher
 priority is the first (`prio 0`). For the moment we need all classes to
-have the same priority, to ensure no class can monopolize the available
+have the same priority, to ensure no class can monopolise the available
 traffic. To accomplish this, we just add the keyword `balanced` to each
 interface, like this:
 
@@ -422,7 +422,7 @@ interface, like this:
 If you apply this configuration, you will get exactly the same result as
 before, but this time all classes will have `prio 4`. This ensures that
 once we assign some traffic to higher priority classes, these classes
-will not monopolize the available bandwidth. Of course, classes should
+will not monopolise the available bandwidth. Of course, classes should
 have different priorities to achieve our goal. We will assign them
 priorities at the next step, where we will discuss traffic shaping. For
 the moment, this `balanced` policy allows us to experiment with
@@ -824,7 +824,7 @@ We can control traffic allocation to classes by tweaking the following:
     available, the class cannot exceed its committed rate.
 
     By default, FireQOS allows all classes to reach the interface speed,
-    utilizing all spare bandwidth available.
+    utilising all spare bandwidth available.
 
     You can define a ceiling rate by appending `max X` to a class, where
     `X` is a speed definition.
@@ -923,7 +923,7 @@ Regarding priorities, we now have 3 options:
     attacker.
 
     Generally, I prefer this plan for my home. I don't care about
-    monopolizing all spare bandwidth on the task I perform. Actually I
+    monopolising all spare bandwidth on the task I perform. Actually I
     like the opposite: all my interactive sessions to be as interactive
     as possible.
 

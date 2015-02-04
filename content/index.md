@@ -222,13 +222,13 @@ PRIORIT       1       2       3       5       4
 
 -   FireQOS applies traffic shaping on the output of any interface.
 -   FireQOS applies traffic shaping on the input of any interface.
-    Shaping incoming traffic is classfull, i.e. you have all the control
+    Shaping incoming traffic is classful, i.e. you have all the control
     available, similar to outgoing traffic. This is accomplished by
     setting up IFB devices. FireQOS handles everything about IFB
     devices. Any kernel that supports them will do.
 -   FireQOS supports overheads calculation. This means it can perfectly
-    shape incoming and outgoing traffic on a linux box behind an ADSL
-    router, or on a linux box with an ADSL modem attached. ATM overheads
+    shape incoming and outgoing traffic on a Linux box behind an ADSL
+    router, or on a Linux box with an ADSL modem attached. ATM overheads
     will be calculated based on the DSL encapsulation.
 -   FireQOS supports both IPv4 and IPv6. Each interface can be defined
     as ipv4, ipv6 or both (ipv4 and ipv6 in parallel).
@@ -242,7 +242,7 @@ PRIORIT       1       2       3       5       4
     the match).
 -   Virtually any number of interfaces, any number of classes and any
     number of classification rules can be configured (the way it is
-    organized it can configure up to 5000 classes per interface).
+    organised it can configure up to 5000 classes per interface).
 -   It classifies packets using tc (both ipv4 and ipv6), but you can
     also use iptables CLASSIFY targets, or MARKs.
 -   [HTB](http://luxik.cdi.cz/%7Edevik/qos/htb/manual/userg.htm) is used

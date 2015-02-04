@@ -26,6 +26,7 @@ Testimonials
 
 </div>
 
-If you like FireHOL and want to provide your own testimonial,
-just <a href="/email/">drop us a quick line</a>, there's no greater
-endorsment than the words of satisfied users.
+There's no greater endorsement than the words of satisfied users.
+So, if you like FireHOL and want to provide your own testimonial,
+just [drop one of us a quick email](/support/#email) and let us know
+you're happy for us to publish it.

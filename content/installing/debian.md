@@ -20,6 +20,3 @@ packages](http://packages.ubuntu.com/search?keywords=firehol) and see
 also the [Debian Package
 Tracker](https://tracker.debian.org/pkg/firehol) and [Ubuntu
 Launchpad](https://launchpad.net/ubuntu/+source/firehol).
-
-If you are able to contribute more information for this page, please
-[contact us](/email/).

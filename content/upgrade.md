@@ -155,7 +155,7 @@ We will show how to adapt this simple config in a few possible ways:
     on "home" above, if there are multiple IPv6 routes available.
 
     If your machine will be routing IPv6, it will also need to be able
-    to send router advertisment messages from the relevant interface(s).
+    to send router advertisement messages from the relevant interface(s).
 
     <%= include_example('upgrade-6-12', "    ") %>
 

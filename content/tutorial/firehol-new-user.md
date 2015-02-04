@@ -10,9 +10,9 @@ This is the recommended procedure to manually design a secure FireHOL
 firewall. It applies to FireHOL 2.x versions, which understand both IPv4
 and IPv6.
 
-Nore: this tutorial currently focusses on IPv4. It needs updating to
+Note: this tutorial currently focusses on IPv4. It needs updating to
 include [interface6](/keyword/firehol/interface6) and how to merge the
-results. Meantime, please follw this guide, then read [the upgrade
+results. Meantime, please follow this guide, then read [the upgrade
 pages](/upgrade/#config-version-6) which will explain how to introduce
 IPv6 to your firewall.
 
@@ -141,10 +141,10 @@ clients are all running on the firewall host:
 
 At this point, everyone should be able to inter-operate correctly with
 the firewall host, but still we don't route any traffic. This means that
-the linux box can "see" all the workstations on the LAN and these
-workstations can "see" the linux box, also that the linux box can "see"
+the Linux box can "see" all the workstations on the LAN and these
+workstations can "see" the Linux box, also that the Linux box can "see"
 the Internet and the Internet can "see" the servers of the
-`ppp+`{.interface} interface of the linux box, but the LAN workstations
+`ppp+`{.interface} interface of the Linux box, but the LAN workstations
 cannot "see" the Internet.
 
 It is now time to setup routing. To do this we will have to define a set
@@ -173,7 +173,7 @@ Internet and going out to the home LAN. Here it is:
 This is it. We are done! (for the filtering part of the firewall. Look
 below for setting up NAT too.)
 
-4. Optimizing the firewall
+4. Optimising the firewall
 --------------------------
 
 To save typing time, you can use this:

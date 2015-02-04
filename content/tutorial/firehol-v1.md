@@ -167,7 +167,7 @@ Internet and going out to the home LAN. Here it is:
 This is it. We are done! (for the filtering part of the firewall. Look
 below for setting up NAT too.)
 
-4. Optimizing the firewall
+4. Optimising the firewall
 --------------------------
 
 To save typing time, you can use this:

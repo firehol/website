@@ -1,3 +1,5 @@
+/* make room for the nav bar */
+
 body {
     padding-top: 60px;
 }
@@ -14,11 +16,25 @@ dt[id]{
 	margin-top: -40px;
 }
 
+/* highlight code which has been added compared to the prior example */
 .newcode a:link,
 .newcode a:visited {
   color: #f30;
 }
-
 .newcode a:hover {
   color: #f90;
+}
+
+/* highlight external links, except specific ones */
+a[href^=http] {
+    background: url(/images/external.png) center right no-repeat;
+    padding-right: 13px;
+}
+a[href^="http://www.foxyhosting"]  {
+    background: none;
+    padding-right: 0;
+}
+a[href^="http://lists.firehol"]  {
+    background: none;
+    padding-right: 0;
 }

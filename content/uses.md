@@ -17,6 +17,6 @@ Almost every Linux firewall / traffic control need is covered, including:
 * source MAC verification
 * blacklists, whitelists
 * classification of traffic by source, destination and type
-* provide bandwith guarantees and upper limits
-* allow optional borrowing of unused bandwith
+* provide bandwidth guarantees and upper limits
+* allow optional borrowing of unused bandwidth
 * live stats on traffic classification

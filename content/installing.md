@@ -3,42 +3,34 @@ title: Installing
 submenu: downloads
 ---
 
-Installing
-==========
+Download/Install
+================
 
-If you are upgrading from an earlier version of FireHOL, you should also
-check if you need to make any [configuration upgrades](/upgrade).
+If you are upgrading from an earlier version of FireHOL, you should
+check if you will need to make any [configuration upgrades](/upgrade/).
 
-Packages are available for many distributions, and are often the most
-conventient way of installing FireHOL.
+If want an up to date version or cannot find a package for your
+distribution, follow these steps:
+
+-   [Download](#download)
+-   [Verify](#verify)
+-   [Install](#install)
+
+Packages are available for many distributions, and are often a more
+convenient way of installing FireHOL.
 
 -   [Debian / Ubuntu installation](/installing/debian/)
 -   [RedHat / CentOS installation](/installing/redhat/)
 -   [Arch Linux installation](/installing/arch/)
 -   [OpenWRT installation](/installing/openwrt/)
 
-If you can provide simple install instructions for any distributions,
-please [let us know](/email/) and we will add a page.
+If you can provide improved instructions for existing or new
+distributions, please [let us know](/source-install/#get-involved)
+so we can add the information.
 
-Generic installation
---------------------
 
-If you cannot find a package or want a more up to date version than is
-provided (e.g. to obtain FireQOS or IPv6 support) it is simple to
-install a tar-file release from this website.
-
--   [Download](#download)
--   [Verify](#verify)
--   [Install](#install)
-
-[Dependencies are listed at the
-Wiki](https://github.com/ktsaou/firehol/wiki/Dependencies). FireHOL and
-FireQOS detect at runtime if the commands they needs are installed. In
-general the requirements are not onerous, just some common shell and
-networking commands which come as standard with modern Linux
-distributions.
-
-### Download
+Download
+========
 
 Our tar-files releases are provided compressed with gzip, bz2 and xz.
 You only need one. If you don't know which compression your system can
@@ -52,11 +44,20 @@ You can choose to download one of the following:
 -   [Automatic daily build](/download/unsigned/master)
 
 The daily build is in fact even more up to date than its name suggests.
-It rebuilds whenever a change is comitted to the master branch of the
+It rebuilds whenever a change is committed to the master branch of the
 code. We take care to not break "master", so in general this build is
 quite stable.
 
-### Verify
+[Dependencies are listed at the
+Wiki](https://github.com/ktsaou/firehol/wiki/Dependencies). FireHOL and
+FireQOS detect at runtime if the commands they needs are installed. In
+general the requirements are not onerous, just some common shell and
+networking commands which come as standard with modern Linux
+distributions.
+
+
+Verify
+======
 
 All tar-files on the site come with MD5 (`.md5`{.filename}) and SHA512
 (`.sha`{.filename}) checksums. To verify, download the checksum files as
@@ -109,10 +110,11 @@ gpg:          There is no indication that the signature belongs to the owner.
 Primary key fingerprint: 9CCE 9A8D 5328 FBD6 CE29  6DCC 63DF 1E44 D829 797E
 ~~~~
 
-If you really want to be certain you can trust the signature, [contact
-us](/email/) and we will see what we can arrange.
+If you want to be certain you can trust the signature,
+[contact us](/support/#email) and we will see what we can arrange.
 
-### Install
+Install
+=======
 
 Unpack and change directory with:
 
