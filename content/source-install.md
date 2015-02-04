@@ -16,7 +16,7 @@ sources, you need to:
     to [get involved](#get-involved) in the FireHOL project
 
 Download
-========
+--------
 
 Note that versions checked out from git will use internal version
 numbers e.g.:
@@ -109,7 +109,7 @@ comprehensive. There is also an online version of what you get by
 running [man gittutorial](http://git-scm.com/docs/gittutorial).
 
 Build From Source
-=================
+-----------------
 
 FireHOL and FireQOS are
 [Bash](http://www.gnu.org/software/bash/bash.html) scripts. As such you
@@ -144,7 +144,7 @@ make
 ~~~~
 
 Get Involved
-============
+------------
 
 Help on the project will be welcomed in any area you have the time and
 inclination to offer it. One-off reports and offers of help are perfectly

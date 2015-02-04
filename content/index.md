@@ -249,3 +249,11 @@ PRIORIT       1       2       3       5       4
     for all classes.
 -   FireQOS allows you to tcpdump the traffic of any leaf class. This
     allows you to examine the traffic you have assigned to classes.
+
+<br/>
+<br/>
+Hosting by: <a target="_blank" href="http://www.foxyhosting.cz/"><img
+               alt="www.foxyhosting.cz"
+               src="/images/foxyhosting.png"/></a>
+<br/>
+<br/>

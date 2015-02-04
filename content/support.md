@@ -10,7 +10,7 @@ These are some ways you can get help and support to install and set up
 FireHOL
 
 Mailing List
-============
+------------
 
 If you are a user of FireHOL, the best thing you can do is join the
 [support mailing
@@ -23,7 +23,7 @@ You can read and search the list at
 to check to see if your question has been answered before.
 
 Issue tracker
-=============
+-------------
 
 If you think you've found a bug, the [FireHOL issue
 tracker](https://github.com/ktsaou/firehol/issues) is the best place to
@@ -33,7 +33,7 @@ If you create an entry tagged **help**, we will also try to help you on
 more general topics.
 
 Email
-=====
+-----
 
 The preferred methods of contact are above. They enable the whole
 community to benefit from any discussion.

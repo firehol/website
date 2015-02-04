@@ -30,7 +30,7 @@ so we can add the information.
 
 
 Download
-========
+--------
 
 Our tar-files releases are provided compressed with gzip, bz2 and xz.
 You only need one. If you don't know which compression your system can
@@ -57,7 +57,7 @@ distributions.
 
 
 Verify
-======
+------
 
 All tar-files on the site come with MD5 (`.md5`{.filename}) and SHA512
 (`.sha`{.filename}) checksums. To verify, download the checksum files as
@@ -114,7 +114,7 @@ If you want to be certain you can trust the signature,
 [contact us](/support/#email) and we will see what we can arrange.
 
 Install
-=======
+-------
 
 Unpack and change directory with:
 

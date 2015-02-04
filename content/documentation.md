@@ -15,7 +15,7 @@ We have a variety of documentation for different users:
 
 
 Reference Documentation
-=======================
+-----------------------
 
 Services list:
 
@@ -27,7 +27,7 @@ Manuals:
 * [FireQOS Manual](/fireqos-manual/)
 
 Important Security Notes
-========================
+------------------------
 
 FireHOL can be no more secure than your use of it.
 
@@ -49,7 +49,7 @@ behaves as you want it to. If in doubt we recommend that you seek help
 from a firewall/networking professional.
 
 Guides and Tutorials
-====================
+--------------------
 
 All of the tutorials assume you have [installed the
 software](/installing/) and have the necessary rights to edit the
