@@ -1,0 +1,29 @@
+#!/bin/sh
+
+# URLs in manual page should be checked in the firehol package
+NOFOLLOW="--no-follow-url=localhost:3000/firehol-manual/firehol-services/.*"
+
+# These links either do 301 redirects or have robots files etc.
+# need to run and check manually sometimes to be sure.
+IGNORE="$IGNORE --ignore-url=foxyhosting.cz/"
+IGNORE="$IGNORE --ignore-url=pgp.mit.edu/"
+IGNORE="$IGNORE --ignore-url=nessus"
+IGNORE="$IGNORE --ignore-url=grc.com"
+IGNORE="$IGNORE --ignore-url=zeroflux.org"
+
+test -d output/download/latest || mkdir -p output/download/latest
+test -d output/download/releases || mkdir -p output/download/releases
+test -d output/download/unsigned/master || mkdir -p output/download/unsigned/master
+test -d output/manual || mkdir -p output/manual
+test -f output/download/index.html || echo "fake" > output/download/index.html
+test -f output/download/latest/index.html || echo "fake" > output/download/latest/index.html
+test -f output/download/releases/index.html || echo "fake" > output/download/releases/index.html
+test -f output/download/unsigned/index.html || echo "fake" > output/download/unsigned/index.html
+test -f output/download/unsigned/master/index.html || echo "fake" > output/download/unsigned/master/index.html
+test -f output/manual/index.html || echo "fake" > output/manual/index.html
+test -f output/firehol-manual.pdf || echo "fake" > output/firehol-manual.pdf
+test -f output/fireqos-manual.pdf || echo "fake" > output/fireqos-manual.pdf
+test -f output/firehol-manual.html || echo "fake" > output/firehol-manual.html
+test -f output/fireqos-manual.html || echo "fake" > output/fireqos-manual.html
+
+linkchecker -a -F html http://localhost:3000/ $NOFOLLOW $IGNORE

@@ -81,25 +81,15 @@ class KeywordUrl < Nanoc::DataSource
     setup_pandoc_specials
 
     file_list.each do |file|
-      manual_base = if separate_manuals
-                      if file =~ /qos/
-                        "fireqos-manual"
-                      else
-                        "firehol-manual"
-                      end
-                    else
-                      "manual"
-                    end
-
       open(file, "rb") do |infile|
         infile.each_line do |line|
-          if m = line.match(/^\[keyword-manref-(.*)\]:\s+([^#\s]*?)\.?[0-9]?\.md#([^\s]*)\s*$/)
+          if m = line.match(/^\[keyword-manref-(.*)\]:\s+([^#\s]*?)(#[^\s]*)?\s*$/)
             keyword = m[1]
             filebase = m[2]
-            anchor = m[3]
+            anchor = m[3] == nil ? "" : m[3]
             replace_link("/keyword/manref/#{keyword.sub(/-/, '/')}",
-                         "/#{manual_base}/#{filebase}/\##{anchor}")
-          elsif m = line.match(/^\[keyword-([^-]+)-([^-]+)-?([^-]+)?\]:\s+([^#\s]*?)\.?[0-9]?\.md#([^\s]*)\s*$/)
+                         "#{filebase}#{anchor}")
+          elsif m = line.match(/^\[keyword-([^-]+)-([^-]+)-?([^-]+)?\]:\s+([^#\s]*?)(#[^\s]*)?\s*$/)
             # Regexp matches lines such as:
             #   [keyword-firehol-tos-param]: firehol-params.5.md#tos
             # where the -param part is optional and winds up in the
@@ -108,8 +98,8 @@ class KeywordUrl < Nanoc::DataSource
             keyword = m[2]
             disambiguate = m[3]
             filebase = m[4]
-            anchor = m[5]
-            real_url = "/#{manual_base}/#{filebase}/\##{anchor}"
+            anchor = m[5] == nil ? "" : m[5]
+            real_url = "#{filebase}#{anchor}"
             if product == "service"
               id = "/keyword/#{product}/#{keyword}"
               create_item real_url,

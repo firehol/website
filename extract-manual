@@ -116,10 +116,8 @@ process() {
         -e "s;(\([^)]*\)\.md\([^)]*\));(/$dest/\1/\2);" \
         -e 's;http://firehol.org/;/;g' $i > $o
 
-    # Import links
-    sed -e 's;\.[0-9]*\.md;.md;g' \
-        -e "s;: \(.*\)\.md\(.*\);: /$dest/\1/\2;" \
-           $base/links* $base/service-links >> $o
+    # Import cleaned links into each page
+    cat ../../tmp/links* ../../tmp/service-links >> $o
   done
 
   mv contents.md ../$dest.md
@@ -127,7 +125,27 @@ process() {
 }
 
 mkdir -p tmp
-cp $src/links* $src/service-links tmp/.
+for i in  $src/links* $src/service-links
+do
+  j=$(basename $i)
+
+  dest=firehol-manual
+  case $i in
+    *fireqos)
+      dest=fireqos-manual
+    ;;
+  esac
+
+  # Import links from manual, cleaning up anchors that are not available
+  # in the separate-page versions.
+  sed -e 's;\.[0-9]*\.md;.md;g' \
+      -e "s;: \(.*\)\.md\(.*\);: /$dest/\1/\2;" $i | \
+    awk -F/ '/^[[]/ { anchor=$NF; page=$(NF-1); a=anchor; sub(/^#/, "", a);
+                      sub(/[0-9]*$/, "", a); gsub(/[^a-z0-9_-]/, "-", a);
+                      if (a == page) { sub(anchor "$", "") }
+                    }
+            { print }' > tmp/$j
+done
 
 if [ $mode = separate ]
 then

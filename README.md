@@ -24,21 +24,12 @@ More comprehensive install instructions for nanoc are here:
 
 Building the site locally
 -------------------------
-To specify the test site (for processing against the test manuals):
-
-    make site=test
-
-To additionally copy in the manual for access via nanoc view, run:
-
-    make site=test fakeman
-
-For the live site, just use this instead:
-
-    make site=www
-
-To have the Makefile guess the site (won't always work):
 
     make
+
+This will try to import the manual pages from the firehol package
+(you may need to update the locations variable) and build the HTML
+output.
 
 
 Viewing the site locally
@@ -316,9 +307,9 @@ Link checking
 -------------
 
 ````
-make fakeman
+make
 nanoc view
-linkchecker -F html http://localhost:3000/
+./run-linkchecker
 firefox linkchecker-out.html
 ````
 
