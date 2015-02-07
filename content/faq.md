@@ -21,6 +21,6 @@ FireHOL - Frequently Asked Questions
 <% faqs_in_group(group).each do |entry| %>
 <h3 id="<%= faq_id(entry) %>"><%= faq_title(entry) %></h3>
 <%= entry.compiled_content %>
-<p><a href="#top">^ top</a></p>
+<p><a href="/faq/">^ top</a></p>
 <% end %>
 <% end %>

@@ -10,23 +10,23 @@ At the end of the tutorial you will have perfect traffic control on any
 interface you choose. You can also use this guide to set up FireQOS for
 just monitoring the traffic: without any traffic shaping at all.
 
-[1. Pick an interface](#step-1-pick-an-interface)
+[1. Pick an interface](#pick-an-interface)
 
 -   [Controlling Incoming Traffic](#controlling-incoming-traffic)
 -   [DSL based links](#dsl-based-links)
 
-[2. Adding Classes](#step-2-adding-classes)
+[2. Adding Classes](#adding-classes)
 
-[3. Classifying Traffic](#step-3-classifying-traffic)
+[3. Classifying Traffic](#classifying-traffic)
 
 -   [Classifying normal internet surfing
-    traffic](#classifying-normal-surfing-traffic)
+    traffic](#classifying-normal-internet-surfing-traffic)
 -   [Classifying interactive traffic](#classifying-interactive-traffic)
 -   [Classifying VoIP, VPNs and Facetime
     traffic](#classifying-voip-vpns-and-facetime-traffic)
 -   [Classifying torrents](#classifying-torrents)
 
-[4. Traffic Shaping](#step-4-traffic-shaping)
+[4. Traffic Shaping](#traffic-shaping)
 
 [Final Notes](#final-notes)
 
