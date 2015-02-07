@@ -39,9 +39,9 @@ examples assume you will choose that option.
 
 You can choose to download one of the following:
 
--   [Latest stable release](/download/latest)
--   [Pick from all releases](/download/releases)
--   [Automatic daily build](/download/unsigned/master)
+-   [Latest stable release](/download/latest/)
+-   [Pick from all releases](/download/releases/)
+-   [Automatic daily build](/download/unsigned/master/)
 
 The daily build is in fact even more up to date than its name suggests.
 It rebuilds whenever a change is committed to the master branch of the

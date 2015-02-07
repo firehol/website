@@ -9,7 +9,7 @@ FireHOL Service Index
 Below is the list of FireHOL supported services. You can create new
 services and overwrite all of the existing ones (including those
 marked as complex).
-See the [Adding Services Guide](/guides/adding-services).
+See the [Adding Services Guide](/guides/adding-services/).
 
 <table class="services-table">
 <% alphas = "abcdefghijklmnopqrstuvwxyz".split(//)

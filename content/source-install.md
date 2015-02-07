@@ -39,8 +39,8 @@ infrastructure](https://github.com/philwhineray/firehol-infrastructure).
 
 Note: if you do not want to run `git`{.command} but are just looking for
 the bleeding edge version, you can still use the [normal install
-instructions](/installing): the ['daily
-build'](/download/unsigned/master) is actually updated automatically
+instructions](/installing/): the ['daily
+build'](/download/unsigned/master/) is actually updated automatically
 whenever the master repository is changed, within a few minutes.
 
 For a first time clone of a repository into directory
@@ -188,7 +188,7 @@ Testers
 
     You don't need in-depth knowledge or to be able to test everything
     to be useful - every little helps. If many people check just their
-    running setup against the [daily build](/download/unsigned/master)
+    running setup against the [daily build](/download/unsigned/master/)
     regularly, we could be reasonably sure that nothing will break
     when we do a release.
 

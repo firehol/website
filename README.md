@@ -313,6 +313,15 @@ nanoc view
 firefox linkchecker-out.html
 ````
 
+When deployed as [test.firehol.org](http://test.firehol.org), W3C provide:
+
+* [HTML Checker](http://validator.w3.org/check?uri=http%3A%2F%2Ftest.firehol.org%2F)
+* [CSS Checker](http://jigsaw.w3.org/css-validator/validator?uri=http%3A%2F%2Ftest.firehol.org%2F)
+* [Link Checker](http://validator.w3.org/checklink?uri=http%3A%2F%2Ftest.firehol.org%2F&hide_type=all&depth=4&check=Check)
+
+The link checker is important, since the nginx config will take effect
+when the site is deployed.
+
 Deployment
 ----------
 For deployment under nginx, see the configuration files in the

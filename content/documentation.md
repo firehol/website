@@ -61,20 +61,20 @@ The following tutorials are available:
 
 <div class="list-with-header">
 
--   [FireHOL QuickStart](/tutorial/firehol-quickstart) Suitable for the
+-   [FireHOL QuickStart](/tutorial/firehol-quickstart/) Suitable for the
     impatient. Ask FireHOL to guess a configuration which you can then
     customise.
--   [FireHOL New User](/tutorial/firehol-new-user) Suitable for anyone
+-   [FireHOL New User](/tutorial/firehol-new-user/) Suitable for anyone
     who wants to use FireHOL for the first time.
 -   [Upgrading FireHOL](/upgrade/) When you change major versions
     of FireHOL (e.g. 1.x to 2.x), read this guide.
--   [FireQOS New User](/tutorial/fireqos-new-user) Suitable for anyone
+-   [FireQOS New User](/tutorial/fireqos-new-user/) Suitable for anyone
     who wants to use FireQOS for the first time.
--   [FireHOL Configuration by Goal](/tutorial/firehol-by-goal) Learn to
+-   [FireHOL Configuration by Goal](/tutorial/firehol-by-goal/) Learn to
     translate your firewalling objectives into FireHOL rules.
--   [FireHOL Border Router Tutorial](/tutorial/firehol-border-router)
+-   [FireHOL Border Router Tutorial](/tutorial/firehol-border-router/)
     How to use FireHOL on a border router with multiple routes.
--   [FireHOL v1.x New User](/tutorial/firehol-v1) Read this if you are
+-   [FireHOL v1.x New User](/tutorial/firehol-v1/) Read this if you are
     just getting started and have a 1.x version of FireHOL.
 -   [Adding Services to FireHOL](/guides/adding-services/)
 -   [ICMPv6 recommendations](/guides/icmpv6-recommendations/)
