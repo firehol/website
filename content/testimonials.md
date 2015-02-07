@@ -10,7 +10,7 @@ Testimonials
 <% testimonial_items.each do |entry| %>
 
 <div class="news-item">
-## <%= testimonial_date(entry) %>
+### <%= testimonial_full_date(entry) %>
 
 <%= testimonial_content(entry) %>
 

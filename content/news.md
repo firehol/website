@@ -10,7 +10,7 @@ Latest News
 <% news_items.each do |entry| %>
 
 <div class="news-item">
-## <%= news_date(entry) %> - <%= news_title(entry) %>
+### <%= news_date(entry) %> - <%= news_title(entry) %>
 
 <%= news_content(entry) %>
 

@@ -3,12 +3,17 @@ title: Linux firewalling and traffic shaping for humans
 submenu: home
 ---
 
-<% entry = news_items.shift %>
+<% newsentry = news_items.shift %>
+<% testimonialentry = testimonial_items.shift %>
 <div id="latest-news">
-  <h4>Latest News</h4>
-  <p><%= news_date(entry) %> -
-        <span class="news_title"><%= news_title(entry) %></span>
+  <h4>Latest News and Testimonials</h4>
+  <p><%= news_date(newsentry) %> -
+        <span class="news_title"><%= news_title(newsentry) %></span>
       <a href="/news/">[more ...]</a>
+  </p>
+  <p><%= testimonial_date(testimonialentry) %> -
+        <span class="news_title"><%= testimonial_title(testimonialentry) %></span>
+      <a href="/testimonials/">[more ...]</a>
   </p>
 </div>
 
@@ -47,6 +52,26 @@ Philosophy
 -   Be a resource of knowledge around services and their peculiarities.
 -   Be flexible enough for any firewalling or traffic-shaping need.
 -   Be simple to install on any modern Linux system
+
+
+Uses for FireHOL and FireQOS
+----------------------------
+
+Almost every Linux firewall / traffic control need is covered, including:
+
+* control of any number of internal/external/virtual interfaces
+* control of any combination of routed traffic
+* setting up DMZ routers and servers
+* all kinds of NAT
+* providing strong protection (flooding, spoofing, etc.)
+* transparent caches
+* source MAC verification
+* blacklists, whitelists
+* classification of traffic by source, destination and type
+* provide bandwidth guarantees and upper limits
+* allow optional borrowing of unused bandwidth
+* live stats on traffic classification
+
 
 FireHOL
 -------
