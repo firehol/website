@@ -38,3 +38,16 @@ a[href^="http://lists.firehol"]  {
     background: none;
     padding-right: 0;
 }
+
+/* space tables better */
+td,th {
+  padding-right: 5px;
+}
+table {
+  margin-bottom: 10px;
+}
+
+#webhost {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
