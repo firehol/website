@@ -621,7 +621,7 @@ client_http81_ports="default"
 redirect to 81 dst 1.2.3.4 inface ppp+ proto tcp dport 80
 
 interface ppp+ world
-	server http81 accept
+    server http81 accept
 ~~~~
 
 On the other hand, source NAT can be ignored. It happens after packet filtering 
@@ -636,7 +636,7 @@ For example, let's say you have this:
 
 ~~~~ {.firehol}
 interface ppp+ world
-	client  all accept
+    client  all accept
  
     server  dns     accept
  
@@ -663,7 +663,7 @@ You can write it like this:
 public_services="dns ping http https ntp ssh smtp smtps pop3 pop3s imap imaps"
 
 interface ppp+ world
-	client all accept
+    client all accept
     server "${public_services}" accept
 ~~~~
 
@@ -682,16 +682,11 @@ ipv4 dnat to "${WIN7_JP_P2P}" inface "${wan}" proto tcp dport 23213
 ipv4 dnat to "${WIN7_JP_P2P}" inface "${wan}" proto tcp dport 25286
 
 router myrouter ...
-	ipv4 client custom p2p_emule   "tcp/4662 udp/4672" default accept  dst 
-"${WIN7_JP_P2P}"
-	ipv4 client custom p2p_pd       tcp/64397 default accept  dst 
-"${WIN7_JP_P2P}"
-	ipv4 client custom p2p_shareex2 tcp/7037  default accept  dst 
-"${WIN7_JP_P2P}"
-	ipv4 client custom p2p_winny2   tcp/23213 default accept  dst 
-"${WIN7_JP_P2P}"
-	ipv4 client custom p2p_winny2p  tcp/25286 default accept  dst 
-"${WIN7_JP_P2P}"
+    ipv4 client custom p2p_emule   "tcp/4662 udp/4672" default accept  dst "${WIN7_JP_P2P}"
+    ipv4 client custom p2p_pd       tcp/64397          default accept  dst "${WIN7_JP_P2P}"
+    ipv4 client custom p2p_shareex2 tcp/7037           default accept  dst "${WIN7_JP_P2P}"
+    ipv4 client custom p2p_winny2   tcp/23213          default accept  dst "${WIN7_JP_P2P}"
+    ipv4 client custom p2p_winny2p  tcp/25286          default accept  dst "${WIN7_JP_P2P}"
 ~~~~
 
 You can write this as:
@@ -707,13 +702,13 @@ client_myemule_ports="default"
 # do the nat
 for x in ${server_myemule_ports} # without quotes
 do
-	ipv4 dnat to "${WIN7_JP_P2P}" inface "${wan}" proto ${x/\/*//} dport 
+    ipv4 dnat to "${WIN7_JP_P2P}" inface "${wan}" proto ${x/\/*//} dport 
 ${x/*\//}
 done
 
 # accept it
 router myrouter ...
-	ipv4 server myemule accept dst "${WIN7_JP_P2P}"
+    ipv4 server myemule accept dst "${WIN7_JP_P2P}"
 ~~~~
 
 The idea is to keep it small and readable. To give names for everything so that 
