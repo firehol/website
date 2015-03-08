@@ -3,75 +3,49 @@ title: Documentation
 submenu: documentation
 ---
 
-Documentation
-=============
+<div id="reference-documentation"/>
+<div id="guides-and-tutorials"/>
 
-We have a variety of documentation for different users:
+# Documentation
 
--   [Reference documentation](#reference-documentation) for detailed information
--   [Guides and Tutorials](#guides-and-tutorials) on firewalling and QOS
-*   [Frequently Asked Questions](/faq/) page
-*   [FireHOL/FireQOS Wiki](https://github.com/ktsaou/firehol/wiki/) hosted at Github, for cutting edge features
+Documentation is organised by product:
 
+* [FireHOL](#firehol)
+* [FireQOS](#fireqos)
 
-Reference Documentation
------------------------
+In addition we have:
 
-Services list:
+* [Installation instructions](/installing/)
+* [Frequently Asked Questions](/faq/) page
+* [A Wiki](https://github.com/ktsaou/firehol/wiki/), for cutting edge features
 
--   [FireHOL services list](/services/)
+# FireHOL
 
-Manuals:
+If you are a new user, first read:
 
-* [FireHOL Manual](/firehol-manual/)
-* [FireQOS Manual](/fireqos-manual/)
+* [FireHOL Welcome Guide]
 
-Important Security Notes
-------------------------
+There is also reference information:
 
-FireHOL can be no more secure than your use of it.
+* [FireHOL commands and variables index] - organised by name
+* [FireHOL services index] - organised by service name
+* [FireHOL manual] - organised by function type
 
-Please read [this FAQ](/faq/#trust). You should audit the results at
-least once to ensure you are happy with the rules produced. The rules
-that get output are extremely regular which should make the task fairly
-straightforward.
-
-You should also read [When FireHOL Runs](/guides/when-firehol-runs/) in
-order to understand how FireHOL gets its results.
-
-Please consider signing up to the [support mailing
-list](http://lists.firehol.org/mailman/listinfo/firehol-support) to
-ensure you are kept informed in the event that a security problem is
-discovered.
-
-Overall it is your responsibility to ensure the final firewall produced
-behaves as you want it to. If in doubt we recommend that you seek help
-from a firewall/networking professional.
-
-Guides and Tutorials
---------------------
-
-All of the tutorials assume you have [installed the
-software](/installing/) and have the necessary rights to edit the
-default FireHOL and FireQOS configuration files,
-`/etc/firehol/firehol.conf`{.filename} and
-`/etc/firehol/fireqos.conf`{.filename}.
-
-The following guides and tutorials are available:
+A complete list of guides and tutorials for FireHOL is in this table:
 
 -------------------------------------------------------------------------------
 Guide             Level         Description
 ----------------  ------------  -----------------------------------------------
-[FireHOL New
-User]             Beginner      Tutorial to set up your first FireHOL firewall.
+[FireHOL Welcome
+Guide]            Beginner      Introduction to the most important concepts
+                                in FireHOL.
 
-[FireHOL Rules
-by Goal]          Beginner      Learn to translate your firewalling objectives
+[FireHOL
+New User]         Beginner      Tutorial to set up your first FireHOL firewall.
+
+[FireHOL
+Rules by Goal]    Beginner      Learn to translate your firewalling objectives
                                 into FireHOL rules.
-
-[FireQOS New
-User]             Beginner      Tutorial to set up your first FireQOS traffic
-                                control configuration.
 
 [Firewall
 Testing]          Beginner      Links to tools which help you check your
@@ -118,7 +92,44 @@ Features]         Advanced      How you can use BASH in your configuration.
 
 -----------------------------------------------------------
 
+You can still access [the original v1.x new user guide](/tutorial/firehol-v1/).
+
+Got an idea for a guide or willing to write one? See
+[here](/source-install/#get-involved).
+
+
+# FireQOS
+
+If you are a new user, first read:
+
+* [FireQOS New User]
+
+There is also reference information:
+
+* [FireQOS commands and variables index] - organised by name
+* [FireQOS manual] - organised by function type
+
+A complete list of guides and tutorials for FireHOL is in this table:
+
+-------------------------------------------------------------------------------
+Guide             Level         Description
+----------------  ------------  -----------------------------------------------
+[FireQOS New
+User]             Beginner      Tutorial to set up your first FireQOS traffic
+                                control configuration.
+
+-----------------------------------------------------------
+
+Got an idea for a guide or willing to write one? See
+[here](/source-install/#get-involved).
+
+[FireHOL manual]: /firehol-manual/
+[FireHOL services index]: /services/
+[FireHOL commands and variables index]: /firehol-commands/
+[FireQOS manual]: /fireqos-manual/
+[FireQOS commands and variables index]: /fireqos-commands/
 [FireHOL QuickStart]: /tutorial/firehol-quickstart/
+[FireHOL Welcome Guide]: /guides/firehol-welcome/
 [FireHOL New User]: /tutorial/firehol-new-user/
 [FireHOL Border Router]: /tutorial/firehol-border-router/
 [Upgrading FireHOL]: /upgrade/
@@ -131,8 +142,3 @@ Features]         Advanced      How you can use BASH in your configuration.
 [When FireHOL Runs]: /guides/when-firehol-runs/
 [Firewall Testing]: /guides/firewall-testing/
 [Firewall Troubleshooting]: /guides/firehol-troubleshooting/
-
-The old (v1.x) new user guide is [here](/tutorial/firehol-v1/).
-
-Got an idea for a guide or willing to write one? See
-[here](/source-install/#get-involved).

@@ -62,13 +62,18 @@ private
                  w = ss.scan(/.*/)
                  '<span class="comment">' + w + '</span>'
                elsif ss.peek(1) == "$"
-                 w = ss.scan(/\$\{?[A-Za-z0-9_]+\}?/)
-                 '<span class="var">' + w + '</span>'
+                 ss.getch
+                 a = if ss.peek(1) == "{" then ss.getch end
+                 w = ss.scan(/[A-Za-z0-9_]+/)
+                 w = replace_word(w, first_word, line, prefixes, keyword_urls)
+                 b = if ss.peek(1) == "}" then ss.getch end
+                 '<span class="var">' + "$#{a}#{w}#{b}" + '</span>'
                elsif ss.match?(/\s+/)
                  ss.scan(/\s+/)
                elsif ss.match?(/\w+=/)
                  w = ss.scan(/\w+/)
                  ss.getch
+                 w = replace_word(w, first_word, line, prefixes, keyword_urls)
                  '<span class="var">' + w + '</span>='
                elsif ss.match?(/[\w&+-.]+/)
                  is_word = true

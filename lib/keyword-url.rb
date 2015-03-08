@@ -110,11 +110,15 @@ class KeywordUrl < Nanoc::DataSource
               id = "/keyword/#{product}/#{keyword}/#{disambiguate}"
               create_item real_url,
                     { :match => @pandoc_identifier_match[id],
+                      :command => "#{keyword} (#{disambiguate})",
+                      :product => product,
                       :url => "/#{product}/#{keyword}" }, id
             else
               id = "/keyword/#{product}/#{keyword}"
               create_item real_url,
                     { :match => nil,
+                      :command => keyword,
+                      :product => product,
                       :url => "/#{product}/#{keyword}" }, id
             end
           end

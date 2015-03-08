@@ -44,21 +44,35 @@ is possible when for example, you specify an invalid IP address or
 hostname, or an invalid argument to some parameter that gets passed to
 iptables as-is.
 
-It is important to understand that **by default, during the run
-of the generated iptables script** (including the possible
-restoration of the old firewall), **FireHOL allows all traffic
-to reach its destination**.
+When in fast activation mode
+:   FireHOL uses `iptables-restore` to install your new firewall in one go.
+    This is very quick and does not need to clear down your existing
+    firewall before adding updated rules.
 
-This has been done to **prevent a possible lock-out** situation where
-you are SSHing to the server to alter its firewall, and suddenly
-you loose the connection. To **control this behaviour**, set the <%=
-html_to('ACTIVATION_variables','/keyword/manref/firehol/variables-activation')
-%>.
+    This mode is the default in version 3.x, optional in version
+    2.x and not available in version 1.x.
 
-Note you can still can lock yourself out if your new firewall doesn't
-allow the connection. To prevent accidents when updating remote
-firewalls consider using the [try](/firehol-manual/firehol/)
-command to start the firewall.
+When not in fast activation mode
+:   Rules are inserted by `iptables` commands one a a time.
+    **By default** during this process (including the possible
+    restoration of the old firewall), **FireHOL allows all traffic
+    to reach its destination until the firewall is activated**.
+
+    The two-way checking of packets means any rogue connection
+    will be instantly severed once the firewall is active.
+
+    This has been done to **prevent a lock-out** situation where
+    you are SSHing to the server to alter its firewall, and suddenly
+    you loose the connection. To **control this behaviour**, set the <%=
+    html_to('ACTIVATION_variables',
+           '/keyword/manref/firehol/variables-activation')%>.
+
+    This mode is the default in version 2.x and not available in 1.x.
+
+Note you can still can lock yourself out if your new firewall denies your
+connection after it is loaded. To prevent accidents when updating remote
+firewalls consider using the [try](/firehol-manual/firehol/) command to
+start the firewall.
 
 If no error has been seen, FireHOL deletes all temporary files generated
 and exits.
