@@ -27,9 +27,8 @@ If you are a new user, first read:
 
 There is also reference information:
 
-* [FireHOL commands and variables index] - organised by name
-* [FireHOL services index] - organised by service name
 * [FireHOL manual] - organised by function type
+* [FireHOL services index] - organised by service name
 
 A complete list of guides and tutorials for FireHOL is in this table:
 
@@ -106,7 +105,6 @@ If you are a new user, first read:
 
 There is also reference information:
 
-* [FireQOS commands and variables index] - organised by name
 * [FireQOS manual] - organised by function type
 
 A complete list of guides and tutorials for FireHOL is in this table:
@@ -125,9 +123,7 @@ Got an idea for a guide or willing to write one? See
 
 [FireHOL manual]: /firehol-manual/
 [FireHOL services index]: /services/
-[FireHOL commands and variables index]: /firehol-commands/
 [FireQOS manual]: /fireqos-manual/
-[FireQOS commands and variables index]: /fireqos-commands/
 [FireHOL QuickStart]: /tutorial/firehol-quickstart/
 [FireHOL Welcome Guide]: /guides/firehol-welcome/
 [FireHOL New User]: /tutorial/firehol-new-user/
