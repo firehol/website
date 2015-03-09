@@ -86,8 +86,8 @@ network can be this easy:
 
 <%= include_example('overview-01') %>
 
-Jump straight to the [tutorials](/tutorial/) to learn how to configure
-your own.
+Jump straight to the [documentation](/documentation/#firehol) to learn
+how to configure your own.
 
 Hopefully you have noticed that all the rules given match just one
 direction of the traffic: **the request**. They don't say anything about
@@ -212,8 +212,8 @@ easy:
 
 <%= include_example('overview-qos-01') %>
 
-Jump straight to the [tutorials](/tutorial/) to learn how to configure
-your own.
+Jump straight to the [documentation](/documentation/#fireqos) to learn
+how to configure your own.
 
 FireQOS also allows you to monitor the live status of traffic:
 
