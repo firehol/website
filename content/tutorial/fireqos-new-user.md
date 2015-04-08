@@ -639,8 +639,8 @@ There are three things we can do to settle this issue:
     For example, I have mine set to use port 60000 for incoming requests
     and ports 60001 to 65535 for outgoing request.
     If you do set ports for your torrent clients, we can match these ports
-    at the `torrents` class using `match dport 60000-65535` on `input` and
-    `match sport 60000-65535` on `output` interfaces. I also add `prio 1`
+    at the `torrents` class using `match dport 60000:65535` on `input` and
+    `match sport 60000:65535` on `output` interfaces. I also add `prio 1`
     to these matches, just to make sure that if a smart guy on the net puts
     his client on a port from 0 to 1023, the rule that matches the fixed
     torrent ports will be executed first.
