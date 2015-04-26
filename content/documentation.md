@@ -13,6 +13,10 @@ Documentation is organised by product:
 * [FireHOL](#firehol)
 * [FireQOS](#fireqos)
 
+The manuals are extracted from the master branch, so if you are on an
+older version and experience problems with missing features, it is a
+good idea to check the documentation that shipped with your version.
+
 In addition we have:
 
 * [Installation instructions](/installing/)

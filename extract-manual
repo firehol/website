@@ -92,6 +92,12 @@ then
   exit 1
 fi
 
+if [ $mode = "separate" -a ! -f $src/vnetbuild/contents.md ]
+then
+  echo "New-style manual: missing vnetbuild contents"
+  exit 1
+fi
+
 process() {
   echo "Importing pandoc directly to website: $2 .. $3"
   base="$1"
@@ -134,6 +140,9 @@ do
     *fireqos)
       dest=fireqos-manual
     ;;
+    *vnetbuild)
+      dest=vnetbuild-manual
+    ;;
   esac
 
   # Import links from manual, cleaning up anchors that are not available
@@ -151,6 +160,7 @@ if [ $mode = separate ]
 then
   process $src $src/firehol firehol-manual
   process $src $src/fireqos fireqos-manual
+  process $src $src/vnetbuild vnetbuild-manual
 else
   process $src $src manual
   rm -f content/manual/README.md
