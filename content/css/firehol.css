@@ -77,3 +77,7 @@ pre {
   background-color: #F7F7F7;
   border: none;
 }
+
+tr.even {
+  background-color: #F7F7F7;
+}
