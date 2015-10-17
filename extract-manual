@@ -5,7 +5,7 @@
 #
 
 # Look for built files, then built tar-file in each of these in turn
-locations="/home/web/firehol/download/unsigned/master/ $HOME/src/firehol"
+locations="/home/web/firehol/download/unsigned/master/ ../firehol"
 
 scriptname=extract-manual
 if ! MYTMP=$(mktemp -d -t $scriptname-XXXXXX)
@@ -36,13 +36,19 @@ for l in $locations
 do
   if [ -f $l/doc/firehol-manual.html ]
   then
-    src=$l/doc
-    echo "Extracting manual from $l/doc"
+    cur=`pwd`
+    cd $l/doc
+    src=`pwd`
+    cd $cur
+    echo "Extracting manual from $src"
     break
   fi
   if [ -f $l/doc/firehol/firehol-manual.html ]
   then
-    src=$l/doc
+    cur=`pwd`
+    cd $l/doc
+    src=`pwd`
+    cd $cur
     mode=separate
     echo "Extracting manual from $l/doc"
     break

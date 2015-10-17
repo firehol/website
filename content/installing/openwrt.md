@@ -15,8 +15,9 @@ I have been running FireHOL on an unmodified v1.5 [TP-Link
 TL-WR1043ND](http://wiki.openwrt.org/toh/tp-link/tl-wr1043nd) without
 trouble for a couple of years. This device has 32MB RAM and 8MB flash.
 
-These instructions are for Attitude Adjustment (12.09) which FireQOS
-requires. FireHOL will also run on Backfire (10.03) but you will need to
+These instructions are for Attitude Adjustment (12.09) and
+Barrier Breaker (14.07) which FireQOS requires.
+FireHOL will also run on Backfire (10.03) but you will need to
 adapt the instructions slightly.
 
 ### FireHOL
@@ -35,20 +36,23 @@ opkg install iptables-mod-ipopt
 opkg install kmod-ipt-nathelper-extra
 ~~~~
 
-I will assume you want IPv6, so ensure the appropriate bits are present:
+Prior to Barrier Breaker you need to explicitly enable IPv6
+:   Ensure the appropriate bits are installed:
 
-~~~~ {.programlisting}
-opkg install kmod-ip6tables
-opkg install ip6tables
-~~~~
+    ~~~~ {.programlisting}
+    opkg install kmod-ip6tables
+    opkg install ip6tables
+    ~~~~
 
-Since we have not yet configured FireHOL, we must update the default
-ruleset to protect your installation: `fw restart`{.command}. The
-OpenWRT wiki has more information on [IPv6 in
-OpenWRT](http://wiki.openwrt.org/doc/howto/ipv6).
+    Since we have not yet configured FireHOL, we must update the
+    default ruleset to protect your installation.
+    Run: `fw restart`{.command}
 
-OpenWRT is too lightweight to be worth running the configure script, so
-from my host I just copied up the files:
+    The OpenWRT wiki has more information on
+    [IPv6 in OpenWRT](http://wiki.openwrt.org/doc/howto/ipv6).
+
+OpenWRT is too lightweight to justify running the FireHOL configure script,
+so from my host I just copied up the files:
 
 ~~~~ {.programlisting}
 scp sbin/firehol.in root@router:/sbin/firehol
