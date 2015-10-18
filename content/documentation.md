@@ -21,7 +21,7 @@ In addition we have:
 
 * [Installation instructions](/installing/)
 * [Frequently Asked Questions](/faq/) page
-* [A Wiki](https://github.com/ktsaou/firehol/wiki/), for cutting edge features
+* [A Wiki](https://github.com/firehol/firehol/wiki/), for cutting edge features
 
 # FireHOL
 

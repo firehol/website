@@ -26,7 +26,7 @@ Issue tracker
 -------------
 
 If you think you've found a bug, the [FireHOL issue
-tracker](https://github.com/ktsaou/firehol/issues) is the best place to
+tracker](https://github.com/firehol/firehol/issues) is the best place to
 report it.
 
 If you create an entry tagged **help**, we will also try to help you on

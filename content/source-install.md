@@ -10,7 +10,7 @@ All of FireHOL is made available under the [GPLv2+
 Licence](http://www.gnu.org/licenses/gpl-2.0.html). To make use of the
 sources, you need to:
 
--   [Download](#download) from the [repository](https://github.com/ktsaou/firehol)
+-   [Download](#download) from the [repository](https://github.com/firehol/firehol)
 -   [Build](#build-from-source) the package
 -   Developers and non-developers alike are welcome
     to [get involved](#get-involved) in the FireHOL project
@@ -30,7 +30,7 @@ If you want a readable version number you should [download and install a
 packaged version](/installing/).
 
 You can download or clone the source from our [GitHub
-repository](https://github.com/ktsaou/firehol). The basic
+repository](https://github.com/firehol/firehol). The basic
 `git`{.command} commands to perform a clone are below. We also have
 GitHub repositories for [this
 website](https://github.com/philwhineray/firehol-website) and our
@@ -47,7 +47,7 @@ For a first time clone of a repository into directory
 `firehol`{.filename}:
 
 ~~~~ {.programlisting}
-$ git clone https://github.com/ktsaou/firehol.git
+$ git clone https://github.com/firehol/firehol.git
 Cloning into 'firehol'...
 remote: Reusing existing pack: 4651, done.
 remote: Counting objects: 20, done.
@@ -156,7 +156,7 @@ list](http://lists.firehol.org/mailman/listinfo/firehol-devs)
 ([archive](http://lists.firehol.org/pipermail/firehol-devs/)).
 
 Development decisions take place using a combination of the development
-list and the [GitHub issue tracker](https://github.com/ktsaou/firehol/issues).
+list and the [GitHub issue tracker](https://github.com/firehol/firehol/issues).
 
 Developers
 :   Core development requires you to understand
@@ -165,7 +165,7 @@ Developers
     have a [github account](https://github.com/) but if you want to
     post patches or even code snippets, that's fine too.
 
-    To get coding, fork the [repository](https://github.com/ktsaou/firehol),
+    To get coding, fork the [repository](https://github.com/firehol/firehol),
     which doesn't require you to have an account,
     and see the [build instructions](#build-from-source).
 
@@ -199,7 +199,7 @@ Documentation writers + Website designers
 
     Manual page updates are all about spotting errors in the current
     files or tracking changes and additions in the
-    [code repository](https://github.com/ktsaou/firehol).
+    [code repository](https://github.com/firehol/firehol).
 
     There is a lot of scope for new [website
     guides](/documentation/#guides-and-tutorials) to walk users through

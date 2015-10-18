@@ -49,7 +49,7 @@ code. We take care to not break "master", so in general this build is
 quite stable.
 
 [Dependencies are listed at the
-Wiki](https://github.com/ktsaou/firehol/wiki/Dependencies). FireHOL and
+Wiki](https://github.com/firehol/firehol/wiki/Dependencies). FireHOL and
 FireQOS detect at runtime if the commands they needs are installed. In
 general the requirements are not onerous, just some common shell and
 networking commands which come as standard with modern Linux
