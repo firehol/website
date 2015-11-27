@@ -136,10 +136,7 @@ To build and install taking the default options:
 ./configure && make && sudo make install
 ~~~~
 
-Alternatively, just copy the `sbin/firehol.in`{.filename} and
-`sbin/fireqos.in`{.filename} files to where you want them.
-
 All of the common SysVInit command line arguments are recognised by the
 FireHOL and FireQOS scripts, which make them easy to deploy as startup
-services. In many cases you can just copy or link them into the
-appropriate folder.
+services. In many cases you can just link them into the appropriate folder.
+The `examples` folder contains some example systemd service files.
