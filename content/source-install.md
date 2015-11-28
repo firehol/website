@@ -11,7 +11,7 @@ Licence](http://www.gnu.org/licenses/gpl-2.0.html). To make use of the
 sources, you need to:
 
 -   [Download](#download) from the [repository](https://github.com/firehol/firehol)
--   [Build](https://github.com/firehol/firehol/blob/master/README) the package
+-   [Build](https://github.com/firehol/firehol/#git) the package
 -   Developers and non-developers alike are welcome
     to [get involved](#get-involved) in the FireHOL project
 
