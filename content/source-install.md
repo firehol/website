@@ -7,13 +7,27 @@ FireHOL Source Code
 ===================
 
 All of FireHOL is made available under the [GPLv2+
-Licence](http://www.gnu.org/licenses/gpl-2.0.html). To make use of the
-sources, you need to:
+Licence](http://www.gnu.org/licenses/gpl-2.0.html).
 
--   [Download](#download) from the [repository](https://github.com/firehol/firehol)
--   [Build](https://github.com/firehol/firehol/#git) the package
--   Developers and non-developers alike are welcome
-    to [get involved](#get-involved) in the FireHOL project
+Developers and non-developers alike are welcome
+to [get involved](#get-involved) in the FireHOL project.
+
+There is a [github firehol project](https://github.com/firehol) from
+where you can get to each individual repository.
+
+*   FireHOL, FireQOS, Link-Balancer, Update-Ipsets and VNetBuild are
+    packaged as [firehol](https://github.com/firehol/firehol)
+
+*   iprange is in repository [iprange](https://github.com/firehol/iprange)
+
+*   netdata is in repository [netdata](https://github.com/firehol/netdata)
+
+We also have GitHub repositories for:
+
+*   [this website](https://github.com/firehol/website)
+
+*   [build/release infrastructure](https://github.com/firehol/infrastructure)
+
 
 Download
 --------
@@ -21,18 +35,12 @@ Download
 Unless you want to help develop FireHOL you may want to [download and install a
 packaged version](/installing/).
 
-You can download or clone the source from our [GitHub
-repository](https://github.com/firehol/firehol). The basic
-`git`{.command} commands to perform a clone are below. We also have
-GitHub repositories for [this
-website](https://github.com/firehol/firehol-website) and our
-[build/release
-infrastructure](https://github.com/firehol/firehol-infrastructure).
+Otherwise, clone the source from a repository above. The basic
+`git`{.command} commands to perform a clone are below.
 
 Note: if you do not want to run `git`{.command} but are just looking for
 the bleeding edge version, you can still use the [normal install
-instructions](/installing/): the ['daily
-build'](/download/unsigned/master/) is actually updated automatically
+instructions](/installing/): the 'automatic builds' are updated
 whenever the master repository is changed, within a few minutes.
 
 For a first time clone of a repository into directory
@@ -128,7 +136,7 @@ Developers
     and see the [build instructions](#build-from-source).
 
     To help with the build/release system, take a look at its
-    [repository](https://github.com/philwhineray/firehol-infrastructure).
+    [repository](https://github.com/firehol/infrastructure).
 
     To learn [Bash](http://www.gnu.org/software/bash/bash.html) scripting we
     suggest the following documents:
@@ -179,7 +187,7 @@ Documentation writers + Website designers
     the ones [listed](/installing/), a quick set of instructions
     can help many people.
 
-    The [website source](https://github.com/philwhineray/firehol-website)
+    The [website source](https://github.com/firehol/website)
     is compiled with [nanoc](http://nanoc.ws/install/) and uses
     [bootstrap](http://getbootstrap.com/) for styling.
 

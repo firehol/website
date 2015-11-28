@@ -39,21 +39,23 @@ examples assume you will choose that option.
 
 You can choose to download one of the following:
 
--   [Latest stable release](/download/latest/)
--   [Pick from all releases](/download/releases/)
--   [Automatic daily build](/download/unsigned/master/)
+-   [Latest stable firehol](/download/firehol/latest/)
+-   [All firehol releases](/download/firehol/releases/)
+-   [Automatic firehol build](/download/firehol/unsigned/master/)
 
-The daily build is in fact even more up to date than its name suggests.
-It rebuilds whenever a change is committed to the master branch of the
-code. We take care to not break "master", so in general this build is
-quite stable.
+Recent versions of firehol tools rely on `iprange`:
 
-[Dependencies are listed at the
-Wiki](https://github.com/firehol/firehol/wiki/Dependencies). FireHOL and
-FireQOS detect at runtime if the commands they needs are installed. In
-general the requirements are not onerous, just some common shell and
-networking commands which come as standard with modern Linux
-distributions.
+-   [Latest stable iprange](/download/iprange/latest/)
+-   [All iprange releases](/download/iprange/releases/)
+-   [Automatic iprange build](/download/iprange/unsigned/master/)
+
+Automatic builds occur a change is committed to the master branch of the
+code.
+
+FireHOL and FireQOS detect at configure time if the commands they need
+are installed. In general the requirements are not onerous, just some
+common shell and networking commands which come as standard with modern
+Linux distributions, plus iprange.
 
 
 Verify
