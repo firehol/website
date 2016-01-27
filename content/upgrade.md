@@ -35,7 +35,7 @@ This document helps you update your configuration to the latest version
 with no change in IPv4 behaviour (note: IPv6 will be completely blocked).
 
 Once you have completed it you can optionally follow the
-[FireHOL IPv6 Setup tutorial](/tutorial/firehol-ipv6.md) to extend the
+[FireHOL IPv6 Setup tutorial](/tutorial/firehol-ipv6/) to extend the
 firewall to cover IPv6 as well as IPv4.
 
 We will use this simple example and mark everything as IPv4 only:
@@ -59,4 +59,4 @@ Finally, update your version line (or add one):
 The only behaviour change to your version 5 config is that your host
 will now drop IPv6 packets where before they were allowed unless you
 took separate steps to block them. If you want to allow IPv6 traffic,
-check out the [FireHOL IPv6 Setup tutorial](/tutorial/firehol-ipv6.md).
+check out the [FireHOL IPv6 Setup tutorial](/tutorial/firehol-ipv6/).
