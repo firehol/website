@@ -47,6 +47,9 @@ Guide]            Beginner      Introduction to the most important concepts
 New User]         Beginner      Tutorial to set up your first FireHOL firewall.
 
 [FireHOL
+IPv6 Setup]       Beginner      Add IPv6 functionality to your new firewall.
+
+[FireHOL
 Rules by Goal]    Beginner      Learn to translate your firewalling objectives
                                 into FireHOL rules.
 
@@ -131,6 +134,7 @@ Got an idea for a guide or willing to write one? See
 [FireHOL QuickStart]: /tutorial/firehol-quickstart/
 [FireHOL Welcome Guide]: /guides/firehol-welcome/
 [FireHOL New User]: /tutorial/firehol-new-user/
+[FireHOL IPv6 Setup]: /tutorial/firehol-ipv6/
 [FireHOL Border Router]: /tutorial/firehol-border-router/
 [Upgrading FireHOL]: /upgrade/
 [FireQOS New User]: /tutorial/fireqos-new-user/

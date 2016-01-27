@@ -21,6 +21,8 @@ The following tutorials are available:
     customise.
 -   [FireHOL New User](/tutorial/firehol-new-user/) Suitable for anyone
     who wants to use FireHOL for the first time.
+-   [FireHOL IPv6 Setup](/tutorial/firehol-ipv6/) Once you have a basic
+    IPv4 firewall, add IPv6 capabilities.
 -   [FireQOS New User](/tutorial/fireqos-new-user/) Suitable for anyone
     who wants to use FireQOS for the first time.
 -   [FireHOL Configuration by Goal](/tutorial/firehol-by-goal/) Learn to
