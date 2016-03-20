@@ -135,7 +135,17 @@ Options for the `configure`{.command} program can be seen in the
 To build and install taking the default options:
 
 ~~~~ {.programlisting}
-./configure && make && sudo make install
+./configure
+make
+sudo make install
+~~~~
+
+To not have files appear under `/usr/local`, try something like:
+
+~~~~ {.programlisting}
+./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var
+make
+sudo make install
 ~~~~
 
 All of the common SysVInit command line arguments are recognised by the
