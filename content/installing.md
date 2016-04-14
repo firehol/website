@@ -148,6 +148,9 @@ make
 sudo make install
 ~~~~
 
+If your O/S does not usually have a `/usr/libexec`, you may want
+to add `--libexecdir=/usr/lib` to the `configure`.
+
 All of the common SysVInit command line arguments are recognised by the
 FireHOL and FireQOS scripts, which make them easy to deploy as startup
 services. In many cases you can just link them into the appropriate folder.
