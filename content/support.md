@@ -6,8 +6,9 @@ submenu: support
 Support
 =======
 
-These are some ways you can get help and support to install and set up
-FireHOL
+Please check out the [documentation](/documentation), in particular
+the [FAQ](/faq/). If you are stuck, below are some ways you can get
+help and support to install and set up FireHOL.
 
 Mailing List
 ------------
@@ -38,8 +39,8 @@ Email
 The preferred methods of contact are above. They enable the whole
 community to benefit from any discussion.
 
-If you need to correspond with us more confidentially you can do so with
-the following:
+If you need to correspond with us confidentially, e.g. on security
+matters, you can do so with the following:
 
 * [Costa Tsaousis](mailto:costa@firehol.org)
 * [Phil Whineray](mailto:phil@firehol.org)
