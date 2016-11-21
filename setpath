@@ -1,0 +1,6 @@
+# Set up a path to the nanoc executable installed by the gem, rather than
+# using a system default
+# Run as . ./setpath
+x=$(find /var/lib/gems -name nanoc | sed -n 's/bin.nanoc/bin/p' | sort | tail -n 1)
+export PATH=$x:$PATH
+echo "Added to front of PATH: $x"
