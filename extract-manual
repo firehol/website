@@ -109,6 +109,12 @@ process() {
   base="$1"
   doc="$2"
   dest="$3"
+  if [ "$4" ]
+  then
+    v=" (v$4)"
+  else
+    v=""
+  fi
 
   rm -rf content/$dest
   mkdir -p content/$dest
@@ -121,7 +127,7 @@ process() {
     sed -e '1i---' \
         -e '1isubmenu: documentation' \
         -e '4i---' \
-        -e '1s/^% \([^ ]*\) .*/title: Reference Manual - \1\ndescription: \1 Reference Manual\nkeywords: firewall, linux, free, gpl, manual, reference, \1/p' \
+        -e "1s/^% \([^ ]*\) .*/title: Reference Manual$v - \1\ndescription: \1 Reference Manual\nkeywords: firewall, linux, free, gpl, manual, reference, \1/p" \
         -e '1,3d' \
         -e '/^%/d' \
         -e 's;\.[0-9]*\.md;.md;g' \
@@ -164,9 +170,10 @@ done
 
 if [ $mode = separate ]
 then
-  process $src $src/firehol firehol-manual
-  process $src $src/fireqos fireqos-manual
-  process $src $src/vnetbuild vnetbuild-manual
+  version=$(sed -n -e 's/^define(\[VERSION_.*\], \[\(.*\)\]).*/\1./p' $src/../configure.ac |tr -d '\n'|sed -e 's/\.$//' -e 's/\._/./')
+  process $src $src/firehol firehol-manual "$version"
+  process $src $src/fireqos fireqos-manual "$version"
+  process $src $src/vnetbuild vnetbuild-manual "$version"
 else
   process $src $src manual
   rm -f content/manual/README.md
