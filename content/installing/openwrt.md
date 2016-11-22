@@ -96,11 +96,14 @@ Run configure as follows (add `--disable-fireqos` if you only want FireHOL):
 ~~~~
 ssh root@openwrt
 cd /tmp/firehol-3.x.y
-./configure --disable-doc --disable-man \
+./configure --disable-doc --disable-man --disable-firehol-wizard \
    --disable-link-balancer --disable-vnetbuild --disable-update-ipsets \
    --prefix=/usr --sbindir=/sbin --sysconfdir=/etc \
-   --localstatedir=/var --libdir=/usr/lib
+   --localstatedir=/var --libexecdir=/usr/lib
 ~~~~
+
+You can choose to leave the FireHOL wizard enabled but you will likely need
+to install some more openwrt packages if you do.
 
 Install with `make`:
 
