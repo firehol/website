@@ -15,54 +15,103 @@ I have been running FireHOL on an unmodified v1.5 [TP-Link
 TL-WR1043ND](http://wiki.openwrt.org/toh/tp-link/tl-wr1043nd) without
 trouble for a couple of years. This device has 32MB RAM and 8MB flash.
 
-These instructions are for Attitude Adjustment (12.09) and
-Barrier Breaker (14.07) which FireQOS requires.
-FireHOL will also run on Backfire (10.03) but you will need to
-adapt the instructions slightly.
+These instructions are for Barrier Breaker (14.07) which FireQOS requires.
+FireHOL will also run on Attitude Adjustment (12.09) and Backfire (10.03)
+but you might need to adapt the instructions slightly.
 
-### FireHOL
+This guide skips link-balancer because it requires a package for iprange
+which must be compiled to binary, which is much more complex. Also skipped
+are vnetbuild and update-ipsets, since they are not really aimed at router
+use.
 
-On the router:
+We will assume that your router's hostname is `openwrt` throughout this
+document.
+
+### Preparation
+
+On the router, ensure your clock is set correctly, and if not update it:
+
+~~~~
+ssh root@openwrt
+date -s "YYYY-MM-DD hh:mm:ss"
+~~~~
+
+Install required packages for FireHOL:
 
 ~~~~ {.programlisting}
-mkdir -p /etc/firehol/services
 opkg update
 opkg install bash
 opkg install coreutils-fold
 opkg install flock
+opkg install grep
+opkg install make
 opkg install iptables-mod-extra
 opkg install iptables-mod-conntrack-extra
 opkg install iptables-mod-ipopt
 opkg install kmod-ipt-nathelper-extra
 ~~~~
 
-Prior to Barrier Breaker you need to explicitly enable IPv6
-:   Ensure the appropriate bits are installed:
+Note: prior to Barrier Breaker you needed to explicitly enable IPv6.
 
-    ~~~~ {.programlisting}
-    opkg install kmod-ip6tables
-    opkg install ip6tables
-    ~~~~
-
-    Since we have not yet configured FireHOL, we must update the
-    default ruleset to protect your installation.
-    Run: `fw restart`{.command}
-
-    The OpenWRT wiki has more information on
-    [IPv6 in OpenWRT](http://wiki.openwrt.org/doc/howto/ipv6).
-
-OpenWRT is too lightweight to justify running the FireHOL configure script,
-so from my host I just copied up the files:
+If you want to install FireQOS, also add these:
 
 ~~~~ {.programlisting}
-scp sbin/firehol.in root@router:/sbin/firehol
-scp openwrt-firehol.init root@router:/etc/init.d/firehol
-scp openwrt-firehol.conf root@router:/etc/firehol/firehol.conf
+opkg install tc
+opkg install ip
+opkg install tcpdump
+opkg install kmod-ifb
+opkg install kmod-sched
+opkg install kmod-dummy
 ~~~~
 
-The init script is this:
+### Copy and unpack package
+
+We will use the standard tar-file from the website.
+
+Some versions of [busybox tar have a bug](https://dev.openwrt.org/ticket/20660)
+which you may hit, so if you see a message `invalid tar magic` during the
+tar step, you will need to use the alternate method presented afterwards:
+
+Copy up and unpack the tar-file:
 
 ~~~~ {.programlisting}
+scp firehol-3.x.y.tar.gz root@openwrt:/tmp
+ssh root@openwrt
+cd /tmp
+tar -zxvf firehol-3.x.y.tar.gz
+~~~~
+
+Alternate method, if tar does not work
+:   Unpack locally and copy up:
+
+    ~~~~ {.programlisting}
+    tar xvfz firehol-3.x.y.tar.gz
+    scp -rp firehol-3.x.y root@openwrt:/tmp
+    ~~~~
+
+# Configure and install
+
+Run configure as follows (add `--disable-fireqos` if you only want FireHOL):
+
+~~~~
+ssh root@openwrt
+cd /tmp/firehol-3.x.y
+./configure --disable-doc --disable-man \
+   --disable-link-balancer --disable-vnetbuild --disable-update-ipsets \
+   --prefix=/usr --sbindir=/sbin --sysconfdir=/etc \
+   --localstatedir=/var --libdir=/usr/lib
+~~~~
+
+Install with `make`:
+
+~~~~ {.programlisting}
+make install
+~~~~
+
+Add an OpenWRT init script for FireHOL:
+
+~~~~ {.programlisting}
+cat - > /etc/init.d/firehol <<_END_
 #!/bin/sh /etc/rc.common
 
 # The OpenWRT system uses this to determine start order for links to
@@ -99,7 +148,47 @@ restart() {
 reload() {                                                                  
   /sbin/firehol start                                                       
 }                                                 
+_END_
+chmod 755 /etc/init.d/firehol
 ~~~~
+
+Add an OpenWRT init script for FireQOS:
+
+~~~~ {.programlisting}
+cat - > /etc/init.d/fireqos <<_END_
+#!/bin/sh /etc/rc.common
+
+# The OpenWRT system uses this to determine start order for links to
+# create in /etc/rc.d when you run e.g. /etc/init.d/fireqos enable
+START=46
+
+start() {
+  # Some OpenWRT have insmod and not modprobe. FireQOS will work fine provided
+  # we tell the kernel that it should be using insmod.
+  if [ -x /sbin/insmod -a ! -x /sbin/modprobe ]
+  then
+    echo "/sbin/insmod" > /proc/sys/kernel/modprobe
+  fi
+  /sbin/fireqos start
+}
+
+restart() {
+  /sbin/fireqos start
+}
+
+reload() {
+  /sbin/fireqos start
+}
+
+stop() {
+  /sbin/fireqos stop
+}
+_END_
+chmod 755 /etc/init.d/fireqos
+~~~~
+
+
+# Setup FireHOL
 
 Your configuration depends on your router setup. Be careful not to
 firewall yourself out or you will find yourself using [OpenWRT failsafe
@@ -110,9 +199,10 @@ automatically revert after 30 seconds if you do not explicitly accept
 the new configuration (impossible if you have disabled your current
 connection).
 
-This is roughly my config:
+My configurations are roughly as follows:
 
-<%= include_example('openwrt-01') %>
+* [/etc/firehol/firehol-defaults.conf](/files/installing-openwrt/firehol-defaults.conf)
+* [/etc/firehol/firehol.conf](/files/installing-openwrt/firehol.conf)
 
 Running `/sbin/firehol start`{.command} for the first time:
 
@@ -157,7 +247,7 @@ export FIREHOL_AUTOSAVE6=/etc/firehol/saved.ip6tables
 These files are not required for correct operation but ensure some kind
 of firewall is in place very quickly after a reboot. Any config will do
 provided that you know it will allow you to access the device yet
-protect your network if you break your firehol.conf file and reboot
+protect your network if you break your `firehol.conf` file and reboot
 before realising.
 
 When you are happy that everything is as it should be, disable the
@@ -186,68 +276,21 @@ and reload the configuration:
 sysctl -p
 ~~~~
 
-### FireQOS
+### Setup FireQOS
 
-This section assumes you have already installed FireHOL. If not you
-should run the initial `mkdir`{.command} and `opkg`{.command}
-installation commands as a minimum.
+Some OpenWRT installations come only with insmod, not modprobe. Unless
+you tell the kernel to use insmod to autoload modules, then `tc`, as used
+by FireHOL will not work correctly.
 
-On the router:
+This is done for you when you run via the init script above. If your,
+system does not have modprobe, run the following so you can get your
+initial setup done:
 
-~~~~ {.programlisting}
-opkg install tc
-opkg install ip
-opkg install tcpdump
-opkg install kmod-ifb
-opkg install kmod-sched
-opkg install kmod-dummy
+~~~~ {.programoutput}
+echo "/sbin/insmod" > /proc/sys/kernel/modprobe
 ~~~~
 
-Copying up files from the host:
-
-~~~~ {.programlisting}
-scp sbin/fireqos.in border:/sbin/fireqos
-scp openwrt-fireqos.init root@router:/etc/init.d/fireqos
-scp openwrt-fireqos.conf root@router:/etc/firehol/fireqos.conf
-~~~~
-
-The init script is this:
-
-~~~~ {.programlisting}
-#!/bin/sh /etc/rc.common
-
-# The OpenWRT system uses this to determine start order for links to
-# create in /etc/rc.d when you run e.g. /etc/init.d/fireqos enable
-START=46
-
-start() {
-  if [ -x /sbin/insmod -a ! -x /sbin/modprobe ]
-  then
-    echo "/sbin/insmod" > /proc/sys/kernel/modprobe
-  fi
-  /sbin/fireqos start
-}
-
-restart() {
-  /sbin/fireqos start
-}
-
-reload() {
-  /sbin/fireqos start
-}
-
-stop() {
-  /sbin/fireqos stop
-}
-~~~~
-
-OpenWRT lacks the `modprobe`{.command} command. FireQOS is able to deal
-with this by using `insmod`{.command} instead.
-
-The `tc`{.command} command that FireQOS uses to setup traffic control
-communicates with the kernel using RTNETLINK. The kernel then tries to
-autoload more modules. By default it tries to do this with modprobe. If
-it is not able to do so, you will get cryptic errors such as:
+If modules are not loading correctly, you will get cryptic errors such as:
 
 ~~~~ {.programoutput}
 RTNETLINK answers: No such file or directory
@@ -260,22 +303,12 @@ overhead 40 htb default 5000 r2q 8
 FAILED TO ACTIVATE TRAFFIC CONTROL.
 ~~~~
 
-If you see such an error, the first thing to do is check if you have
-`/sbin/modprobe`{.filename}, and if you do not, to tell the kernel to
-use `insmod`{.command} to autoload modules:
-
-~~~~ {.programoutput}
-echo "/sbin/insmod" > /proc/sys/kernel/modprobe
-~~~~
-
-This is done for you if you run via the init script above. For some more
-information on kernel module loading, see
+For some more information on kernel module loading, see
 [here](http://www.tldp.org/HOWTO/Module-HOWTO/x197.html).
 
-This is roughly my config (public is my open wifi for anyone, but my
-data limits are quite low, so I limit it heavily):
+My configurations is roughly as follows:
 
-<%= include_example('openwrt-qos-01') %>
+* [/etc/firehol/fireqos.conf](/files/installing-openwrt/fireqos.conf)
 
 Running `/sbin/fireqos start`{.command} for the first time:
 
@@ -315,7 +348,7 @@ All Done!. Enjoy...
 bye...
 ~~~~
 
-Now enable FireQOS at boot:
+To enable FireQOS at boot:
 
 ~~~~ {.programlisting}
 /etc/init.d/fireqos enable

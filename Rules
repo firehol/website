@@ -20,6 +20,10 @@ compile '/css/*' do
   # don’t filter or layout
 end
 
+compile '/files/*' do
+  # don’t filter or layout
+end
+
 compile '*' do
   if item.binary?
     # don’t filter binary items
@@ -58,6 +62,10 @@ route '/keyword/*' do
 end
 
 route '/css/*' do
+  item.identifier.chop + '.' + item[:extension]
+end
+
+route '/files/*' do
   item.identifier.chop + '.' + item[:extension]
 end
 
