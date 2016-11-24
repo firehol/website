@@ -140,6 +140,14 @@ process() {
 
   mv contents.md ../$dest.md
   cd ../..
+  # Copy unpacked manuals
+  rm -rf content/files/$dest
+  mkdir -p content/files/$dest/css
+  mkdir -p content/files/$dest/html
+  mkdir -p content/files/$dest/pdf
+  cp $doc/../*.css content/files/$dest/css/.
+  cp $doc/*.html content/files/$dest/html/.
+  cp $doc/*.pdf content/files/$dest/pdf/.
 }
 
 mkdir -p tmp
