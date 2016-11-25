@@ -53,6 +53,39 @@ do
     echo "Extracting manual from $l/doc"
     break
   fi
+done
+
+local=
+for l in $locations
+do
+  if [ $(ls $l/firehol-*.tar.gz 2> /dev/null | wc -l) -eq 1 ]
+  then
+    local=Y
+  fi
+done
+
+if [ ! "$local" ]
+then
+  if [ $(ls ./firehol-*.tar.gz 2> /dev/null | wc -l) -gt 0 ]
+  then
+    echo "Using cached local .tar.gz - remove to update from github"
+  else
+    curl -s https://api.github.com/repos/firehol/firehol/releases/latest > $MYTMP/tag.txt
+    tar=$(sed -ne '/"name":/{s/^[^:]*: "//;s/".*//;p}' $MYTMP/tag.txt | grep '.tar.gz$')
+    tag=$(sed -ne '/"tag_name":/{s/^[^:]*: "//;s/".*//;p}' $MYTMP/tag.txt)
+    if [ ! "$tar" -o ! "$tag" ]
+    then
+      echo "no local copy and unable to detemine download location - exiting"
+      exit 1
+    fi
+    echo "downloading manual from latest release"
+    curl -s -L -o "$tar" "https://github.com/firehol/firehol/releases/download/$tag/$tar"
+  fi
+  locations=.
+fi
+
+for l in $locations
+do
   if [ $(ls $l/firehol-*.tar.gz 2> /dev/null | wc -l) -eq 1 ]
   then
     echo "Extracting manual from" $l/firehol-*.tar.gz

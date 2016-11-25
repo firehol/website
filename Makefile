@@ -1,6 +1,10 @@
 all: website
 
-website:
+nanoc-version-3:
+	@echo Check running nanoc 3.x
+	test "`nanoc -v | sed -ne 's/nanoc \([^ ]*\) .*/\1/p' | cut -f1 -d.`" = "3"
+
+website: nanoc-version-3
 	@echo Compiling site
 	mkdir -p output
 	./extract-manual
