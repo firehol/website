@@ -54,3 +54,4 @@ after_success:
  - mv output "$TRAVIS_BRANCH"
  - sed -e "s/NAME/$TRAVIS_BRANCH/" nginx.conf > "$TRAVIS_BRANCH".conf
  - "if [ $TRAVIS_PULL_REQUEST = false -a \"$TRAVIS_BRANCH\" != \"\" ]; then ssh travis@firehol.org mkdir -p website/$TRAVIS_BRANCH/ && rsync -a $TRAVIS_BRANCH $TRAVIS_BRANCH.conf travis@firehol.org:website/$TRAVIS_BRANCH/ && ssh travis@firehol.org touch website/$TRAVIS_BRANCH/complete.txt; fi;"
+ - "echo \"Visit https://firehol.org/travis-website.log check deployment\""
