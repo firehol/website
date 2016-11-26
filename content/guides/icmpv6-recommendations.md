@@ -62,14 +62,7 @@ them.
 Allow incoming destination unreachable messages only for existing sessions
 --------------------------------------------------------------------------
 
-Ensure any routers have:
-
-~~~~ {.firehol}
-server ipv6error accept
-~~~~
-
-Adding [dst](/keyword/firehol/dst/) "\$inner\_prefix" ensures only
-public hosts receive the messages. See [ipv6error](/keyword/service/ipv6error).
+This is handled automatically by FireHOL 3+.
 
 Allow outgoing destination unreachable messages
 -----------------------------------------------

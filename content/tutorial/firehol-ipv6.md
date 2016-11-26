@@ -61,18 +61,13 @@ any others:
 
 <%= include_example('upgrade-6-09a') %>
 
-Various ICMPv6 messages need to be explicitly allowed for correct
-operation of IPv6. Firstly, certain ICMPv6 error messages must be
-enabled.
+FireHOL 2 only:
+:   Add a `server ipv6error accept` at the top of the *v6interop*
+    interface and again at the top of each router. Read the service
+    documentation associated with the version you installed.
 
-<%= include_example('upgrade-6-10') %>
-
-Incoming and outgoing rules are different and are set up
-automatically. Do not use `client ipv6error accept` except in a <%=
-html_to('router','/keyword/firehol/router') %> where the outface
-is the "inside" of your firewall. See the <%=
-html_to('ipv6error','/keyword/service/ipv6error') %> documentation
-for more information.
+    **FireHOL versions 3+ do not require the *ipv6error* service and it will
+    be removed from FireHOL 4.**
 
 The remaining ICMPv6 messages should generally not be used in
 FireHOL router definitions, since the information they convey should
@@ -163,8 +158,7 @@ We will show you how to adapt this simple config in a few possible ways:
     IPv4 only: <%= html_to('dhcp','/keyword/service/dhcp') %> and
     <%= html_to('timestamp','/keyword/service/timestamp') %>.
 
-    IPv6 only: <%= html_to('dhcpv6','/keyword/service/dhcpv6') %>,
-    <%= html_to('ipv6error','/keyword/service/ipv6error') %>, <%=
+    IPv6 only: <%= html_to('dhcpv6','/keyword/service/dhcpv6') %>, <%=
     html_to('ipv6neigh','/keyword/service/ipv6neigh') %>, <%=
     html_to('ipv6mld','/keyword/service/ipv6mld') %>, and <%=
     html_to('ipv6router','/keyword/service/ipv6router') %>.
