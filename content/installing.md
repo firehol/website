@@ -37,19 +37,19 @@ You only need one. If you don't know which compression your system can
 handle, gzip (`.gz`{.filename} files) is certain to work, so the
 examples assume you will choose that option.
 
-You can choose to download one of the following:
-
--   [Latest stable firehol](/download/firehol/latest/)
--   [All firehol releases](/download/firehol/releases/)
--   [Automatic firehol build](/download/firehol/unsigned/master/)
-
-Recent versions of firehol tools rely on `iprange`:
+Recent versions of firehol tools rely on `iprange`; install it first:
 
 -   [Latest stable iprange](/download/iprange/latest/)
 -   [All iprange releases](/download/iprange/releases/)
 -   [Automatic iprange build](/download/iprange/unsigned/master/)
 
-Automatic builds occur a change is committed to the master branch of the
+Then choose to download one of the following:
+
+-   [Latest stable firehol](/download/firehol/latest/)
+-   [All firehol releases](/download/firehol/releases/)
+-   [Automatic firehol build](/download/firehol/unsigned/master/)
+
+Automatic builds occur when a change is committed to the master branch of the
 code.
 
 FireHOL and FireQOS detect at configure time if the commands they need
@@ -66,15 +66,15 @@ All tar-files on the site come with MD5 (`.md5`{.filename}) and SHA512
 well as the tar-file and run e.g.:
 
 ~~~~ {.programoutput}
-$ md5sum -c firehol-2.0.0.tar.gz.md5 
-firehol-2.0.0.tar.gz: OK
+$ md5sum -c firehol-3.1.1.tar.gz.md5 
+firehol-3.1.1.tar.gz: OK
 ~~~~
 
 or:
 
 ~~~~ {.programoutput}
-$ sha512sum -c firehol-2.0.0.tar.gz.sha 
-firehol-2.0.0.tar.gz: OK
+$ sha512sum -c firehol-3.1.1.tar.gz.sha 
+firehol-3.1.1.tar.gz: OK
 ~~~~
 
 Official releases also come with [detached gpg
@@ -93,7 +93,7 @@ Initially your gpg keyring will not include these keys, so your first
 time checking might go something like this:
 
 ~~~~ {.programoutput}
-$ gpg --verify firehol-2.0.0.tar.gz.asc firehol-2.0.0.tar.gz
+$ gpg --verify firehol-3.1.1.tar.gz.asc firehol-3.1.1.tar.gz
 gpg: Signature made Sat 15 Feb 2014 12:19:56 GMT using RSA key ID D829797E
 gpg: Can't check signature: public key not found
 
@@ -104,7 +104,7 @@ gpg: key D829797E: public key "Phil Whineray <phil@sanewall.org>" imported
 gpg: Total number processed: 1
 gpg:               imported: 1  (RSA: 1)
 
-$ gpg --verify firehol-2.0.0.tar.gz.asc firehol-2.0.0.tar.gz
+$ gpg --verify firehol-3.1.1.tar.gz.asc firehol-3.1.1.tar.gz
 gpg: Signature made Sat 15 Feb 2014 12:19:56 GMT using RSA key ID D829797E
 gpg: Good signature from "Phil Whineray <phil@sanewall.org>"
 gpg: WARNING: This key is not certified with a trusted signature!
@@ -117,6 +117,10 @@ If you want to be certain you can trust the signature,
 
 Install
 -------
+
+These instructions are for FireHOL - you should follow the same
+process for iprange first, if you are not obtaining it via your
+distribution.
 
 Unpack and change directory with:
 

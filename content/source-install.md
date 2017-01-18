@@ -66,40 +66,14 @@ $ git pull
 Already up-to-date.
 ~~~~
 
-If you have successfully checked out the sources, you should be able to
-run the scripts as `sudo ./sbin/firehol.in`{.command} and
-`sudo ./sbin/fireqos.in`{.command} to get basic help information.
+You need to set up autoconf, configure and make, then you can use the
+commands in situ (or install with `make install`):
 
 ~~~~ {.programlisting}
-$ sudo ./sbin/firehol.in
-FireHOL $Id: 483e51d16996e3b78c7c3df15058ef0f03a4408a $
-(C) Copyright 2003-2013 Costa Tsaousis <costa@tsaousis.gr>
-(C) Copyright 2012-2013 Phil Whineray <phil@firehol.org>
-FireHOL is distributed under the GPL v2+.
-Home Page: http://firehol.org
-
--------------------------------------------------------------------------
-Get notified of new FireHOL releases by subscribing to the mailing list:
-    http://lists.firehol.org/mailman/listinfo/firehol-support/
--------------------------------------------------------------------------
-
-FireHOL supports the following command line arguments (only one of them):
-
-    start       to activate the firewall configuration.
-  ...
-
-$ sudo ./sbin/fireqos.in
-FireQOS $Id: 41004cd0a5f6c3a3bfa0beb67c3bdcb2ecf1a3fe $
-(C) 2013 Costa Tsaousis, GPL
-
-./sbin/fireqos.in action
-
-action can be one of:
-
-    start [filename] [-- options]
-        or
-    [filename] start [-- options]
-  ...
+./autogen.sh
+./configure --enable-maintainer-mode
+make
+sudo ./sbin/firehol
 ~~~~
 
 For more help with git, you should read one of the many tutorials that

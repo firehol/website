@@ -6,192 +6,59 @@ submenu: downloads
 Installation on OpenWRT
 =======================
 
-There is no package but you can easily install and run FireHOL and
-FireQOS on [OpenWRT](https://openwrt.org/). The only problem you will
-encounter is the Bash binary is quite large, so needs a device with a
-reasonable amount of storage.
+For versions prior to Chaos Calmer,
+[see this document](/installation/openwrt-old/).
+
+From Chaos Calmer, OpenWRT no longer ships with a `make` package.
+This make installation from source very difficult, so we now provide
+[pre-built packages](https://github.com/firehol/packages/releases/latest).
+
+The Bash dependency in particular is quite large, so needs a device with
+a reasonable amount of storage.
 
 I have been running FireHOL on an unmodified v1.5 [TP-Link
 TL-WR1043ND](http://wiki.openwrt.org/toh/tp-link/tl-wr1043nd) without
-trouble for a couple of years. This device has 32MB RAM and 8MB flash.
+trouble for a number of years. This device has 32MB RAM and 8MB flash.
 
-These instructions are for Barrier Breaker (14.07) which FireQOS requires.
-FireHOL will also run on Attitude Adjustment (12.09) and Backfire (10.03)
-but you might need to adapt the instructions slightly.
-
-This guide skips link-balancer because it requires a package for iprange
-which must be compiled to binary, which is much more complex. Also skipped
-are vnetbuild and update-ipsets, since they are not really aimed at router
-use.
+At present the `firehol wizard`, `link-balancer`, `vnetbuild` and
+`update-ipsets` are not included in the OpenWRT packages.
 
 We will assume that your router's hostname is `openwrt` throughout this
 document.
 
-### Preparation
+Install FireHOL and FireQOS
+---------------------------
 
-On the router, ensure your clock is set correctly, and if not update it:
-
-~~~~
-ssh root@openwrt
-date -s "YYYY-MM-DD hh:mm:ss"
-~~~~
-
-Install required packages for FireHOL:
+The `firehol*.ipk` packages are platform independent. Download the
+version which matches your OpenWRT installation, then install it as
+follows:
 
 ~~~~ {.programlisting}
-opkg update
-opkg install bash
-opkg install coreutils-fold
-opkg install flock
-opkg install grep
-opkg install make
-opkg install iptables-mod-extra
-opkg install iptables-mod-conntrack-extra
-opkg install iptables-mod-ipopt
-opkg install kmod-ipt-nathelper-extra
-~~~~
-
-Note: prior to Barrier Breaker you needed to explicitly enable IPv6.
-
-If you want to install FireQOS, also add these:
-
-~~~~ {.programlisting}
-opkg install tc
-opkg install ip
-opkg install tcpdump
-opkg install kmod-ifb
-opkg install kmod-sched
-opkg install kmod-dummy
-~~~~
-
-### Copy and unpack package
-
-We will use the standard tar-file from the website.
-
-Some versions of [busybox tar have a bug](https://dev.openwrt.org/ticket/20660)
-which you may hit, so if you see a message `invalid tar magic` during the
-tar step, you will need to use the alternate method presented afterwards:
-
-Copy up and unpack the tar-file:
-
-~~~~ {.programlisting}
-scp firehol-3.x.y.tar.gz root@openwrt:/tmp
+scp firehol_3.1.1-1_all_chaos_calmer.ipk root@openwrt:/tmp
 ssh root@openwrt
 cd /tmp
-tar -zxvf firehol-3.x.y.tar.gz
+opkg update
+opkg install firehol_3.1.1-1_all_chaos_calmer.ipk
 ~~~~
 
-Alternate method, if tar does not work
-:   Unpack locally and copy up:
+This will install `firehol` and `fireqos` and all of their required
+dependencies.
 
-    ~~~~ {.programlisting}
-    tar xvfz firehol-3.x.y.tar.gz
-    scp -rp firehol-3.x.y root@openwrt:/tmp
-    ~~~~
-
-# Configure and install
-
-Run configure as follows (add `--disable-fireqos` if you only want FireHOL):
+If you want to inspect traffic with FireQOS, also install `tcpdump`:
 
 ~~~~
-ssh root@openwrt
-cd /tmp/firehol-3.x.y
-./configure --disable-doc --disable-man --disable-firehol-wizard \
-   --disable-link-balancer --disable-vnetbuild --disable-update-ipsets \
-   --prefix=/usr --sbindir=/sbin --sysconfdir=/etc \
-   --localstatedir=/var --libexecdir=/usr/lib
+opkg install tcpdump
 ~~~~
 
-You can choose to leave the FireHOL wizard enabled but you will likely need
-to install some more openwrt packages if you do.
+To disable the pakages (they are enabled by default but do nothing
+until you put in place a configuration):
 
-Install with `make`:
-
-~~~~ {.programlisting}
-make install
+~~~~
+/etc/init.d/firehol disable
+/etc/init.d/fireqos disable
 ~~~~
 
-Add an OpenWRT init script for FireHOL:
-
-~~~~ {.programlisting}
-cat - > /etc/init.d/firehol <<_END_
-#!/bin/sh /etc/rc.common
-
-# The OpenWRT system uses this to determine start order for links to
-# create in /etc/rc.d when you run e.g. /etc/init.d/firehol enable
-START=45
-
-# To create some saved files for early loading, run:
-#   export FIREHOL_AUTOSAVE=/etc/firehol/saved.iptables
-#   export FIREHOL_AUTOSAVE6=/etc/firehol/saved.ip6tables
-#   /sbin/firehol save
-
-start() {
-  # We rely on the lockfile being on ephemeral storage; it is always gone
-  # after a reboot and always present after a first run of firehol
-  lock=/tmp/run/firehol.lck
-  saved=/etc/firehol/saved
-  if [ -x /usr/sbin/iptables-restore -a -f $saved.iptables -a ! -f $lock ]
-  then
-    echo "First, restoring saved $saved.iptables"
-    /usr/sbin/iptables-restore $saved.iptables
-  fi
-  if [ -x /usr/sbin/ip6tables-restore -a -f $saved.ip6tables -a ! -f $lock ]
-  then
-    echo "First, restoring saved $saved.ip6tables"                          
-    /usr/sbin/ip6tables-restore $saved.ip6tables                            
-  fi                                                                        
-  /sbin/firehol start                                                       
-}                                                                           
-                                                                            
-restart() {                                                                 
-  /sbin/firehol start                                                       
-}                                                                           
-                                                                            
-reload() {                                                                  
-  /sbin/firehol start                                                       
-}                                                 
-_END_
-chmod 755 /etc/init.d/firehol
-~~~~
-
-Add an OpenWRT init script for FireQOS:
-
-~~~~ {.programlisting}
-cat - > /etc/init.d/fireqos <<_END_
-#!/bin/sh /etc/rc.common
-
-# The OpenWRT system uses this to determine start order for links to
-# create in /etc/rc.d when you run e.g. /etc/init.d/fireqos enable
-START=46
-
-start() {
-  # Some OpenWRT have insmod and not modprobe. FireQOS will work fine provided
-  # we tell the kernel that it should be using insmod.
-  if [ -x /sbin/insmod -a ! -x /sbin/modprobe ]
-  then
-    echo "/sbin/insmod" > /proc/sys/kernel/modprobe
-  fi
-  /sbin/fireqos start
-}
-
-restart() {
-  /sbin/fireqos start
-}
-
-reload() {
-  /sbin/fireqos start
-}
-
-stop() {
-  /sbin/fireqos stop
-}
-_END_
-chmod 755 /etc/init.d/fireqos
-~~~~
-
-
-# Setup FireHOL
+### Setup FireHOL
 
 Your configuration depends on your router setup. Be careful not to
 firewall yourself out or you will find yourself using [OpenWRT failsafe
@@ -202,17 +69,18 @@ automatically revert after 30 seconds if you do not explicitly accept
 the new configuration (impossible if you have disabled your current
 connection).
 
-My configurations are roughly as follows:
+The package installs a sample configuration which you can use
+as a starting point:
 
-* [/etc/firehol/firehol-defaults.conf](/files/installing-openwrt/firehol-defaults.conf)
-* [/etc/firehol/firehol.conf](/files/installing-openwrt/firehol.conf)
+~~~~
+cp /etc/firehol/firehol.conf.example /etc/firehol/firehol.conf
+~~~~
 
 Running `/sbin/firehol start`{.command} for the first time:
 
 ~~~~ {.programoutput}
- 
- IMPORTANT WARNING:
- ------------------
+ WARNING:
+ --------
  FireHOL cannot find your current kernel configuration.
  Please, either compile your kernel with /proc/config,
  or make sure there is a valid kernel config in:
@@ -222,47 +90,33 @@ Running `/sbin/firehol start`{.command} for the first time:
  all kernel modules for the services used, without
  being able to detect failures.
  
-FireHOL: Saving your old firewall to a temporary file: OK
-FireHOL: Processing file /etc/firehol/firehol.conf: OK
-FireHOL: Activating new firewall (571 rules): OK
+FireHOL: Saving active firewall to a temporary file...  OK 
+
+WARNING INIT:  No saved firewall found to restore.
+
+FireHOL: Processing file '/etc/firehol/firehol.conf'...  OK  (497 iptables rules)
+FireHOL: Fast activating new firewall... module is already loaded - nf_conntrack
+module is already loaded - ip6_tables
+ OK 
+FireHOL: Saving activated firewall to '/etc/firehol-spool'...  OK 
+
 ~~~~
 
-The warning happens because to save space OpenWRT does not store the
-kernel configuration. Provided you have installed all the modules
-correctly you should not have any problems.
+The kernel warning happens because to save space OpenWRT does not store the
+kernel configuration. It should not be a problem in practice; you will just
+be notified that module are already loaded.
 
-On my router, without fast activation, this takes 118 seconds. With
-`FIREHOL_FAST_ACTIVATION=1` in the config, it takes 95 seconds but
-importantly almost all of them are spent calculating the firewall, the
-activation (replacing existing firewall) is less than 5 seconds.
-
-The init script will load `/etc/firehol/saved.iptables`{.filename} and
-`/etc/firehol/saved.ip6tables`{.filename} before running
-`/sbin/firehol`{.filename}, if they are present. They can be created by
-running this:
-
-~~~~ {.programlisting}
-export FIREHOL_AUTOSAVE=/etc/firehol/saved.iptables
-export FIREHOL_AUTOSAVE6=/etc/firehol/saved.ip6tables
-/sbin/firehol save
-~~~~
-
-These files are not required for correct operation but ensure some kind
-of firewall is in place very quickly after a reboot. Any config will do
-provided that you know it will allow you to access the device yet
-protect your network if you break your `firehol.conf` file and reboot
-before realising.
+The "No saved firewall found to restore" warning is because this is the
+first time FireHOL has run. In future it will check the time of the
+config files and if they have not been updated it will use a cached
+version of the rules to load much quicker.
 
 When you are happy that everything is as it should be, disable the
 default firewall, and enable FireHOL instead:
 
 ~~~~ {.programlisting}
 /etc/init.d/firewall disable
-/etc/init.d/firehol enable
 ~~~~
-
-To check the link was created: `ls -l /etc/rc.d/S45firehol`{.command}
-should point to the correct init file.
 
 If you want to use the firewall on bridged interfaces, edit
 `/etc/sysctl.conf`{.filename} to enable it:
@@ -278,6 +132,10 @@ and reload the configuration:
 ~~~~ {.programlisting}
 sysctl -p
 ~~~~
+
+If you choose to install `iprange` using the appropriate `iprange*.ipk` for
+your platform, you can tell FireHOL to make use of it by editing the top of
+`/etc/firehol/firehol-defaults.conf`.
 
 ### Setup FireQOS
 
@@ -309,53 +167,61 @@ FAILED TO ACTIVATE TRAFFIC CONTROL.
 For some more information on kernel module loading, see
 [here](http://www.tldp.org/HOWTO/Module-HOWTO/x197.html).
 
-My configurations is roughly as follows:
+The package installs a sample configuration which you can use
+as a starting point:
 
-* [/etc/firehol/fireqos.conf](/files/installing-openwrt/fireqos.conf)
+~~~~
+cp /etc/firehol/fireqos.conf.example /etc/firehol/fireqos.conf
+~~~~
+
+In particular, make sure you identify your WAN interface correctly
+and assign it the appropriate speeds and overheads.
 
 Running `/sbin/fireqos start`{.command} for the first time:
 
 ~~~~ {.programoutput}
-FireQOS $Id: 41004cd0a5f6c3a3bfa0beb67c3bdcb2ecf1a3fe $
-(C) 2013 Costa Tsaousis, GPL
+FireQOS 3.1.1
+(C) 2013-2014 Costa Tsaousis, GPL
 
 
-: interface pppoe-wan world-in input rate 10500kbit adsl local pppoe-llc
-mtu 1492 (pppoe-wan-ifb, MTU 1492, quantum 1492)
-:       class public rate 5% ceil 5% (1:11, 525kbit, prio 0)
-:       class interactive commit 20% (1:12, 2100kbit, prio 1)
-:       class facetime commit 200kbit (1:13, 200kbit, prio 2)
-:       class vpns commit 20% (1:14, 2100kbit, prio 3)
-:       class surfing commit 30% (1:15, 3150kbit, prio 4)
-:       class synacks (1:16, 105kbit, prio 5)
-:       class default (1:5000, 105kbit, prio 6)
-:       class torrents (1:18, 105kbit, prio 7)
-:       committed rate 8390kbit (79%), the remaining 2110kbit will be spare
-bandwidth.
+: interface eth0 world-in input adsl local pppoe-llc input rate 10370kbit output rate 845kbit (eth0-ifb, 10370kbit, mtu 1500, quantum 1500, minrate 103kbit)
+: 	class voip commit 100kbit pfifo
+ WARNING: 39@/etc/firehol/fireqos.conf: class:
+ class rate (100kbit) was less than the interface minrate (103kbit). Fixed it by setting class rate to minrate. 
 
-: interface pppoe-wan world-out output rate 819kbit adsl local pppoe-llc
-mtu 1492 (pppoe-wan, MTU 1492, quantum 1492)
-:       class public rate 5% ceil 5% (1:11, 40kbit, prio 0)
-:       class interactive commit 20% (1:12, 163kbit, prio 1)
-:       class facetime commit 200kbit (1:13, 200kbit, prio 2)
-:       class vpns commit 20% (1:14, 163kbit, prio 3)
-:       class surfing commit 5% (1:15, 40kbit, prio 4)
-:       class synacks (1:16, 11kbit, prio 5)
-:       class default (1:5000, 11kbit, prio 6)
-:       class torrents (1:18, 11kbit, prio 7)
-:       committed rate 645kbit (78%), the remaining 173kbit will be spare
-bandwidth.
+ (1:11, 103/10370kbit, prio 0)
+: 	class interactive input commit 20% output commit 10% (1:12, 2074/10370kbit, prio 1)
+: 	class chat input commit 1000kbit output commit 440kbit (1:13, 1000/10370kbit, prio 2)
+: 	class vpns input commit 20% output commit 10% (1:14, 2074/10370kbit, prio 3)
+: 	class servers (1:15, 103/10370kbit, prio 4)
+: 	class surfing prio keep commit 10% (1:16, 1037/10370kbit, prio 4)
+: 	class synacks (1:17, 103/10370kbit, prio 5)
+: 	class default (1:8000, 103/10370kbit, prio 6)
+: 	class torrents (1:19, 103/10370kbit, prio 7)
+: 	committed rate 6703kbit (64%), the remaining 3666kbit will be spare bandwidth.
 
 
-All Done!. Enjoy...
+: interface eth0 world-out output adsl local pppoe-llc input rate 10370kbit output rate 845kbit (eth0, 845kbit, mtu 1500, quantum 1500, minrate 12kbit)
+: 	class voip commit 100kbit pfifo (1:11, 100/845kbit, prio 0)
+: 	class interactive input commit 20% output commit 10% (1:12, 84/845kbit, prio 1)
+: 	class chat input commit 1000kbit output commit 440kbit (1:13, 440/845kbit, prio 2)
+: 	class vpns input commit 20% output commit 10% (1:14, 84/845kbit, prio 3)
+: 	class servers (1:15, 12/845kbit, prio 4)
+: 	class surfing prio keep commit 10% (1:16, 84/845kbit, prio 4)
+: 	class synacks (1:17, 12/845kbit, prio 5)
+: 	class default (1:8000, 12/845kbit, prio 6)
+: 	class torrents (1:19, 12/845kbit, prio 7)
+: 	committed rate 840kbit (99%), the remaining 5kbit will be spare bandwidth.
+
+
+  Traffic is classified:
+
+      - on 2 interfaces
+      - to 18 classes
+      - by 78 FireQOS matches
+
+  235 TC commands executed
+
+All Done! Enjoy...
 bye...
 ~~~~
-
-To enable FireQOS at boot:
-
-~~~~ {.programlisting}
-/etc/init.d/fireqos enable
-~~~~
-
-To check the link was created: `ls -l /etc/rc.d/S46fireqos`{.command}
-should point to the correct init file.
