@@ -78,6 +78,12 @@ for ipset]        Intermediate  FireHOL can make use of ipset to manage
                                 lists of IP addresses and allow dynamic
                                 changes without restarting the firewall.
 
+[Integration      Intermediate  HOWTO for of managing ipsets
+with fail2ban]                  with FireHOL and fail2ban.
+
+[Working with     Intermediate  How to use iptables MARKs to control
+MARKs]                          packet processing with FireHOL
+
 [When FireHOL
 Runs]             Intermediate  How FireHOL goes about its work. Important
                                 to understanding the different phases and
@@ -146,3 +152,5 @@ Got an idea for a guide or willing to write one? See
 [When FireHOL Runs]: /guides/when-firehol-runs/
 [Firewall Testing]: /guides/firewall-testing/
 [Firewall Troubleshooting]: /guides/firehol-troubleshooting/
+[Working with MARKs]: https://github.com/firehol/firehol/wiki/Working-with-MARKs
+[Integration with fail2ban]: https://github.com/firehol/firehol/wiki/fail2ban
