@@ -4,7 +4,7 @@ FireHOL Website
 This tree contains the sources for the FireHOL website:
     http://firehol.org
 
-The website is built using nanoc 3.x, pandoc and nokogiri. If you have
+The website is built using nanoc 3.8.x, pandoc and nokogiri. If you have
 ruby 1.9+ (on your machine you can install them with gem:
 
     sudo gem install nanoc pandoc-ruby nokogiri
