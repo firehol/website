@@ -78,7 +78,7 @@ for ipset]        Intermediate  FireHOL can make use of ipset to manage
                                 lists of IP addresses and allow dynamic
                                 changes without restarting the firewall.
 
-[Integration      Intermediate  HOWTO for of managing ipsets
+[Integration      Intermediate  HOWTO for managing ipsets
 with fail2ban]                  with FireHOL and fail2ban.
 
 [Working with     Intermediate  How to use iptables MARKs to control
