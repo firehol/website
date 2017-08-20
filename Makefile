@@ -1,5 +1,10 @@
 all: website
 
+run: website
+	@echo "When Webrick has started, navigate to:"
+	@echo "   http://localhost:3000/"
+	nanoc view
+
 nanoc-version-3:
 	@echo "Check running nanoc 3.x (if not, run . ./setpath)"
 	test "`nanoc -v | sed -ne 's/nanoc \([^ ]*\) .*/\1/p' | cut -f1 -d.`" = "3"
