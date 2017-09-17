@@ -1,19 +1,18 @@
+# We need a 3.8.x version
+VER=_3.8.0_
+
 all: website
 
 run: website
 	@echo "When Webrick has started, navigate to:"
 	@echo "   http://localhost:3000/"
-	nanoc view
+	nanoc $(VER) view
 
-nanoc-version-3:
-	@echo "Check running nanoc 3.x (if not, run . ./setpath)"
-	test "`nanoc -v | sed -ne 's/nanoc \([^ ]*\) .*/\1/p' | cut -f1 -d.`" = "3"
-
-website: nanoc-version-3
+website:
 	@echo Compiling site
 	mkdir -p output
 	./extract-manual
-	nanoc compile
+	nanoc $(VER) compile
 	cp -rp external/ output/.
 
 clean:
