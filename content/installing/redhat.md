@@ -7,7 +7,7 @@ RedHat/CentOS installation
 ==========================
 
 Newer versions of RedHat do not carry the FireHOL packages because there
-is no packaager. If you want to help that effort, these links might help:
+is no packager. If you want to help that effort, these links might help:
 
 * [Existing pkgdb entry](https://admin.fedoraproject.org/pkgdb/package/rpms/firehol/)
 * [Wiki page on joining the maintainers](https://fedoraproject.org/wiki/Join_the_package_collection_maintainers)
