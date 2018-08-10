@@ -1,0 +1,65 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+OpenPGP Key Transition Statement for Philip Whineray
+
+I have created a new OpenPGP key and will be transitioning away from
+my old key.  The old key has not been compromised and will continue to
+be valid for some time, but I prefer all future correspondence to be
+encrypted to the new key, and will be making signatures with the new
+key going forward, including any software releases.
+
+The old key, which I am transitioning away from, is:
+
+pub   rsa2048/0x63DF1E44D829797E 2012-06-08 [SC]
+      Key fingerprint = 9CCE 9A8D 5328 FBD6 CE29  6DCC 63DF 1E44 D829 797E
+
+The new key, to which I am transitioning, is:
+
+pub   rsa4096/0xC406960213599237 2018-08-04 [SC] [expires: 2020-08-03]
+      Key fingerprint = 0762 9FF7 89EA 6156 012F  9F50 C406 9602 1359 9237
+
+The entire key may be downloaded from:
+
+  https://whineray.com/gpg/C406960213599237.asc
+
+To fetch the full new key from a public key server using GnuPG, run:
+
+  gpg --keyserver keys.gnupg.net --recv-key C406960213599237
+
+If you already know my old key, you can now verify that the new key is
+signed by the old one:
+
+  gpg --check-sigs C406960213599237
+
+If you'd like any further verification or have any questions about the
+transition please contact me directly.
+
+To verify the integrity of this statement:
+
+  wget -q -O- https://firehol.org/files/gpg-transition-2018-08-10.txt | gpg --verify
+
+Phil
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCgAdFiEEnM6ajVMo+9bOKW3MY98eRNgpeX4FAlttMr0ACgkQY98eRNgp
+eX48eAf/U7xan+Zv4+NqpsI4z5PyjWggS9aKT5OIZaUoco/LDlcCjsarx0U2LzrQ
+pBQPwEIgPAU4fhOx9Nw+Nbv8Z8mKLK+xeqqbQGCZqbTj7X7TRX97AP6/jxthpCyF
+tm+Mu4w/NXpHkL5DSaxpGMmj9+WY90s+Ma7NPpeYJqxlM8nRepRnV3phZZGg3K8q
+L6uNMIaUzJxpMqz/INxEaECwv/bB5gPpuTulY+SwMTEitlds9vNcWk30dmcvAYud
+PF0oRb9HVpJl4EoHmXAcXGS9U3F/O1Brt2g4D+xrIxe7h/rOHT4qywFdTQ9r6WPj
+xb6qKbHdLG0whUQ9RRnet4K7vv3x8IkCMwQBAQoAHRYhBA1suZuG9tLp0fmJa6xo
+cziw2ou6BQJbbTLDAAoJEKxocziw2ou66Y4P/RG0RmlhHojmwu1+ZO8QQnE2+hqj
+Oe0GvGXfdeHko2gz7L7DIhMFIYkj2aYwttmRxSS6g+3Nu4COt1NzNoLstXFvyEG0
+roLP5dwV12EE6NsdSR54jICogfm4cWq05XTgn/4sA6FGmM7Qc5xRy2BfqzUI8lPU
+/jhm1RCqOzEsv9wxDY15bmHUwoagJf0BNDCcDqiHbiKd2zpen+xAlHuCGEQpeYR3
+Z4Ze+K4e70B7HMKuvDV5UbCW0CjsyFkij5pisZIxt/Epw985qX2yKJ7SOwpxG1nE
+XgJGXvT6DMGwEBRJF0uM/5HemRz33ZScwWuAdBZt5lPnfTMbn1hNJjlv7oxg94kj
+qm0sRODlQDumdqLOppOkwl2snC7KNaZ1dwRyxBKKZUGjpJNDbKXPXovwJmCRWR1n
+cEUndNa5dei2+hlbsJlfHSY3vjfUCy9+0vuXa2TJfMv4XYLFE1JxVGke191XvbFL
+ltwTFlPQg5rvhlXGUfWe4dH5zChvduhLydSEZhglMQ5unDa5V3XynAfV36JTi/S/
+Ai4hDlae3gxfFu7nUQcEKrSfVgD7XZZy9DgHWk+OiwITfIyxQg6AGQeZDQifqETn
+Jkt2sGzWJJ97+hC/W46XcKBbvWwuiM7nGphlBCBCeEkzyMNe4XYg5Nt8MQkiUl3T
+pKzdeob6TQkjIvbq
+=etrx
+-----END PGP SIGNATURE-----

@@ -15,7 +15,7 @@ sudo: true
 # C includes autotools and make by default
 language: ruby
 rvm:
-  - 2.2
+  - 2.3
 #
 # Extra packages
 addons:
@@ -29,6 +29,7 @@ before_install:
  - ./.travis/decrypt-if-have-key ff0fa8642958
  #
  # Install nanoc and other dependencies
+ - gem install cri -v 2.10.1
  - gem install nanoc --version 3.8.0
  - gem install pandoc-ruby nokogiri
  # These have special meaning on the server, so disallow branches so named
