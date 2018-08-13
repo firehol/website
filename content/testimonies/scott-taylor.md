@@ -3,7 +3,6 @@ kind: testimonial
 date: 2003-07-31 23:52
 from: Scott Taylor<br/>ALVE Technology Corporation
 ---
-
 Just wanted to drop you a quick note to let you know that I just
 installed FireHOL 1.120 on my Linux router/firewall, and it worked like
 a champ!

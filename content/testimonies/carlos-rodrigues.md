@@ -3,7 +3,6 @@ kind: testimonial
 date: 2006-03-30 19:21
 from: Carlos Rodrigues
 ---
-
 FireHOL is an amazing tool. It leverages the incredible power of
 netfilter/iptables to turn Linux into a viable firewall solution, even
 for complex scenarios where people would think "Cisco PIX" or "Check

@@ -3,7 +3,6 @@ kind: testimonial
 date: 2004-07-07 03:55
 from: Brian Hoy
 ---
-
 I want to thank you for making such a brilliant firewall configuration
 tool. I have just finished configuring a firewall with 5 ethernets (two
 office LANs, two DMZs and one ISP upstream with aliased IPs) for two
