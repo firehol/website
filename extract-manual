@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -x
 
 #
 # extract-manual - get ahold of the latest manual and unpack it for use
