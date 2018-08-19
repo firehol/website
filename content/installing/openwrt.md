@@ -118,8 +118,15 @@ default firewall, and enable FireHOL instead:
 /etc/init.d/firewall disable
 ~~~~
 
-If you want to use the firewall on bridged interfaces, edit
-`/etc/sysctl.conf`{.filename} to enable it:
+If you want to use the firewall on bridged interfaces, install the `physdev`
+matcher:
+
+~~~~
+opkg install iptables-mod-physdev
+~~~~
+
+On versions prior to `18.06`, edit `/etc/sysctl.conf`{.filename} to enable
+matching:
 
 ~~~~ {.programlisting}
 net.bridge.bridge-nf-call-arptables=0
@@ -127,14 +134,14 @@ net.bridge.bridge-nf-call-ip6tables=1
 net.bridge.bridge-nf-call-iptables=1
 ~~~~
 
-and reload the configuration:
+Reload the configuration:
 
 ~~~~ {.programlisting}
 sysctl -p
 ~~~~
 
 If you choose to install `iprange` using the appropriate `iprange*.ipk` for
-your platform, you can tell FireHOL to make use of it by editing the top of
+your platform, you can tell FireHOL to make use of it by editing
 `/etc/firehol/firehol-defaults.conf`.
 
 ### Setup FireQOS
