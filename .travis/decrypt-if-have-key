@@ -15,6 +15,7 @@ then
 fi
 
 cd .travis
+pwd
 
 for i in *.tar.enc
 do

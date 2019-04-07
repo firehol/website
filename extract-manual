@@ -70,7 +70,7 @@ then
   then
     echo "Using cached local .tar.gz - remove to update from github"
   else
-    if [ -f $HOME/.travis/read_only_api_key ]
+    if [ -f .travis/read_only_api_key ]
     then
       set +x
       token="Authorization: token $(cat $HOME/.travis/read_only_api_key)"
@@ -82,7 +82,7 @@ then
       token_opt=""
     fi
     set +e
-    curl -o$MYTMP/tag.txt "$token_opt" "$token" -s https://api.github.com/repos/firehol/firehol/releases/latest
+    curl "$token_opt" "$token" -s https://api.github.com/repos/firehol/firehol/releases/latest > $MYTMP/tag.txt
     tar=$(sed -ne '/"name":/{s/^[^:]*: "//;s/".*//;p}' $MYTMP/tag.txt | grep '.tar.gz$')
     tag=$(sed -ne '/"tag_name":/{s/^[^:]*: "//;s/".*//;p}' $MYTMP/tag.txt)
     set -e
