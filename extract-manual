@@ -70,12 +70,16 @@ then
   then
     echo "Using cached local .tar.gz - remove to update from github"
   else
+    set +e
     curl -s https://api.github.com/repos/firehol/firehol/releases/latest > $MYTMP/tag.txt
     tar=$(sed -ne '/"name":/{s/^[^:]*: "//;s/".*//;p}' $MYTMP/tag.txt | grep '.tar.gz$')
     tag=$(sed -ne '/"tag_name":/{s/^[^:]*: "//;s/".*//;p}' $MYTMP/tag.txt)
+    set -e
     if [ ! "$tar" -o ! "$tag" ]
     then
       echo "no local copy and unable to detemine download location - exiting"
+      echo "----------------------------------------------------------------"
+      cat $MYTMP/tag.txt
       exit 1
     fi
     echo "downloading manual from latest release"
