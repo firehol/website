@@ -73,7 +73,7 @@ then
     if [ -f .travis/read_only_api_key ]
     then
       set +x
-      token="Authorization: token $(cat $HOME/.travis/read_only_api_key)"
+      token="Authorization: token $(cat .travis/read_only_api_key)"
       token_opt="-H"
       set -x
     else
