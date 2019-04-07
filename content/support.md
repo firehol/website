@@ -10,19 +10,6 @@ Please check out the [documentation](/documentation), in particular
 the [FAQ](/faq/). If you are stuck, below are some ways you can get
 help and support to install and set up FireHOL.
 
-Mailing List
-------------
-
-If you are a user of FireHOL, the best thing you can do is join the
-[support mailing
-list](http://lists.firehol.org/mailman/listinfo/firehol-support). New
-release and security announcements will be made to this list and you can
-get help from the authors and other experienced users of FireHOL.
-
-You can read and search the list at
-[GMane](http://dir.gmane.org/gmane.comp.security.firewalls.firehol.user)
-to check to see if your question has been answered before.
-
 Issue tracker
 -------------
 
@@ -30,8 +17,20 @@ If you think you've found a bug, the [FireHOL issue
 tracker](https://github.com/firehol/firehol/issues) is the best place to
 report it.
 
-If you create an entry tagged **help**, we will also try to help you on
-more general topics.
+The issue tracker is also an acceptable forum for more general questions.
+
+Mailing List
+------------
+
+We have a
+[support mailing
+list](http://lists.firehol.org/mailman/listinfo/firehol-support). New
+release and security announcements will be made to this list and you can
+get help from the authors and other experienced users of FireHOL.
+
+You can read the [archive](//lists.firehol.org/pipermail/firehol-support/) and
+[search](https://www.google.com/search?q=site:lists.firehol.org) the list
+contents to see if your question has been answered before.
 
 Email
 -----
