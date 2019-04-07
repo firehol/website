@@ -16,6 +16,7 @@ fi
 
 for i in .travis/*.enc
 do
+  echo "Procesing $i"
   u=$(echo $i | sed -e 's/.enc$//')
   openssl aes-256-cbc -K "$key" -iv "$iv" -in $i -out $u -d
 done
