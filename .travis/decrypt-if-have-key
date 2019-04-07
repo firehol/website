@@ -14,20 +14,23 @@ then
   exit 0
 fi
 
-for i in .travis/*.enc
+cd .travis
+
+for i in *.tar.enc
 do
   echo "Procesing $i"
   u=$(echo $i | sed -e 's/.enc$//')
   openssl aes-256-cbc -K "$key" -iv "$iv" -in $i -out $u -d
+  tar xvf $u
 done
 
-if [ -f .travis/travis_rsa ]
+if [ -f travis_rsa ]
 then
   echo "ssh key present - loading to agent"
   # add key, then remove to prevent leaks
-  chmod 600 .travis/travis_rsa
-  ssh-add .travis/travis_rsa
-  rm -f .travis/travis_rsa
+  chmod 600 travis_rsa
+  ssh-add travis_rsa
+  rm -f travis_rsa
   touch /tmp/ssh-key-loaded
 else
   echo "No ssh key present - skipping agent start"
