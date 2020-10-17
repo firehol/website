@@ -347,22 +347,21 @@ cp /from/somewhere/read_only_api_key .
 tar cvfz secrets.tar travis_rsa read_only_api_key
 ```
 
-Encrypt:
+Encrypt and tidy up:
 
 ```
 travis login -g `cat ~/.firehol-github-oauth`
 travis encrypt-file secrets.tar
 travis logout
+rm travis_rsa read_only_api_key secrets.tar
+cd ..
 ```
 
 Update the `decrypt-if-have-key` line in `travis.yml` with the hex
-part of the openssl key displayed by travis.
-
-Tidy up and commit:
+part of the openssl key displayed by travis if it has changed, then
+commit the result:
 
 ```
-rm travis_rsa read_only_api_key secrets.tar
-cd ..
 git add .travis/secrets.tar.enc .travis.yml
 git commit
 ```
