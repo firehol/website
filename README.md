@@ -307,12 +307,12 @@ time.
 Link checking
 -------------
 
-````
+```
 make
 nanoc view
 ./run-linkchecker
 firefox linkchecker-out.html
-````
+```
 
 When deployed as [test.firehol.org](http://test.firehol.org), W3C provide:
 
@@ -330,3 +330,39 @@ firehol-infrastructure repository.
 
 If you have commit access to the official repositories, your changes
 will be published automatically once they are pushed.
+
+Updating secrets
+----------------
+
+To get latest travis tools: `sudo gem install travis`.
+
+To set up a token: https://github.com/firehol/infrastructure#authentication-token
+
+Prepare:
+
+```
+cd .travis
+cp /from/somewhere/travis_rsa .
+cp /from/somewhere/read_only_api_key .
+tar cvfz secrets.tar travis_rsa read_only_api_key
+```
+
+Encrypt:
+
+```
+travis login -g `cat ~/.firehol-github-oauth`
+travis encrypt-file secrets.tar
+travis logout
+```
+
+Update the `decrypt-if-have-key` line in `travis.yml` with the hex
+part of the openssl key displayed by travis.
+
+Tidy up and commit:
+
+```
+rm travis_rsa read_only_api_key secrets.tar
+cd ..
+git add .travis/secrets.tar.enc .travis.yml
+git commit
+```

@@ -26,7 +26,7 @@ addons:
 # Setup environment
 before_install:
  - eval "$(ssh-agent -s)"
- - ./.travis/decrypt-if-have-key ff0fa8642958
+ - ./.travis/decrypt-if-have-key 3b9f0b9d36d1
  #
  # Install nanoc and other dependencies
  - gem install cri -v 2.10.1
