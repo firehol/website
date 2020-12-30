@@ -1,0 +1,56 @@
+on: [ push, pull_request, workflow_dispatch ]
+
+jobs:
+   publish:
+      runs-on: ubuntu-latest
+      name: Publish Website
+      steps:
+      - name: Extract tag/branch variables
+        shell: bash
+        run: >
+           echo "##[set-output name=tag;]$(echo ${GITHUB_REF#refs/tags/}|grep -v '/')";
+           echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/}|grep -v '/')";
+        id: extract
+      - name: Write secret keys
+        run: >
+           echo "$FIREHOL_ORG_PUBLISH_SSH" > firehol_org_publish_key;
+           chmod 600 firehol_org_publish_key;
+           if [ -s firehol_org_publish_key ];
+           then
+             eval "$(ssh-agent)";
+             ssh-add firehol_org_publish_key;
+             echo "##[set-output name=has_ssh_key;]true";
+             echo "##[set-output name=ssh_agent_pid;]$SSH_AGENT_PID";
+             echo "##[set-output name=ssh_auth_sock;]$SSH_AUTH_SOCK";
+           fi;
+           rm -f firehol_org_publish_key
+        env:
+           FIREHOL_ORG_PUBLISH_SSH: ${{secrets.FIREHOL_ORG_PUBLISH_SSH}}
+        id: secret_keys
+      - name: Skip branches which use a name reserved for use on the server
+        if: >-
+           ${{ steps.extract.outputs.branch == ''
+            || steps.extract.outputs.branch == 'www'
+            || steps.extract.outputs.branch == 'download'
+            || steps.extract.outputs.branch == 'static'
+            || steps.extract.outputs.branch == 'ssl'
+            || steps.extract.outputs.branch == 'webalizer'
+            || steps.extract.outputs.branch == 'tmp' }}
+        run: >
+           echo "Not publishing '${{steps.extract.outputs.branch}}'";
+           echo "##[set-output name=skip;]true"
+        id: check
+      - uses: actions/checkout@v2
+      - run: ./.github/workflows/setup.sh
+      - run: make
+      - name: Deploy website ${{steps.extract.outputs.branch}}
+        if: ${{ steps.secret_keys.outputs.has_ssh_key && ! steps.check.outputs.skip }}
+        run: ./.github/workflows/deploy-website.sh ${{steps.extract.outputs.branch}}
+        env:
+           SSH_AGENT_PID: ${{ steps.secret_keys.outputs.ssh_agent_pid }}
+           SSH_AUTH_SOCK: ${{ steps.secret_keys.outputs.ssh_auth_sock }}
+      - name: Check deployment
+        if: ${{ steps.secret_keys.outputs.has_ssh_key && ! steps.check.outputs.skip }}
+        run: >
+           sleep 300;
+           curl -q -o- https://firehol.org/travis-website.log
