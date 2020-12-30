@@ -18,7 +18,7 @@ else
 fi
 
 test -d output && mv output "$1"
-sed -e "s/NAME/website/" nginx.conf > "$1".conf
+sed -e "s/NAME/$1/" nginx.conf > "$1".conf
 
 ssh-keyscan -H firehol.org >> ~/.ssh/known_hosts
 
