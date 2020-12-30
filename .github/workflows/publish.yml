@@ -11,28 +11,7 @@ jobs:
            echo "##[set-output name=tag;]$(echo ${GITHUB_REF#refs/tags/}|grep -v '/')";
            echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/}|grep -v '/')";
         id: extract
-      - name: Skip branches which use a name reserved for use on the server
-        if: >-
-           ${{ steps.extract.outputs.branch == ''
-            || steps.extract.outputs.branch == 'www'
-            || steps.extract.outputs.branch == 'download'
-            || steps.extract.outputs.branch == 'static'
-            || steps.extract.outputs.branch == 'ssl'
-            || steps.extract.outputs.branch == 'webalizer'
-            || steps.extract.outputs.branch == 'tmp' }}
-        run: >
-           echo "Not publishing '${{steps.extract.outputs.branch}}'";
-           echo "##[set-output name=skip;]true"
-        id: check
-      - if: ${{ ! steps.check.outputs.skip }}
-        uses: actions/checkout@v2
-      - if: ${{ ! steps.check.outputs.skip }}
-        run: ./.github/workflows/setup.sh
-      - if: ${{ ! steps.check.outputs.skip }}
-        run: make
       - name: Write secret keys
-        id: secret_keys
-        if: ${{ ! steps.check.outputs.skip }}
         run: >
            echo "$FIREHOL_ORG_PUBLISH_SSH" > firehol_org_publish_key;
            chmod 600 firehol_org_publish_key;
@@ -47,9 +26,31 @@ jobs:
            rm -f firehol_org_publish_key
         env:
            FIREHOL_ORG_PUBLISH_SSH: ${{secrets.FIREHOL_ORG_PUBLISH_SSH}}
+        id: secret_keys
+      - name: Skip branches which use a name reserved for use on the server
+        if: >-
+           ${{ steps.extract.outputs.branch == ''
+            || steps.extract.outputs.branch == 'www'
+            || steps.extract.outputs.branch == 'download'
+            || steps.extract.outputs.branch == 'static'
+            || steps.extract.outputs.branch == 'ssl'
+            || steps.extract.outputs.branch == 'webalizer'
+            || steps.extract.outputs.branch == 'tmp' }}
+        run: >
+           echo "Not publishing '${{steps.extract.outputs.branch}}'";
+           echo "##[set-output name=skip;]true"
+        id: check
+      - uses: actions/checkout@v2
+      - run: ./.github/workflows/setup.sh
+      - run: make
       - name: Deploy website ${{steps.extract.outputs.branch}}
-        if: ${{ steps.secret_keys.outputs.has_ssh_key }}
+        if: ${{ steps.secret_keys.outputs.has_ssh_key && ! steps.check.outputs.skip }}
         run: ./.github/workflows/deploy-website.sh ${{steps.extract.outputs.branch}}
         env:
            SSH_AGENT_PID: ${{ steps.secret_keys.outputs.ssh_agent_pid }}
            SSH_AUTH_SOCK: ${{ steps.secret_keys.outputs.ssh_auth_sock }}
+      - name: Check deployment
+        if: ${{ steps.secret_keys.outputs.has_ssh_key && ! steps.check.outputs.skip }}
+        run: >
+           sleep 300;
+           curl -q -o- https://firehol.org/travis-website.log

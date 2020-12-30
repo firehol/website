@@ -25,6 +25,3 @@ ssh-keyscan -H firehol.org >> ~/.ssh/known_hosts
 ssh travis@firehol.org mkdir -p "website/$1/"
 rsync -a "$1" "$1.conf" travis@firehol.org:"website/$1/"
 ssh travis@firehol.org touch "website/$1/complete.txt"
-echo Checking deployment:
-sleep 300
-curl -o- https://firehol.org/travis-website.log
