@@ -634,17 +634,30 @@ There are three things we can do to settle this issue:
     possible.
 
     If you control the torrent clients and your clients have a
-    configuration for setting a fixed port for them, I suggest to take
-    the opportunity and use a predefined port, instead of a random port,
-    for each one. For example, I have mine set to use port 51414.
-    Usually, this setting does not mean the torrent client will always
-    use this port. Most of the time though, it will. If you do set ports
-    for your torrent clients, we can match these ports at the `torrents`
-    class using `match dport 51414` on `input` and `match sport 51414`
-    on `output` interfaces. I also add `prio 1` to these matches, just
-    to make sure that if a smart guy on the net puts his client on a
-    port from 0 to 1023, the rule that matches the fixed torrent port
-    will be executed first.
+    configuration for setting fixed port(s) for them, I suggest to take
+    the opportunity and use predefined ports, instead of random ones.
+    For example, I have mine set to use port 60000 for incoming requests
+    and ports 60001 to 65535 for outgoing request.
+    If you do set ports for your torrent clients, we can match these ports
+    at the `torrents` class using `match dport 60000:65535` on `input` and
+    `match sport 60000:65535` on `output` interfaces. I also add `prio 1`
+    to these matches, just to make sure that if a smart guy on the net puts
+    his client on a port from 0 to 1023, the rule that matches the fixed
+    torrent ports will be executed first.
+
+    If you do set your torrent clients to use such port ranges, it would
+    be also helpful to exclude these ports from other uses. One such use
+    is the clients on the firewall itself. If you have installed, for
+    example a transparent proxy with squid, you should instruct your
+    proxy to avoid using the torrents ports. This can be done by executing
+    this command `sysctl -w net.ipv4.ip_local_port_range=32768\ 59999`.
+    This command will enforce all the clients of your firewall to avoid
+    using the torrents ports.
+
+    You can also instruct the masquerade of your internet interface to
+    avoid mapping LAN clients on the torrents ports. This can be done
+    by replacing your `masquerade4 ppp+` command in `firehol.conf` with
+    `masquerade to-ports 32768-59999 ppp+`.
 
     Another more adventurous trick, is to match packets having source
     and destination ports above 16384. It is very unlikely that an
