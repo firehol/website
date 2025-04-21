@@ -38,7 +38,7 @@ jobs:
             || steps.extract.outputs.branch == 'tmp' }}
         run: >
            echo "Not publishing '${{steps.extract.outputs.branch}}'";
-           echo "##[set-output name=skip;]true"
+           echo "skip=true" >> $GITHUB_OUTPUT
         id: check
       - uses: actions/checkout@v4
       - run: ./.github/workflows/setup.sh
