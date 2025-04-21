@@ -7,7 +7,7 @@ jobs:
       steps:
       - name: Extract tag/branch variables
         shell: bash
-        run: >
+        run: |
            echo "tag=$(echo ${GITHUB_REF#refs/tags/}|grep -v '/')" >> $GITHUB_OUTPUT
            echo "branch=$(echo ${GITHUB_REF#refs/heads/}|grep -v '/')" >> $GITHUB_OUTPUT
         id: extract
